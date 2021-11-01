@@ -1,0 +1,26 @@
+{
+    "mongoDb":{
+      "collections": {
+        "features": "Features",
+        "outputs": "Outputs",
+        "reports": "Reports",
+        "scenarios": "Scenarios",
+        "steps": "Steps"
+      },
+      "dbHost": "localhost",
+      "dbName": "test-multiple-cucumber-html-reports-server",
+      "dbPort": 27017
+    },
+    "reportDisplay":{
+      "navigateToFeatureIfThereIsOnlyOne": true,
+      "openReportInBrowser": true,
+      "showExecutionTime": true,
+      "theme": "light",
+      "useCDN": false
+    },
+    "serverDisplay":{
+      "port": 3000,
+      "theme": "light",
+      "useCDN": false
+    }
+  }

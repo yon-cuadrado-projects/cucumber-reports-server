@@ -1,0 +1,48 @@
+{
+    "compileOnSave": true,
+    "ts-node": {
+        "files": true
+      },
+    "compilerOptions": {
+        "alwaysStrict": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "allowUnreachableCode": false,
+        "allowUnusedLabels": false,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "noUnusedLocals": true,
+        "strictNullChecks": true,
+        "noImplicitAny" : true,
+        "preserveSymlinks": true,
+        "allowJs": true,
+        "sourceMap": true,
+        "declaration": true,
+        "declarationMap": true,
+        "inlineSources": true,
+        "resolveJsonModule": true,
+        "typeRoots": ["./node_modules/@types","./src/lib/types"],
+        "rootDir": "./",
+        "target": "ES2020",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "baseUrl": ".",
+        "paths": {
+            "*": [ "./*" ],
+            "@models": ["node_modules/cucumber-html-report-generator/src/lib/models/models.ts"],
+            "@common-functions": ["node_modules/cucumber-html-report-generator/src/lib/common-functions/common-functions.ts"],
+            "@htmlResourceReferencesUpdateFunctions": ["node_modules/cucumber-html-report-generator/src/scripts/dependency-modification-functions.ts"]
+        },
+        "types": ["node","@types/long","mocha"],
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "outDir": "./dist"
+    },
+    "include": [
+        "./test/**/*.ts",
+        "./src/**/**/*.ts",
+        "index.ts"
+    ]
+}
