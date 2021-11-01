@@ -1,7 +1,6 @@
-import * as CommonFunctions from '@common-functions';
-import type * as Models from '@models';
-import * as dependencyModifycationFunctions from '@htmlResourceReferencesUpdateFunctions';
 import * as path from 'path';
+import { CommonFunctions, dependencyModificationFunctions } from 'cucumber-html-report-generator';
+import type { Models } from 'cucumber-html-report-generator';
 const resourcesData =  './resources-data.json';
 const resourcesFolder = path.join( __dirname,'../resources/dependencies' );
 const indexEjsFile = path.join( __dirname,'../lib/server/views/index.ejs' );
@@ -11,7 +10,7 @@ const updateResourcesProperties = async ( ): Promise<void> =>{
   let dependenciesUpdated = false;
   for ( const dependency of configurationData ! ){
     // eslint-disable-next-line no-await-in-loop
-    const updatedDependency = await dependencyModifycationFunctions.updateResourcesForOneDependency( dependency, resourcesFolder,[ indexEjsFile ] );
+    const updatedDependency = await dependencyModificationFunctions.updateResourcesForOneDependency( dependency, resourcesFolder,[ indexEjsFile ] );
       
     if( updatedDependency ){
       dependenciesUpdated = true;
@@ -20,10 +19,11 @@ const updateResourcesProperties = async ( ): Promise<void> =>{
 
   if( dependenciesUpdated ){
     await CommonFunctions.saveJsonFile<Models.ResourceProperties[]>( path.join( __dirname,'./' ),resourcesData, configurationData! );
+  }else{
+    console.log( 'All the html resources are already updated' );
   }
 };
 
 updateResourcesProperties( ).catch( error => {
   console.log( error ); 
 } );
-
