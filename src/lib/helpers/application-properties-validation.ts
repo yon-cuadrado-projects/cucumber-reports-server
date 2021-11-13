@@ -1,8 +1,8 @@
-import * as CommonFunctions from '@common-functions';
-import type * as Models from '@models';
 import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
+import { CommonFunctions } from 'cucumber-html-report-generator';
+import type { Models } from 'cucumber-html-report-generator';
 import moment from 'moment';
 
 class ApplicationPropertiesValidation {

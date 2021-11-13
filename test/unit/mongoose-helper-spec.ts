@@ -1,8 +1,8 @@
-import * as CommonFunctions from '@common-functions';
 import * as ConsoleMessages from '../../src/lib/helpers/console-messages';
-import type * as Models from '@models';
 import * as chai from 'chai';
 import * as path from 'path';
+import { CommonFunctions } from 'cucumber-html-report-generator';
+import type { Models } from 'cucumber-html-report-generator';
 import { MongooseHelper } from '../../src/lib/mongoose-report-manager/mongoose-helper';
 import type { ObjectID } from 'bson';
 import chaiAsPromised from 'chai-as-promised';
@@ -256,62 +256,58 @@ describe( 'mongoose-helper', () => {
       await mongooseHelper.deleteReportById( id1 );
       await mongooseHelper.deleteReportById( id2 );
     } );
+  } );
+  describe( 'Failures', () => {
+    it( 'returns an error when it cannot save the report', async () => {
+    // Given
+      const consoleStub = sinon.stub( console, 'log' );
 
-  
-    describe( 'Failures', () => {
-      it( 'returns an error when it cannot save the report', async () => {
-      // Given
-        const consoleStub = sinon.stub( console, 'log' );
-  
-        // When
-        await mongooseHelper.insertReport( invalidReport );
-      
-        // Then
-        expect( consoleStub.calledWith( ConsoleMessages.incorrectReport ) ).to.be.true;
-        consoleStub.restore();
-      } );
-  
-      it( 'returns an error when it cannot delete the report', async () => {
-      // Given
-        const consoleStub = sinon.stub( console, 'log' );
-        const oId: ObjectID = new mongo.ObjectId();
-  
-        // When
-        await mongooseHelper.deleteReportById( oId );
-      
-        // Then
-        expect( consoleStub.calledWith( ConsoleMessages.reportNotFound( oId ) ) ).to.be.true;
-        consoleStub.restore();
-      } );
-  
-      it( 'returns an error when it cannot display the report', async () => {
-      // Given
-        const consoleStub = sinon.stub( console, 'log' );
-        const oId = new mongo.ObjectId();
-  
-        // When
-        await mongooseHelper.getReportById( oId );
-      
-        // Then
-        expect( consoleStub.calledWith( ConsoleMessages.reportNotFound( oId ) ) ).to.be.true;
-        consoleStub.restore();
-      } );
-      it( 'returns an error when it cannot connect', async () => {
-      // Given
-        mongooseHelper.mongodbConfiguration.dbPort = 25;
+      // When
+      await mongooseHelper.insertReport( invalidReport );
+    
+      // Then
+      expect( consoleStub.calledWith( ConsoleMessages.incorrectReport ) ).to.be.true;
+      consoleStub.restore();
+    } );
 
-        // When
-        mongooseHelper.mongodbConfiguration.mongoDbOptions = {
-          serverSelectionTimeoutMS: 1,
-          socketTimeoutMS: 0
-        };
+    it( 'returns an error when it cannot delete the report', async () => {
+    // Given
+      const consoleStub = sinon.stub( console, 'log' );
+      const oId: ObjectID = new mongo.ObjectId();
 
-        await mongooseHelper.getDatabaseSize().catch( ( err: Error ) => {
-        // Then
-          const errorMessage = 'failed to connect to server [localhost:25]'
-        ;
-          expect( err.message ).to.contain( errorMessage );
-        } );
+      // When
+      await mongooseHelper.deleteReportById( oId );
+    
+      // Then
+      expect( consoleStub.calledWith( ConsoleMessages.reportNotFound( oId ) ) ).to.be.true;
+      consoleStub.restore();
+    } );
+
+    it( 'returns an error when it cannot display the report', async () => {
+    // Given
+      const consoleStub = sinon.stub( console, 'log' );
+      const oId = new mongo.ObjectId();
+
+      // When
+      await mongooseHelper.getReportById( oId );
+    
+      // Then
+      expect( consoleStub.calledWith( ConsoleMessages.reportNotFound( oId ) ) ).to.be.true;
+      consoleStub.restore();
+    } );
+    it( 'returns an error when it cannot connect', async () => {
+    // Given
+      mongooseHelper.mongodbConfiguration.dbPort = 25;
+
+      // When
+      mongooseHelper.mongodbConfiguration.mongoDbOptions = {
+        serverSelectionTimeoutMS: 1,
+        socketTimeoutMS: 0
+      };
+
+      await mongooseHelper.getDatabaseSize().catch( ( err: Error ) => {
+      // Then
+        expect( err.message ).to.contain( ConsoleMessages.serverTimeout );
       } );
     } );
   } );

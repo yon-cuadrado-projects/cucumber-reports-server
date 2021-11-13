@@ -1,6 +1,6 @@
-import type * as Models from '@models';
 import * as fse from 'fs-extra';
 import * as path from 'path';
+import type { Models } from 'cucumber-html-report-generator';
 import { Server } from '../lib/server/server';
 
 export class StartServer{ 

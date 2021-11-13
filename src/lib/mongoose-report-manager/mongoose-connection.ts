@@ -1,4 +1,4 @@
-import type * as Models from '@models';
+import type { Models } from 'cucumber-html-report-generator';
 import mongoose from 'mongoose';
 
 export default class MoongooseConnection {

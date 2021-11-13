@@ -1,7 +1,7 @@
 import * as ConsoleMessages from '../helpers/console-messages';
-import type * as Models from '@models';
 import * as lodash from 'lodash';
 import type { FilterQuery } from 'mongoose';
+import type { Models } from 'cucumber-html-report-generator';
 import type { ObjectID } from 'bson';
 import { mongo } from 'mongoose';
 

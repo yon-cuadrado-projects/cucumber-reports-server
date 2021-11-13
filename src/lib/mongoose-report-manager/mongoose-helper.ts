@@ -1,4 +1,4 @@
-import * as Models from '@models';
+import { Models } from 'cucumber-html-report-generator';
 import MongooseQueries from './mongoose-queries';
 import MoongooseConnection from './mongoose-connection';
 import type { ObjectID } from 'bson';
@@ -20,10 +20,7 @@ export class MongooseHelper {
     try{
       objectId = await new MongooseQueries( models ).insertReport( report );
     }catch( err: unknown ){
-      /* istanbul ignore else */
-      if( err instanceof Error ){
-        console.log( err.message );
-      }
+      console.log( ( <Error>err ).message );
     }
     await this.mongooseConnection.activeConnection.close();
     return objectId;

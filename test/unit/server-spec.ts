@@ -1,6 +1,6 @@
-import * as CommonFunctions from '@common-functions';
-import type * as Models from '@models';
 import * as path from 'path';
+import { CommonFunctions } from 'cucumber-html-report-generator';
+import type { Models } from 'cucumber-html-report-generator';
 import { Server } from '../../src/lib/server/server';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
