@@ -1,20 +1,11 @@
-html-cucumber-report-generator
+cucumber-html-reports-server
 ===============================
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 
-[![NPM](https://nodei.co/npm/html-cucumber-report-generator.png)](https://nodei.co/npm/html-cucumber-report-generator/)
+[![NPM](https://nodei.co/npm/cucumber-html-reports-server.png)](https://nodei.co/npm/cucumber-html-reports-server/)
 
-This project is based in the project https://www.npmjs.com/package/multiple-cucumber-html-reporter
-As with the original project html-cucumber-report-generator is a reporting module for Cucumber to parse the JSON output to a beautiful report. The differences between the previous project and this one are the following ones:
-- written with typescript
-- option to display Outline scenarios in a grouped way
-- Option to store the reports in a mongodb database and access them from a web page
-- Dark themed
+This project provides a web interface where you can manage the reports added with the npm package [cucumber-html-report-generator](https://nodei.co/npm/cucumber-html-report-generator/).
 
-
-# Important
-
-> **The default time notation in Cucumber is in nanoseconds. When you use a version of Cucumber that uses milliseconds (like CucumberJS 2 and 3) and you want to show the duration you should use [`displayDuration`](./README.MD#displayDuration) AND [`durationInMS = true`](./README.MD#durationinms)**
 
 
 ![Snapshot - Features overview](./docs/images/browsers-features-overview.jpg "Snapshot - Browsers features overview")
@@ -32,7 +23,7 @@ A sample can be found [here](https://wswebcreation.github.io/multiple-cucumber-h
 Install this module locally with the following command:
 
 ``` bash
-npm install html-cucumber-report-generator
+npm cucumber-html-reports-server
 ```
 
 Save to dependencies or dev-dependencies:
