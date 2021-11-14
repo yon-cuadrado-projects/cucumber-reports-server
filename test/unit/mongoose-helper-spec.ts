@@ -307,7 +307,7 @@ describe( 'mongoose-helper', () => {
 
       await mongooseHelper.getDatabaseSize().catch( ( err: Error ) => {
       // Then
-        expect( err.message ).to.contain( ConsoleMessages.serverTimeout );
+        expect( err.message ).to.contain( ConsoleMessages.connectionRefused );
       } );
     } );
   } );

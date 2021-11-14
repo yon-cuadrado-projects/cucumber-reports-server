@@ -26,6 +26,7 @@
     "update-package-json-dependencies": "npx ncu -u && npm i",
     "update-report-resources": "ts-node -r tsconfig-paths/register -r ts-node/register/transpile-only ./src/scripts/update-report-resources.ts",
     "update-app": "npm run-script update-package-json-dependencies && npm run-script update-report-resources",
+    "start:server": "run-script-os",
     "start:server:windows": "./src/scripts/startServer.ps1",
     "start:server:linux": "./src/scripts/startServer.sh"
   },
