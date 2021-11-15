@@ -1,4 +1,3 @@
-// import type * as Models from '@models';
 import type * as http from 'http';
 import * as path from 'path';
 import type { Application, Request, Response } from 'express';
@@ -10,12 +9,7 @@ import express from 'express';
 import { generateReport } from 'cucumber-html-report-generator';
 import { userPropertiesValidation } from '../helpers/application-properties-validation';
 
-/**
- *
- *
- * @export
- * @class Server
- */
+
 export class Server {
   public app: Application;
 
@@ -30,7 +24,6 @@ export class Server {
 
   public configureServer (): void {
     this.serverConfiguration = userPropertiesValidation.checkServerProperties( this.serverConfiguration );
-    const ascendingOrder = 'asc';
     const mongooseHelper = new MongooseHelper( this.serverConfiguration.mongoDb! );
     this.app.set( 'port', this.serverConfiguration.serverDisplay.port );
     this.app.use( '/resources', express.static( path.join( __dirname, '../../resources/dependencies' ) ) );
@@ -39,9 +32,8 @@ export class Server {
     this.app.use( express.urlencoded( { extended: true, limit: '50mb', parameterLimit: 50000 } ) );
     this.app.use( express.json( { limit: '50mb' } ) );
 
-    this.app.get( '/', async ( req, res: Response ): Promise<void> => {
-      const allCollectionData = await mongooseHelper.getAllTheElementsOrderedAndFiltered( '', ascendingOrder, '' );
-      res.render( 'index', { collectionData: allCollectionData, config: this.serverConfiguration } );
+    this.app.get( '/', ( req, res: Response ): void => {
+      res.render( 'index', {  config: this.serverConfiguration } );
     } );
 
     this.app.get( '/mongo/get/datatable', async ( req: Request<ParamsDictionary, unknown, unknown, QueryString.ParsedQs>, res: Response ) => {

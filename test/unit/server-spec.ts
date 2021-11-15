@@ -16,6 +16,9 @@ describe( 'server.ts', () => {
   // Given
   const serverProperties: Models.ServerProperties = {
     mongoDb: {
+      mongoDbOptions:{
+        bufferCommands: false
+      },
       collections: {
         features: 'Features',
         outputs: 'Outputs',
@@ -63,13 +66,13 @@ describe( 'server.ts', () => {
 
     it( 'returns a report from the database', async () => {
       // Given
-
-      // When
       server.configureServer();
       server.startServer();
       const reportInsertResponse = await chai.request( server.app )
         .post( '/insertReport' )
         .send( reportSaved );
+
+      // When
       const reportId = ( <Models.ResponseBody>reportInsertResponse.body ).reportId;
       const res = await chai.request( server.app )
         .get( '/generateReport' )

@@ -17,13 +17,13 @@ export default class MoongooseConnection {
 
   public async connect(): Promise<void> {
     this.url = `mongodb://${this.mongodbConfiguration.dbHost}:${this.mongodbConfiguration.dbPort}/${this.mongodbConfiguration.dbName}`;
-    await mongoose.connect( this.url, this.mongodbConfiguration.mongoDbOptions ).catch( ( error: Error ) => {
-      console.log( error.message );
-      throw error;
-    } );
-
-    const { connection } = mongoose;
-    this.activeConnection = connection;
+    if ( this.activeConnection.readyState !== 1 ){
+      const createdConnection = await mongoose.connect( this.url, this.mongodbConfiguration.mongoDbOptions ).catch( ( error: Error ) => {
+        console.log( `error conecting to mongodb: ${error.message}` );
+        throw error;
+      } );
+      this.activeConnection = createdConnection.connection;      
+    }
   }
 
   public async getDatabaseSize(): Promise<number> {
@@ -32,8 +32,11 @@ export default class MoongooseConnection {
     return result.dataSize;
   }
 
-  private setDefaultConnectionOptions(): void{
+  public async close(): Promise<void> {
+    await mongoose.disconnect();
+  }
 
+  private setDefaultConnectionOptions(): void{
     if( !this.mongodbConfiguration.mongoDbOptions ){
       this.mongodbConfiguration.mongoDbOptions = <mongoose.ConnectOptions>{};
     }

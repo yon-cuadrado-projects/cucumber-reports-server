@@ -1,5 +1,8 @@
 {
     "mongoDb":{
+      "mongoDbOptions":{
+        "bufferCommands": false
+      },
       "collections": {
         "features": "Features",
         "outputs": "Outputs",

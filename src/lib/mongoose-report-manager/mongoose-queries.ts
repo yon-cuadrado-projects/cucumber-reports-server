@@ -83,7 +83,7 @@ export default class MongooseQueries {
     const result =  this.models.reportModel
       .aggregate( [
         { $match: filter },
-        { $project: { reportTitle: '$reportTitle', result: '$results.overview.resultStatusesJoined', date: '$results.overview.date', _id: '$_id' } },
+        { $project: { reportTitle: '$reportTitle', result: '$results.overview.result', date: '$results.overview.date', _id: '$_id' } },
         { $sort: sortOption }
       ] );
     return result;
@@ -169,7 +169,6 @@ export default class MongooseQueries {
         delete feature.elements;
         const featureInDb = await this.models.featureModel.create( feature );
         await this.insertScenarios( scenarios!, <ObjectID>featureInDb._id );
-
       } ),
     );
 

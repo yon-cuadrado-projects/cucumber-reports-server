@@ -20,9 +20,9 @@ export class MongooseHelper {
     try{
       objectId = await new MongooseQueries( models ).insertReport( report );
     }catch( err: unknown ){
-      console.log( ( <Error>err ).message );
+      console.log( `error inserting a report ${( <Error>err ).message}` );
     }
-    await this.mongooseConnection.activeConnection.close();
+    await this.mongooseConnection.close();
     return objectId;
   }
 
@@ -30,7 +30,7 @@ export class MongooseHelper {
     const models = await this.initalizeModels( );
     let report = <Models.ExtendedReport | null>{};
     report = await new MongooseQueries( models ).getReportById( id );
-    await this.mongooseConnection.activeConnection.close();
+    await this.mongooseConnection.close();
     return report;
   }
 
@@ -38,21 +38,21 @@ export class MongooseHelper {
     const order = orderDirection === 'asc' ? this.descendingOrder : this.ascendingOrder;
     const models = await this.initalizeModels( );
     const reports = await new MongooseQueries( models ).getAllTheElementsOrderedAndFiltered( orderValue, order, filterValue );
-    await this.mongooseConnection.activeConnection.close();
+    await this.mongooseConnection.close();
     return reports;
   }
 
   public async deleteReportById( id: ObjectID | string ): Promise<number> {
     const models = await this.initalizeModels( );
     const result = await new MongooseQueries( models ).deleteReportById( id );
-    await this.mongooseConnection.activeConnection.close();
+    await this.mongooseConnection.close();
 
     return result!;
   }
 
   public async getDatabaseSize(): Promise<number>{
     const databaseSize = await this.mongooseConnection.getDatabaseSize();
-    await this.mongooseConnection.activeConnection.close();
+    await this.mongooseConnection.close();
     return databaseSize;
   }
 
