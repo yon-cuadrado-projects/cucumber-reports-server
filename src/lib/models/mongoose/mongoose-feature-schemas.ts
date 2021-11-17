@@ -1,8 +1,6 @@
 import * as CommonSchemas from './mongoose-common-schemas';
 import type { Document, Model } from 'mongoose';
 import type { Models } from 'cucumber-html-report-generator';
-// import type { FeatureResults, FeatureResultsOverview } from '../report/results';
-// import type { Feature } from '../report/feature';
 import { Schema } from 'mongoose';
 
 export interface MFeature extends Models.Feature, Document {

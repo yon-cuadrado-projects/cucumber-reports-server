@@ -1,9 +1,7 @@
 import * as CommonSchemas from './mongoose-common-schemas';
 import type { Document, Model } from 'mongoose';
 import type { Models } from 'cucumber-html-report-generator';
-// import type { Argument,Attachment, Embedding,Media, Row, Step } from '../report/step';
 import { Schema } from 'mongoose';
-// import type { StepResultsOverview } from '../report/results';
 
 export interface MSTep extends Models.Step, Document {
   id: any;

@@ -1,4 +1,3 @@
-// import type { Metadata } from '../report/feature';
 import type mongoose from 'mongoose';
 
 export interface MongoDbConfiguration{
@@ -26,23 +25,6 @@ export interface ReportDisplay{
   theme?: string;
   useCDN?: boolean;
 }
-
-// export interface ReportGeneration extends ReportDisplay{
-//   reportTitle?: string;
-//   jsonDir: string;
-//   reportMetadata?: Metadata[];
-//   featuresFolder?: string;
-//   saveReportInMongoDb?: boolean;
-//   saveCollectedJSON?: boolean;
-//   saveEnrichedJSON?: boolean;
-//   reportMetadataTitle?: string;
-//   mongooseServerUrl?:string;
-// }
-
-// export interface UserProperties {
-//   parameters: ReportGeneration;
-//   mongoDb?: MongoDbConfiguration;
-// }
 
 export interface ServerDisplayProperties{
   port: number;

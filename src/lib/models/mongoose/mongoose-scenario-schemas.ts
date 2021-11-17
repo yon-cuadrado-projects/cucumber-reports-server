@@ -1,8 +1,6 @@
 import * as CommonSchemas from './mongoose-common-schemas';
 import * as StepChemas from './mongoose-step-schemas';
-// import type { BeforeOrAfter,Scenario } from '../report/scenario';
 import type { Document, Model } from 'mongoose';
-// import type { ScenarioResults } from '../report/results';
 import type { Models } from 'cucumber-html-report-generator';
 import { Schema } from 'mongoose';
 

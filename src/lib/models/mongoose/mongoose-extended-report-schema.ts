@@ -1,8 +1,6 @@
 import * as CommonSchemas from './mongoose-common-schemas';
 import type { Document, Model } from 'mongoose';
 import type { Models } from 'cucumber-html-report-generator';
-// import type { ReportResults, ReportResultsOverview } from '../report/results';
-// import type { ExtendedReport } from '../report/extended-report';
 import { Schema } from 'mongoose';
 
 export interface MExtendedReport extends Models.ExtendedReport, Document {

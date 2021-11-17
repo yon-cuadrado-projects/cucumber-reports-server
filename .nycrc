@@ -28,6 +28,9 @@
         "src/scripts/*.js",
         "src/lib/server/resources/**/*.js",
         "src/resources/**/*.js",
-        "src/lib/types/*.d.ts"
+        "src/lib/types/*.d.ts",
+        "src/lib/models/mongoose/mongoose-models.ts",
+        "src/lib/models/common/application-properties.ts",
+        "src/lib/models/mongoose/stats.ts"
     ]
 }
