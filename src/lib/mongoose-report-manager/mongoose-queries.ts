@@ -2,13 +2,14 @@ import * as ConsoleMessages from '../helpers/console-messages';
 import * as lodash from 'lodash';
 import type { FilterQuery } from 'mongoose';
 import type { Models } from 'cucumber-html-report-generator';
+import type { MongooseModels } from '../models/mongoose/mongoose-models';
 import type { ObjectID } from 'bson';
 import { mongo } from 'mongoose';
 
 export default class MongooseQueries {
-  public models: Models.MongooseModels;
+  public models: MongooseModels;
 
-  public constructor( mongooseModels: Models.MongooseModels ) {
+  public constructor( mongooseModels: MongooseModels ) {
     this.models = mongooseModels;
   }
 

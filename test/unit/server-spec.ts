@@ -1,11 +1,12 @@
 import * as path from 'path';
+import type { MongoDbConfiguration, ServerDisplayProperties, ServerProperties } from '../../src/lib/models/common/application-properties';
 import { CommonFunctions } from 'cucumber-html-report-generator';
 import type { Models } from 'cucumber-html-report-generator';
 import { Server } from '../../src/lib/server/server';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-// import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
+
 chai.use( chaiHttp );
 chai.use( sinonChai );
 
@@ -14,7 +15,7 @@ const okStatus = 200;
 
 describe( 'server.ts', () => {
   // Given
-  const serverProperties: Models.ServerProperties = {
+  const serverProperties: ServerProperties = {
     mongoDb: {
       mongoDbOptions:{
         bufferCommands: false
@@ -112,9 +113,9 @@ describe( 'server.ts', () => {
 
     it( 'can delete a report from the database', async () => {
       // Given
-      server.serverConfiguration.serverDisplay = <Models.ServerDisplayProperties>{};
+      server.serverConfiguration.serverDisplay = <ServerDisplayProperties>{};
       server.serverConfiguration.reportDisplay = <Models.ReportDisplay>{};
-      server.serverConfiguration.mongoDb = <Models.MongoDbConfiguration>{};
+      server.serverConfiguration.mongoDb = <MongoDbConfiguration>{};
       server.configureServer();
       server.startServer();
       const reportInsertResponse = await chai.request( server.app )

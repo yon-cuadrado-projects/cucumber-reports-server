@@ -3,6 +3,7 @@ import * as chai from 'chai';
 import * as path from 'path';
 import { CommonFunctions } from 'cucumber-html-report-generator';
 import type { Models } from 'cucumber-html-report-generator';
+import type { MongoDbConfiguration } from '../../src/lib/models/common/application-properties';
 import { MongooseHelper } from '../../src/lib/mongoose-report-manager/mongoose-helper';
 import type { ObjectID } from 'bson';
 import chaiAsPromised from 'chai-as-promised';
@@ -10,6 +11,7 @@ import moment from 'moment';
 import { mongo } from 'mongoose';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
+
 chai.use( sinonChai );
 
 chai.should();
@@ -17,7 +19,7 @@ chai.use( chaiAsPromised );
 const { expect } = chai;
 
 describe( 'mongoose-helper', () => {
-  const mongoDb: Models.MongoDbConfiguration ={
+  const mongoDb: MongoDbConfiguration ={
     collections: {
       features: 'Features',
       outputs: 'Outputs',

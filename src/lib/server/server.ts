@@ -5,19 +5,19 @@ import type { Models } from 'cucumber-html-report-generator';
 import { MongooseHelper } from '../../lib/mongoose-report-manager/mongoose-helper';
 import type { ParamsDictionary } from 'express-serve-static-core';
 import type QueryString from 'qs';
+import type { ServerProperties } from './../models/common/application-properties';
 import express from 'express';
 import { generateReport } from 'cucumber-html-report-generator';
 import { userPropertiesValidation } from '../helpers/application-properties-validation';
-
 
 export class Server {
   public app: Application;
 
   public server!: http.Server;
 
-  public serverConfiguration: Models.ServerProperties;
+  public serverConfiguration: ServerProperties;
 
-  public constructor( serverConfiguration: Models.ServerProperties ) {
+  public constructor( serverConfiguration: ServerProperties ) {
     this.serverConfiguration = serverConfiguration;
     this.app = express();
   }

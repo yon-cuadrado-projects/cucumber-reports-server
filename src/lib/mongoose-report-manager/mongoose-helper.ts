@@ -1,15 +1,25 @@
-import { Models } from 'cucumber-html-report-generator';
+import type { MExtendedReport } from '../models/mongoose/mongoose-extended-report-schema';
+import type { MFeature } from '../models/mongoose/mongoose-feature-schemas';
+import type { MSTep } from '../models/mongoose/mongoose-step-schemas';
+import type { MScenario } from '../models/mongoose/mongoose-scenario-schemas';
+import type { Models } from 'cucumber-html-report-generator';
+import type { MongoDbConfiguration } from '../models/common/application-properties';
+import type { MongooseModels } from '../models/mongoose/mongoose-models';
 import MongooseQueries from './mongoose-queries';
 import MoongooseConnection from './mongoose-connection';
 import type { ObjectID } from 'bson';
+import { featureSchema } from '../models/mongoose/mongoose-feature-schemas';
+import { reportsSchema } from '../models/mongoose/mongoose-extended-report-schema';
+import { scenarioSchema } from '../models/mongoose/mongoose-scenario-schemas';
+import { stepSchema } from '../models/mongoose/mongoose-step-schemas';
 
 export class MongooseHelper {
   public mongooseConnection: MoongooseConnection;
-  public readonly mongodbConfiguration: Models.MongoDbConfiguration;
+  public readonly mongodbConfiguration: MongoDbConfiguration;
   private readonly ascendingOrder = -1;
   private readonly descendingOrder = 1;
 
-  public constructor( mongodbConfiguration: Models.MongoDbConfiguration ) {
+  public constructor( mongodbConfiguration: MongoDbConfiguration ) {
     this.mongodbConfiguration = mongodbConfiguration;
     this.mongooseConnection = new MoongooseConnection( this.mongodbConfiguration );
   }
@@ -61,27 +71,27 @@ export class MongooseHelper {
     return new MongooseQueries( models ).isReportInDatabase( reportId );
   }
 
-  private async initalizeModels( ): Promise<Models.MongooseModels> {
+  private async initalizeModels( ): Promise<MongooseModels> {
     await this.mongooseConnection.connect();
     return {
-      featureModel: this.mongooseConnection.activeConnection.model<Models.MFeature>(
+      featureModel: this.mongooseConnection.activeConnection.model<MFeature>(
         'Feature',
-        Models.featureSchema,
+        featureSchema,
         this.mongodbConfiguration.collections!.features,
       ),
-      reportModel: this.mongooseConnection.activeConnection.model<Models.MExtendedReport>(
+      reportModel: this.mongooseConnection.activeConnection.model<MExtendedReport>(
         'ExtendedReport',
-        Models.reportsSchema,
+        reportsSchema,
         this.mongodbConfiguration.collections!.reports,
       ),
-      scenarioModel: this.mongooseConnection.activeConnection.model<Models.MScenario>(
+      scenarioModel: this.mongooseConnection.activeConnection.model<MScenario>(
         'Scenario',
-        Models.scenarioSchema,
+        scenarioSchema,
         this.mongodbConfiguration.collections!.scenarios,
       ),
-      stepModel: this.mongooseConnection.activeConnection.model<Models.MSTep>(
+      stepModel: this.mongooseConnection.activeConnection.model<MSTep>(
         'Step',
-        Models.stepSchema,
+        stepSchema,
         this.mongodbConfiguration.collections!.steps,
       ),
     };

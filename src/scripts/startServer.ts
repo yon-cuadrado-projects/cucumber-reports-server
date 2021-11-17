@@ -1,16 +1,16 @@
 import * as fse from 'fs-extra';
 import * as path from 'path';
-import type { Models } from 'cucumber-html-report-generator';
 import { Server } from '../lib/server/server';
+import type { ServerProperties } from '../lib/models/common/application-properties';
 
 export class StartServer{ 
   public startServer(  ): void{
     const args = process.argv.slice( 2 );
-    let config = <Models.ServerProperties>{};
+    let config = <ServerProperties>{};
     if( args.length > 1 ){
-      config = <Models.ServerProperties>fse.readJSONSync( args[0] );
+      config = <ServerProperties>fse.readJSONSync( args[0] );
     }else{
-      config = <Models.ServerProperties>fse.readJSONSync( path.resolve( process.cwd(), './src/scripts/serverConfiguration.json' ) );
+      config = <ServerProperties>fse.readJSONSync( path.resolve( process.cwd(), './src/scripts/serverConfiguration.json' ) );
     }
     const server = new Server( config );
     server.configureServer();

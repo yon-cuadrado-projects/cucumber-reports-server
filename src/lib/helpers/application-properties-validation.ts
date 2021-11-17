@@ -1,13 +1,14 @@
 import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
+import type { MongoDbConfiguration, ServerDisplayProperties, ServerProperties } from '../models/common/application-properties';
 import { CommonFunctions } from 'cucumber-html-report-generator';
 import type { Models } from 'cucumber-html-report-generator';
 import moment from 'moment';
 
 class ApplicationPropertiesValidation {
 
-  public checkServerProperties( serverProperties: Models.ServerProperties ): Models.ServerProperties{
+  public checkServerProperties( serverProperties: ServerProperties ): ServerProperties{
     const localServerProperties = serverProperties;
     return this.initializeServerParameters( localServerProperties );
   }
@@ -29,7 +30,7 @@ class ApplicationPropertiesValidation {
     return localReportDisplayParameters;
   }
 
-  public initializeServerParameters( serverParameters: Models.ServerProperties | undefined ): Models.ServerProperties{
+  public initializeServerParameters( serverParameters: ServerProperties | undefined ): ServerProperties{
        
     const reportConfiguration = this.initializeReportDisplayParameters( serverParameters?.reportDisplay );
     const mongoDbParameters = this.initializeMongoDbParameters( serverParameters?.mongoDb );
@@ -42,7 +43,7 @@ class ApplicationPropertiesValidation {
     };
   }
 
-  public initializeServerDisplayConfiguration ( parameters: Models.ServerDisplayProperties | undefined ): Models.ServerDisplayProperties{
+  public initializeServerDisplayConfiguration ( parameters: ServerDisplayProperties | undefined ): ServerDisplayProperties{
     return{
       port: parameters?.port ?? 3100,
       theme: parameters?.theme === 'dark' || parameters?.theme === 'light' ? parameters.theme : 'dark',
@@ -50,7 +51,7 @@ class ApplicationPropertiesValidation {
     };
   }
 
-  public initializeMongoDbParameters( mongoDbParameters: Models.MongoDbConfiguration | undefined ): Models.MongoDbConfiguration{
+  public initializeMongoDbParameters( mongoDbParameters: MongoDbConfiguration | undefined ): MongoDbConfiguration{
     let localMongoDbParameters = mongoDbParameters;
     localMongoDbParameters = localMongoDbParameters ??
       {

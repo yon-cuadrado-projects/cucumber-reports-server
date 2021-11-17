@@ -1,14 +1,15 @@
-import type { Models } from 'cucumber-html-report-generator';
+import type { MongoDbConfiguration } from '../models/common/application-properties';
+import type { Stats } from '../models/mongoose/stats';
 import mongoose from 'mongoose';
 
 export default class MoongooseConnection {
-  public mongodbConfiguration: Models.MongoDbConfiguration;
+  public mongodbConfiguration: MongoDbConfiguration;
 
   public url: string;
 
   public activeConnection: mongoose.Connection;
 
-  public constructor( mongodbConfiguration: Models.MongoDbConfiguration ) {
+  public constructor( mongodbConfiguration: MongoDbConfiguration ) {
     this.mongodbConfiguration = mongodbConfiguration;
     this.url = `mongodb://${mongodbConfiguration.dbHost}:${mongodbConfiguration.dbPort}/${mongodbConfiguration.dbName}`;
     this.setDefaultConnectionOptions();
@@ -28,7 +29,7 @@ export default class MoongooseConnection {
 
   public async getDatabaseSize(): Promise<number> {
     await this.connect();
-    const result: Models.Stats = <Models.Stats>( await this.activeConnection.db.stats( { scale: 1024 * 1024 } ) );
+    const result: Stats = <Stats>( await this.activeConnection.db.stats( { scale: 1024 * 1024 } ) );
     return result.dataSize;
   }
 
