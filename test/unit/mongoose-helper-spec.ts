@@ -59,6 +59,7 @@ describe( 'mongoose-helper', () => {
       expect( reportRecovered ).to.eql( reportSaved2 );
       await mongooseHelper.deleteReportById( id );
     } );
+
     it( 'can delete a report', async () => {
       // Given
       const id1 = await mongooseHelper.insertReport( reportSaved1 );
@@ -73,6 +74,7 @@ describe( 'mongoose-helper', () => {
       // Then
       expect( results ).to.eql( 0 );
     } );
+
     it( 'can get a report with id as as string', async () => {
     // Given
       const id = await mongooseHelper.insertReport( reportSaved2 );
@@ -164,24 +166,16 @@ describe( 'mongoose-helper', () => {
       const id2 = await mongooseHelper.insertReport( reportSaved2 );
 
       // When
-      const resultsAsc = await mongooseHelper.getAllTheElementsOrderedAndFiltered(
-        'executionDate',
-        descendingOrder,
-        '',
-      );
-      const resultsDesc = await mongooseHelper.getAllTheElementsOrderedAndFiltered(
-        'executionDate',
-        ascendingOrder,
-        '',
-      );
+      const resultsAsc = await mongooseHelper.getAllTheElementsOrderedAndFiltered( 'executionDate', descendingOrder, '', );
+      const resultsDesc = await mongooseHelper.getAllTheElementsOrderedAndFiltered( 'executionDate',ascendingOrder, '', );
       const resultsOrderedAsc = [ ...resultsAsc ].sort(
-        ( firstReport, secondReport ) => 
-          moment( `${firstReport.executionDateTime}`,'MM-DD-YYYY hh:mm:ss' ).toDate().getTime() 
+        ( firstReport, secondReport ) =>
+          moment( `${firstReport.executionDateTime}`,'MM-DD-YYYY hh:mm:ss' ).toDate().getTime()
           - moment( `${secondReport.executionDateTime}`,'MM-DD-YYYY hh:mm:ss' ).toDate().getTime(),
       );
       const resultsOrderedDesc = [ ...resultsDesc ].sort(
-        ( firstReport, secondReport ) => 
-          moment( `${secondReport.executionDateTime}`,'MM-DD-YYYY hh:mm:ss' ).toDate().getTime() 
+        ( firstReport, secondReport ) =>
+          moment( `${secondReport.executionDateTime}`,'MM-DD-YYYY hh:mm:ss' ).toDate().getTime()
           - moment( `${firstReport.executionDateTime}`,'MM-DD-YYYY hh:mm:ss' ).toDate().getTime(),
       );
 
@@ -218,10 +212,10 @@ describe( 'mongoose-helper', () => {
 
       // When
       const resultsAsc = await mongooseHelper.getAllTheElementsOrderedAndFiltered( 'result', ascendingOrder, '', );
-      const resultsDesc = await mongooseHelper.getAllTheElementsOrderedAndFiltered( 'result',descendingOrder,'', );
+      const resultsDesc = await mongooseHelper.getAllTheElementsOrderedAndFiltered( 'result', descendingOrder, '', );
 
-      const resultsOrderedAsc = [ ...resultsAsc ].sort( ( firstReport, secondReport ) => firstReport.result < secondReport.result ? -1: 1 );
-      const resultsOrderedDesc = [ ...resultsDesc ].sort( ( firstReport, secondReport ) => firstReport.result > secondReport.result ? -1: 1 );
+      const resultsOrderedAsc = [ ...resultsAsc ].sort( ( firstReport, secondReport ) => firstReport.resultsJoined > secondReport.resultsJoined ? 1: -1 );
+      const resultsOrderedDesc = [ ...resultsDesc ].sort( ( firstReport, secondReport ) => firstReport.resultsJoined > secondReport.resultsJoined ? -1: 1 );
 
       // Then
       expect( resultsAsc ).to.be.deep.equal( resultsOrderedAsc );
@@ -264,7 +258,7 @@ describe( 'mongoose-helper', () => {
 
       // When
       await mongooseHelper.insertReport( invalidReport );
-    
+
       // Then
       expect( consoleStub.calledWith( ConsoleMessages.incorrectReport ) ).to.be.true;
       consoleStub.restore();
@@ -277,7 +271,7 @@ describe( 'mongoose-helper', () => {
 
       // When
       await mongooseHelper.deleteReportById( oId );
-    
+
       // Then
       expect( consoleStub.calledWith( ConsoleMessages.reportNotFound( oId ) ) ).to.be.true;
       consoleStub.restore();
@@ -290,7 +284,7 @@ describe( 'mongoose-helper', () => {
 
       // When
       await mongooseHelper.getReportById( oId );
-    
+
       // Then
       expect( consoleStub.calledWith( ConsoleMessages.reportNotFound( oId ) ) ).to.be.true;
       consoleStub.restore();

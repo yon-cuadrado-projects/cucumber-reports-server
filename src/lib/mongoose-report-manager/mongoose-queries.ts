@@ -42,7 +42,9 @@ export default class MongooseQueries {
       const ids = await this.getReportIDs( '',featuresIds );
       return this.getReportsData( sortObj, ids );
     }
-    return this.getReportsData( sortObj );
+    // return this.getReportsData( sortObj );
+    const reports = await this.getReportsData( sortObj );
+    return reports;
   }
 
   public async getFeatureIDs( filterValue: string, scenariosId?: ObjectID[] ): Promise<ObjectID[]>{
@@ -80,17 +82,16 @@ export default class MongooseQueries {
 
   public async getReportsData( sortOption: Record<string, number> ,ids?: ObjectID[] ): Promise<Models.Reports[]>{
     const filter: FilterQuery<Models.ExtendedReport> = ids ? { '_id': { $in: ids } }: {};
-    const result =  this.models.reportModel
+    return this.models.reportModel
       .aggregate( [
         { $match: filter },
-        { $project: { reportTitle: '$reportTitle', result: '$results.overview.result', date: '$results.overview.date', _id: '$_id' } },
-        { $sort: sortOption }
+        { $sort: sortOption },
+        { $project: { reportTitle: '$reportTitle', result: '$results.overview.result', date: '$results.overview.date', _id: '$_id', resultsJoined: '$results.overview.resultStatusesJoined' } },
       ] );
-    return result;
   }
 
   public async getReportById( id: ObjectID | string ): Promise<Models.ExtendedReport | null> {
-    const oId: ObjectID = typeof id === 'string' ? new mongo.ObjectID( id ) : id;
+    const oId: ObjectID = typeof id === 'string' ? new mongo.ObjectId( id ) : id;
     const report = <Models.ExtendedReport>( await this.models.reportModel.findById( { _id: oId } )
       .populate( { options: { sort: { '_id': 1 } }, path: 'features' ,
                    populate : { options: { sort: { '_id': 1 } }, path: 'elements' ,
@@ -126,7 +127,7 @@ export default class MongooseQueries {
   }
 
   public async isReportInDatabase( id: string ): Promise<boolean>{
-    const oId = new mongo.ObjectID( id );
+    const oId = new mongo.ObjectId( id );
 
     const reportsFound = await this.models.reportModel.findById( { _id: oId } );
     return reportsFound !== null;
@@ -209,7 +210,7 @@ export default class MongooseQueries {
       sortObj.reportTitle = orderDirection;
       break;
     case 'result':
-      sortObj.result = orderDirection;
+      sortObj['results.overview.resultStatusesJoined'] = orderDirection;
       break;
     case 'executionDate':
       sortObj['results.overview.date'] = orderDirection;
