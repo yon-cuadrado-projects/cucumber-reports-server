@@ -1,7 +1,7 @@
 import * as fse from 'fs-extra';
 import * as path from 'path';
-import { Server } from '../lib/server/server';
-import type { ServerProperties } from '../lib/models/common/application-properties';
+import { Server } from '../../lib/server/server';
+import type { ServerProperties } from '../../lib/models/common/application-properties';
 
 export class StartServer{ 
   public startServer(  ): void{
@@ -10,7 +10,7 @@ export class StartServer{
     if( args.length > 1 ){
       config = <ServerProperties>fse.readJSONSync( args[0] );
     }else{
-      config = <ServerProperties>fse.readJSONSync( path.resolve( process.cwd(), './src/scripts/serverConfiguration.json' ) );
+      config = <ServerProperties>fse.readJSONSync( path.resolve( process.cwd(), './src/scripts/configuration/serverConfiguration.json' ) );
     }
     const server = new Server( config );
     server.configureServer();

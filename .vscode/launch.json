@@ -17,7 +17,7 @@
                 "ts-node/register/transpile-only"
             ],
             "args": [
-                "./src/scripts/update-report-resources.ts"
+                "./src/scripts/ts/update-report-resources.ts"
             ],
             "cwd": "${workspaceRoot}",
             "internalConsoleOptions": "openOnSessionStart",

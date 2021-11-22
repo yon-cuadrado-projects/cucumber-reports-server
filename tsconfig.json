@@ -14,11 +14,9 @@
         "noImplicitAny" : true,
         "preserveSymlinks": true,
         "allowJs": true,
-        // "sourceMap": true,
         "declaration": true,
         "declarationMap": true,
         "inlineSources": true,
-        // "rootDir": "./",
         "outDir": "./dist",
         "sourceMap": true,
         "target": "es2020",
@@ -34,12 +32,6 @@
         "resolveJsonModule": true,
         "typeRoots": ["./node_modules/@types","./src/lib/types"],
         "types": ["node","@types/long","mocha"],
-        // "paths": {
-        //     "*": [ "./*" ],
-        //     "@models": ["node_modules/cucumber-html-report-generator/src/lib/models/models.ts"],
-        //     "@common-functions": ["node_modules/cucumber-html-report-generator/src/lib/common-functions/common-functions.ts"],
-        //     "@htmlResourceReferencesUpdateFunctions": ["node_modules/cucumber-html-report-generator/src/scripts/dependency-modification-functions.ts"]
-        // },
     },
     "include": [
         "./test/**/*.ts",

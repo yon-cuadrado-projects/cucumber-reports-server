@@ -8,41 +8,23 @@ This project provides a web interface where you can manage the reports added wit
 
 
 
-![Snapshot - Features overview](./docs/images/browsers-features-overview.jpg "Snapshot - Browsers features overview")
-
-A sample can be found [here](https://wswebcreation.github.io/projects/html-cucumber-report-generator/doc/index.html)
-
-But you can also create a beautiful overview when you don't want to use CucumberJS with browser(meta)data but with custom metadata, see [customMetadata](./README.MD#custommetadata).
-This nice feature has been created by [LennDG](https://github.com/LennDG)
-
-![Snapshot - Features overview](./docs/images/custom-metadata-features-overview.jpg "Snapshot - Custom metadata features overview")
-
-A sample can be found [here](https://wswebcreation.github.io/multiple-cucumber-html-reporter/custom-metadata/index.html)
+![Snapshot - Reports dark theme](./docs/images/report-dark-theme.jpg "Snapshot - Reports dark theme")
 
 ## Install
 Install this module locally with the following command:
 
 ``` bash
-npm cucumber-html-reports-server
+npm install cucumber-html-reports-server
 ```
 
 Save to dependencies or dev-dependencies:
 
 ``` bash
-npm install html-cucumber-report-generator --save
-npm install html-cucumber-report-generator --save-dev
+npm install cucumber-html-reports-server --save
+npm install cucumber-html-reports-server --save-dev
 ```
 
-## Compatibility
-Multiple Cucumber HTML Reporter **now works with CucumberJS 1, 2, 3 and 4**.
 
-## Usage
-> **If you are using [webdriver.io](http://webdriver.io/) please check [WEBDRIVER.IO.MD](./docs/WEBDRIVER.IO.MD) for usage.**
-
-> **It provides `multiple-cucumber-html-reporter` and some nice integration features that will make using Protractor + CucumberJS 1/2/3 nicely integrate with only a few lines of code.**
-
-### cucumber-js 2.x and lower
-Multiple Cucumber HTML Reporter transforms the Cucumber JSON output to a beautiful report. In order to let this happen add the piece of code that is placed below to CucumberJS `AfterFeatures`-hook.
 
 ```javascript
 const report = require('html-cucumber-report-generator');
@@ -80,16 +62,6 @@ report.generate({
         },
 });
 ```
-
-### cucumber-js 3.x
-Since cucumber-js 3.x the `AfterFeatures` hook is not supported anymore. To use Multiple Cucumber HTML Reporter it must be run in a separate node executable after the cucumber-js process finishes.
-
-
-> **IMPORTANT:**
-
-> Make sure that, when you generate the JSON files with Cucumber, each file will have a **UNIQUE** name. If you don't provide a unique name Cucumber will **override** the JSON files.
-
-> **Advice** is to use for example the name of the feature, the name of the browser / device it is running on AND a unix timestamp with for example this `(new Date).getTime();`. This will result in something like this `name_of_feature.chrome.1495298685509.json`
 
 
 ## Options
