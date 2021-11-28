@@ -9,4 +9,4 @@ if [ ! -d "$nodeModulesFolder" ]; then
     cd "$scriptParentFolder";npm install;cd "$projectFolder"
 fi
 
-cd $scriptParentFolder;npx ts-node -r tsconfig-paths/register -T ./src/scripts/startServer.ts "$1"
+cd $scriptParentFolder;npx ts-node -r tsconfig-paths/register -T ./src/scripts/ts/startServer.ts "$1"

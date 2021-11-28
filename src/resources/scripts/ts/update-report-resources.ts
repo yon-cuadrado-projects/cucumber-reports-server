@@ -2,7 +2,7 @@ import * as path from 'path';
 import { CommonFunctions, dependencyModificationFunctions } from 'cucumber-html-report-generator';
 import type { Models } from 'cucumber-html-report-generator';
 const resourcesData =  '../configuration/resources-data.json';
-const resourcesFolder = path.join( __dirname,'../../resources/dependencies' );
+const resourcesFolder = path.join( __dirname,'../../../resources/dependencies' );
 const indexEjsFile = path.join( __dirname,'../../lib/server/views/index.ejs' );
 
 const updateResourcesProperties = async ( ): Promise<void> =>{

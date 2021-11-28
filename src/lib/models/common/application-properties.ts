@@ -21,7 +21,6 @@ export interface ReportDisplay{
   customStyle?: string;
   overrideStyle?: string;
   reportPath?: string;
-  disableLog?: boolean;
   theme?: string;
   useCDN?: boolean;
 }
@@ -33,7 +32,7 @@ export interface ServerDisplayProperties{
 }
 
 export interface ServerProperties{
-  reportDisplay?: ReportDisplay;
-  mongoDb?: MongoDbConfiguration;
+  reportDisplay: ReportDisplay;
+  mongoDb: MongoDbConfiguration;
   serverDisplay: ServerDisplayProperties;
 }

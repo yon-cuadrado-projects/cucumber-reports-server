@@ -32,7 +32,6 @@ describe( 'server.ts', () => {
       dbPort: 27017,
     },
     reportDisplay: {
-      disableLog: true,
       navigateToFeatureIfThereIsOnlyOne: false,
       openReportInBrowser: false,
       theme: 'Dark'
@@ -67,6 +66,7 @@ describe( 'server.ts', () => {
 
     it( 'returns a report from the database', async () => {
       // Given
+      server.serverConfiguration.reportDisplay.reportPath = undefined;
       server.configureServer();
       server.startServer();
       const reportInsertResponse = await chai.request( server.app )
@@ -88,11 +88,33 @@ describe( 'server.ts', () => {
         .post( '/deleteReport' ).query( { id: reportId } );
       server.closeServer();
     } );
+    it( 'returns a report from the database with a value in the reportPath parameter', async () => {
+      // Given
+      server.serverConfiguration.reportDisplay.reportPath = path.resolve( process.cwd(), '.tmp' );
+      server.configureServer();
+      server.startServer();
+      const reportInsertResponse = await chai.request( server.app )
+        .post( '/insertReport' )
+        .send( reportSaved );
 
+      // When
+      const reportId = ( <Models.ResponseBody>reportInsertResponse.body ).reportId;
+      const res = await chai.request( server.app )
+        .get( '/generateReport' )
+        .query( { id: reportId } );
+
+      // Then
+      expect( res ).to.have.status( okStatus );
+      expect( res.body ).to.have.property( 'htmlreport' );
+      expect( res ).to.have.property( 'type', 'application/json' );
+
+      await chai.request( server.app ).post( '/deleteReport' ).query( { id: reportId } );
+      server.closeServer();
+    } );
     it( 'can insert a json file into the database', async () => {
       // Given
-      server.serverConfiguration.reportDisplay = undefined;
-      server.serverConfiguration.mongoDb = undefined;
+      server.serverConfiguration.mongoDb.collections = undefined;
+      serverProperties.mongoDb.mongoDbOptions = undefined;
       server.configureServer();
       server.startServer();
 
@@ -113,6 +135,7 @@ describe( 'server.ts', () => {
 
     it( 'can delete a report from the database', async () => {
       // Given
+      
       server.serverConfiguration.serverDisplay = <ServerDisplayProperties>{};
       server.serverConfiguration.reportDisplay = <Models.ReportDisplay>{};
       server.serverConfiguration.mongoDb = <MongoDbConfiguration>{};

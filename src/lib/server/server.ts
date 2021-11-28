@@ -7,6 +7,7 @@ import type { ParamsDictionary } from 'express-serve-static-core';
 import type QueryString from 'qs';
 import type { ServerProperties } from './../models/common/application-properties';
 import express from 'express';
+import fs from 'fs';
 import { generateReport } from 'cucumber-html-report-generator';
 import { userPropertiesValidation } from '../helpers/application-properties-validation';
 
@@ -24,7 +25,7 @@ export class Server {
 
   public configureServer (): void {
     this.serverConfiguration = userPropertiesValidation.checkServerProperties( this.serverConfiguration );
-    const mongooseHelper = new MongooseHelper( this.serverConfiguration.mongoDb! );
+    const mongooseHelper = new MongooseHelper( this.serverConfiguration.mongoDb );
     this.app.set( 'port', this.serverConfiguration.serverDisplay.port );
     this.app.use( '/resources', express.static( path.join( __dirname, '../../resources/dependencies' ) ) );
     this.app.set( 'views', path.join( __dirname, 'views' ) );
@@ -47,10 +48,15 @@ export class Server {
     } );
 
     this.app.get( '/generateReport', async ( req, res ) => {
-      const reportId = req.query.id;
-      const jsonReport = await mongooseHelper.getReportById( <string>reportId );
-      if( jsonReport ){
+      const reportId = <string>req.query.id;
+      const jsonReport = await mongooseHelper.getReportById( reportId );
+      if( jsonReport ){        
+        const tempReportPath = this.serverConfiguration.reportDisplay.reportPath;
+        const reportPathWithId = `${this.serverConfiguration.reportDisplay.reportPath!}/${reportId}`;
+        this.serverConfiguration.reportDisplay.reportPath = reportPathWithId;
+        fs.mkdirSync( reportPathWithId, { recursive: true } );
         await generateReport.generateHtmlReport( this.serverConfiguration.reportDisplay, jsonReport  );
+        this.serverConfiguration.reportDisplay.reportPath = tempReportPath;
       }
       res.setHeader( 'Content-Type', 'application/json' );
       res.json( { htmlreport: jsonReport } );

@@ -24,7 +24,7 @@
     "copy-files": "copyfiles -V ./src/lib/server/views/*.ejs ./src/lib/generate-report/src/resources/templates/components/**/*.tmpl ./src/lib/generate-report/src/resources/templates/components/**/**/*.tmpl ./src/lib/generate-report/src/resources/templates/scripts/*.tmpl ./src/lib/generate-report/src/resources/templates/style.css dist",
     "build": "npm run-script clean && tsc && npm run-script copy-files",
     "update-package-json-dependencies": "npx ncu -u && npm i",
-    "update-report-resources": "ts-node -r tsconfig-paths/register -r ts-node/register/transpile-only ./src/scripts/ts/update-report-resources.ts",
+    "update-report-resources": "ts-node -r tsconfig-paths/register -r ts-node/register/transpile-only ./src/resources/scripts/ts/update-report-resources.ts",
     "update-app": "npm run-script update-package-json-dependencies && npm run-script update-report-resources",
     "start:server": "run-script-os",
     "start:server:windows": "./src/scripts/startServer.ps1",

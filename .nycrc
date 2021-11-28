@@ -31,6 +31,8 @@
         "src/lib/types/*.d.ts",
         "src/lib/models/mongoose/mongoose-models.ts",
         "src/lib/models/common/application-properties.ts",
-        "src/lib/models/mongoose/stats.ts"
+        "src/lib/models/mongoose/stats.ts",
+        "src/scripts/ts/startServer.ts",
+        "src/resources/scripts/ts/update-report-resources.ts"
     ]
 }

@@ -13,11 +13,10 @@ class ApplicationPropertiesValidation {
     return this.initializeServerParameters( localServerProperties );
   }
 
-  public initializeReportDisplayParameters( reportConfigurationParameters: Models.ReportDisplay | undefined ): Models.ReportDisplay{
-    const localReportDisplayParameters = reportConfigurationParameters ?? <Models.ReportDisplay>{} ;
+  public initializeReportDisplayParameters( reportConfigurationParameters: Models.ReportDisplay ): Models.ReportDisplay{
+    const localReportDisplayParameters = reportConfigurationParameters;
     localReportDisplayParameters.navigateToFeatureIfThereIsOnlyOne = localReportDisplayParameters.navigateToFeatureIfThereIsOnlyOne ?? true;    
     localReportDisplayParameters.openReportInBrowser = localReportDisplayParameters.openReportInBrowser ?? false;     
-    localReportDisplayParameters.disableLog = localReportDisplayParameters.disableLog ?? false;
     localReportDisplayParameters.theme = localReportDisplayParameters.theme === 'Dark' ? localReportDisplayParameters.theme : 'Light';
 
     const result = CommonFunctions.checkFolder( localReportDisplayParameters.reportPath );
@@ -30,11 +29,11 @@ class ApplicationPropertiesValidation {
     return localReportDisplayParameters;
   }
 
-  public initializeServerParameters( serverParameters: ServerProperties | undefined ): ServerProperties{
+  public initializeServerParameters( serverParameters: ServerProperties ): ServerProperties{
        
-    const reportConfiguration = this.initializeReportDisplayParameters( serverParameters?.reportDisplay );
-    const mongoDbParameters = this.initializeMongoDbParameters( serverParameters?.mongoDb );
-    const serverConfiguration = this.initializeServerDisplayConfiguration( serverParameters?.serverDisplay );
+    const reportConfiguration = this.initializeReportDisplayParameters( serverParameters.reportDisplay );
+    const mongoDbParameters = this.initializeMongoDbParameters( serverParameters.mongoDb );
+    const serverConfiguration = this.initializeServerDisplayConfiguration( serverParameters.serverDisplay );
 
     return {
       mongoDb: mongoDbParameters,
@@ -51,21 +50,8 @@ class ApplicationPropertiesValidation {
     };
   }
 
-  public initializeMongoDbParameters( mongoDbParameters: MongoDbConfiguration | undefined ): MongoDbConfiguration{
-    let localMongoDbParameters = mongoDbParameters;
-    localMongoDbParameters = localMongoDbParameters ??
-      {
-        collections: {
-          features: 'Features',
-          outputs: 'Outputs',
-          reports: 'Reports',
-          scenarios: 'Scenarios',
-          steps: 'Steps'
-        },
-        dbHost: 'localhost',
-        dbName: 'test-multiple-cucumber-html-reports-server',
-        dbPort: 27017,
-      };
+  public initializeMongoDbParameters( mongoDbParameters: MongoDbConfiguration ): MongoDbConfiguration{
+    const localMongoDbParameters = mongoDbParameters;
     
     localMongoDbParameters.collections = localMongoDbParameters.collections ?? 
     {

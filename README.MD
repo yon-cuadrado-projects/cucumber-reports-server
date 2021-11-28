@@ -24,7 +24,16 @@ npm install cucumber-html-reports-server --save
 npm install cucumber-html-reports-server --save-dev
 ```
 
+## Start
+### Linux
+``` bash
+./src/scripts/startServer.sh configurartion-file.json
+```
 
+### Windows
+```powershell
+./src/scripts/startServer.ps1 configurartion-file.json
+```
 
 ```javascript
 const report = require('html-cucumber-report-generator');
@@ -484,31 +493,8 @@ There could be 2 causes:
 
 To fix this see the part about **Metadata** and check the **possible values**.
 
-### How to attach Screenshots to HTML report
-You can attach screenshots at any time to a Cucumber JSON file. Just create a Cucumber `scenario`-hook that will handle this. You can add them during running or when a `scenario` failed.
-
-> Check the framework you are using to attach screenshots to the JSON file.
-
-### How to attach Plain Text to HTML report
-You can attach plain-text / data at any time to a Cucumber JSON file to help debug / review the results. You can add them during running or when a `scenario` failed.
-
-> Check the framework you are using to attach plain text to the JSON file.
-
-### How to attach pretty JSON to HTML report
-You can attach JSON at any time to a Cucumber JSON file. You can add them during running or when a `scenario` failed.
-
-> Check the framework you are using to attach JSON data to the JSON file.
-
 ## Changelog and Releases
 The Changelog and releases can be found [here](https://github.com/wswebcreation/multiple-cucumber-html-reporter/releases)
 
 ## Contributing
 How to contribute can be found [here](./docs/CONTRIBUTING.md)
-
-## Credits
-In the search for a reporting tools for Cucumber I found a few tools that helped me a lot:
-
-- [cucumber-html-repository](https://github.com/gkushang/cucumber-html-reporter)
-- [cucumber-html-report](https://github.com/leinonen/cucumber-html-report)
-- [cucumber-protractor-report](https://github.com/JesterXL/cucumber-protractor-report)
-- [grunt-protractor-cucumber-html-report](https://github.com/robhil/grunt-protractor-cucumber-html-report)

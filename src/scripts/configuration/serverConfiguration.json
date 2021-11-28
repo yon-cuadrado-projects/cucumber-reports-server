@@ -3,21 +3,21 @@
       "mongoDbOptions":{
         "bufferCommands": false
       },
+      "dbHost": "localhost",
+      "dbName": "test-multiple-cucumber-html-reports-server",
+      "dbPort": 27017,
       "collections": {
         "features": "Features",
         "outputs": "Outputs",
         "reports": "Reports",
         "scenarios": "Scenarios",
         "steps": "Steps"
-      },
-      "dbHost": "localhost",
-      "dbName": "test-multiple-cucumber-html-reports-server",
-      "dbPort": 27017
+      }
     },
     "reportDisplay":{
+      "showExecutionTime": true,
       "navigateToFeatureIfThereIsOnlyOne": true,
       "openReportInBrowser": true,
-      "showExecutionTime": true,
       "theme": "light",
       "useCDN": false
     },
