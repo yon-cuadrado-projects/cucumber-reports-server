@@ -45,7 +45,7 @@ class ApplicationPropertiesValidation {
   public initializeServerDisplayConfiguration ( parameters: ServerDisplayProperties | undefined ): ServerDisplayProperties{
     return{
       port: parameters?.port ?? 3100,
-      theme: parameters?.theme === 'dark' || parameters?.theme === 'light' ? parameters.theme : 'dark',
+      theme: parameters?.theme === 'Dark' || parameters?.theme === 'Light' ? parameters.theme : 'Dark',
       useCDN: typeof parameters?.useCDN === 'undefined' ? false : parameters.useCDN
     };
   }

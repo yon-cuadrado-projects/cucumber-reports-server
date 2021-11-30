@@ -42,13 +42,13 @@
             <link rel="stylesheet" type="text/css" href="resources/Responsive-2.2.9/responsive.bootstrap5.css" />
             <link rel="stylesheet" type="text/css" href="resources/Scroller-2.0.5/scroller.bootstrap5.css" />
             <link rel="stylesheet" type="text/css" href="resources/Select-1.3.3/select.dataTables.css" />
-            <%}%>
-                <!-- Theme Style -->
-                <% if(config.serverDisplay.theme==="light" ){%>
-                    <link rel="stylesheet" type="text/css" href="resources/css/style-light-theme.css">
-                    <%} else if(config.serverDisplay.theme==="dark" ){%>
-                        <link rel="stylesheet" type="text/css" href="resources/css/style-dark-theme.css">
-                        <%}%>
+        <%}%>
+        <!-- Theme Style -->
+        <% if(config.serverDisplay.theme === "Light" ){%>
+            <link rel="stylesheet" type="text/css" href="resources/css/style-light-theme.css">
+        <%} else if(config.serverDisplay.theme === "Dark" ){%>
+            <link rel="stylesheet" type="text/css" href="resources/css/style-dark-theme.css">
+        <%}%>
 </head>
 
 <body>
@@ -107,7 +107,7 @@
             <script type="text/javascript" src="resources/Responsive-2.2.9/dataTables.responsive.js"></script>
             <script type="text/javascript" src="resources/Scroller-2.0.5/dataTables.scroller.js"></script>
             <script type="text/javascript" src="resources/Select-1.3.3/dataTables.select.js"></script>
-            <%}%>
+        <%}%>
                 <script type="text/javascript">
                     var mongoDbResultsTable;
                     var getSelectedRowsIds = () => {
@@ -153,31 +153,31 @@
                             ],
                             columnDefs: [
                                 {
-                                    orderable: false, className: 'select-checkbox', "targets": 0
+                                    orderable: false, className: 'select-checkbox', targets: 0, style: "color: #73879C !important"
                                 },
                                 {
-                                    "title": "Id",
-                                    "targets": 1
+                                    title: "Id",
+                                    targets: 1
                                 },
                                 {
-                                    "title": "Report Title", "targets": 2
+                                    title: "Report Title", targets: 2
                                 },
                                 {
-                                    "title": "Execution Result", "targets": 3,
-                                    "render": function (data, type, row) {
+                                    title: "Execution Result", targets: 3,
+                                    render: function (data, type, row) {
                                         var output = "";
                                         data.forEach((value, index) => {
                                             output += `<i class="fa fa-${value.icon} fa-fw" data-bs-toggle="tooltip" data-placement="top" title="${value.status.toString()}"></i>`
                                         });
                                         return output;
                                     },
-                                    "createdCell": function (td, cellData, rowData, row, col) {
+                                    createdCell: function (td, cellData, rowData, row, col) {
                                         $(td).addClass('text-center')
                                     }
                                 },
                                 {
-                                    "title": "Execution Date",
-                                    "targets": 4
+                                    title: "Execution Date",
+                                    targets: 4
                                 }
                             ],
                             retrieve: true,
