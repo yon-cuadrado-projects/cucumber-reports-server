@@ -24,10 +24,10 @@ export default class MongooseQueries {
    */
   public async getAllTheElementsOrderedAndFiltered(
     orderValue: string,
-    orderDirection: number,
+    orderDirection: -1 | 1 | { $meta: 'textScore' },
     filterValue: string,
   ): Promise<Models.Reports[]> {
-    const sortObj: Record<string, number> = this.getOrderObject( orderValue, orderDirection );
+    const sortObj: Record<string, -1 | 1 | { $meta: 'textScore' }> = this.getOrderObject( orderValue, orderDirection );
 
     const parsedFilterValue = filterValue ? filterValue.replace( /[-[\]{}()*+?.,\\/^$|#\s]/gu, '\\$&' ) : 'undefined';
     if ( typeof parsedFilterValue !== 'undefined' && parsedFilterValue.includes( 'feature:' ) ) {
@@ -81,29 +81,30 @@ export default class MongooseQueries {
       .map( element => element.scenarioId );
   }
 
-  public async getReportsData( sortOption: Record<string, number> ,ids?: ObjectID[] ): Promise<Models.Reports[]>{
+  public async getReportsData( sortOption: Record<string, -1 | 1 | { $meta: 'textScore' }> ,ids?: ObjectID[] ): Promise<Models.Reports[]>{
     const filter: FilterQuery<Models.ExtendedReport> = ids ? { '_id': { $in: ids } }: {};
     return this.models.reportModel
       .aggregate( [
         { $match: filter },
         { $sort: sortOption },
-        { $project: { reportTitle: '$reportTitle', result: '$results.overview.result', date: '$results.overview.date', _id: '$_id', resultsJoined: '$results.overview.resultStatusesJoined' } },
+        { $project: { reportTitle: '$reportTitle', result: '$results.overview.result', date: '$results.overview.date', resultsJoined: '$results.overview.resultStatusesJoined' } },
       ] );
   }
 
   public async getReportById( id: ObjectID | string ): Promise<Models.ExtendedReport | null> {
     const oId: ObjectID = typeof id === 'string' ? new mongo.ObjectId( id ) : id;
-    const report = <Models.ExtendedReport>( await this.models.reportModel.findById( { _id: oId } )
-      .populate( { options: { sort: { '_id': 1 } }, path: 'features' ,
-                   populate : { options: { sort: { '_id': 1 } }, path: 'elements' ,
-                                populate: { options: { sort: { '_id': 1 } },path: 'steps', select: '-_id' }, select: '-_id' },select: '-_id' } )
-    )?.toJSON( { versionKey: false,virtuals: true } );
+    const databaseResults =  await this.models.reportModel.findById( { _id: oId } );
 
-    if( typeof report === 'undefined' ){
+    if( !databaseResults ){
       console.log( ConsoleMessages.reportNotFound( oId ) );
       return null;
     }
 
+    const report = <Models.ExtendedReport>( await databaseResults.populate( { options: { sort: { '_id': 1 } }, path: 'features' ,
+                                                                              populate : { options: { sort: { '_id': 1 } }, path: 'elements' ,
+                                                                                           populate: { options: { sort: { '_id': 1 } },path: 'steps', select: '-_id' }, select: '-_id' },select: '-_id' } ) )
+      .toJSON( { versionKey: false,virtuals: true } );
+    
     report.features = report.features.map( feature => {
       feature.elements = ( feature.elements! ).map( scenario => {
         if( scenario.before?.steps.length ){
@@ -204,8 +205,8 @@ export default class MongooseQueries {
     return step;
   }
 
-  private getOrderObject( orderValue: string, orderDirection: number ): Record<string, number>{
-    const sortObj: Record<string, number> = {};
+  private getOrderObject( orderValue: string, orderDirection: -1 | 1 | { $meta: 'textScore' } ): Record<string, -1 | 1 | { $meta: 'textScore' }>{
+    const sortObj: Record<string, -1 | 1 | { $meta: 'textScore' }> = {};
     switch( orderValue ){
     case 'title':
       sortObj.reportTitle = orderDirection;

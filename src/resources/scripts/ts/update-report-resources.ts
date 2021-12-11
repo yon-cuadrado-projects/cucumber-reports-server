@@ -3,7 +3,7 @@ import { CommonFunctions, dependencyModificationFunctions } from 'cucumber-html-
 import type { Models } from 'cucumber-html-report-generator';
 const resourcesData =  '../configuration/resources-data.json';
 const resourcesFolder = path.join( __dirname,'../../../resources/dependencies' );
-const indexEjsFile = path.join( __dirname,'../../lib/server/views/index.ejs' );
+const indexEjsFile = path.join( __dirname,'../../../lib/server/views/index.ejs' );
 
 const updateResourcesProperties = async ( ): Promise<void> =>{
   const configurationData = await CommonFunctions.readJsonFile<Models.ResourceProperties[]>( path.join( __dirname, resourcesData ) );

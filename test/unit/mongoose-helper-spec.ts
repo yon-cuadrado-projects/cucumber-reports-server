@@ -27,7 +27,7 @@ describe( 'mongoose-helper', () => {
       scenarios: 'Scenarios',
       steps: 'Steps',
     },
-    dbHost: 'localhost',
+    dbHost: '127.0.0.1',
     dbName: 'test-multiple-cucumber-html-reports-mongoose',
     dbPort: 27017,
   };
