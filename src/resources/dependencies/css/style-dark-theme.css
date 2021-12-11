@@ -59,3 +59,10 @@ td{
 td:before{
     border: 1px solid #73879C !important;
 }
+
+button:disabled,
+button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}

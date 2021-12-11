@@ -123,56 +123,101 @@ With this parameter is possible to define the folder where the report obtained f
 
 The theme parameter allows to define the theme of the server. There are two options 'dark', for dark theme and 'light', for a light theme
 
-#### `showExecutionTime`
+#### `useCDN`
 - **Type:** `Boolean`
 - **Mandatory:** No
 - **DefaultValue:** False
 
+With this parameter you can decide if the resources used to display the html will be local resources or obtained from a cdn.
 
 ### - mongoDb
 
-#### `showExecutionTime`
+#### `mongoDbOptions`
 - **Type:** `Boolean`
 - **Mandatory:** No
-- **DefaultValue:** False
+- **DefaultValue:** undefined
+
+This parameter has the ConnectOptions of mongoose.
 
 #### `showExecutionTime`
 - **Type:** `Boolean`
 - **Mandatory:** No
 - **DefaultValue:** False
 
-#### `showExecutionTime`
-- **Type:** `Boolean`
-- **Mandatory:** No
-- **DefaultValue:** False
+#### `dbName`
+- **Type:** `String`
+- **Mandatory:** Yes
 
-#### `showExecutionTime`
-- **Type:** `Boolean`
-- **Mandatory:** No
-- **DefaultValue:** False
+This is the name of the database that will be created by mongoose
 
-#### `showExecutionTime`
-- **Type:** `Boolean`
+#### `dbHost`
+- **Type:** `String`
+- **Mandatory:** Yes
+
+It has the host part of the url that is used to connect to the mongoose database.
+
+#### `dbPort`
+- **Type:** `String`
+- **Mandatory:** Yes
+
+It has the port part of the url that is used to connect to the mongoose database.
+
+#### `collections.reports`
+- **Type:** `String`
 - **Mandatory:** No
-- **DefaultValue:** False
+- **DefaultValue:** Reports
+
+This parameter value has the name of the Reports collection.
+
+#### `collections.outputs`
+- **Type:** `String`
+- **Mandatory:** No
+- **DefaultValue:** Outputs
+
+This parameter value has the name of the Outputs collection.
+
+#### `collections.reports`
+- **Type:** `String`
+- **Mandatory:** No
+- **DefaultValue:** Reports
+
+This parameter value has the name of the Reports collection.
+
+#### `collections.scenarios`
+- **Type:** `String`
+- **Mandatory:** No
+- **DefaultValue:** Scenarios
+
+This parameter value has the name of the Scenarios collection.
+
+#### `collections.scenarios`
+- **Type:** `String`
+- **Mandatory:** No
+- **DefaultValue:** Steps
+
+This parameter value has the name of the Steps collection.
 
 ### serverDisplay
 
-#### `showExecutionTime`
+#### `port`
+- **Type:** `number`
+- **Mandatory:** Yes
+
+It has the port that will be used to start the server.
+
+#### `theme`
+- **Type:** `String`
+- **Mandatory:** No
+- **DefaultValue:** Dark
+
+This parameter defines the theme that is going to be used by the server. There are two options: Dark and Light.
+
+#### `useCDN`
 - **Type:** `Boolean`
 - **Mandatory:** No
 - **DefaultValue:** False
 
-#### `showExecutionTime`
-- **Type:** `Boolean`
-- **Mandatory:** No
-- **DefaultValue:** False
-
-#### `showExecutionTime`
-- **Type:** `Boolean`
-- **Mandatory:** No
-- **DefaultValue:** False
-  
+With this parameter is controlled if the server is going to use local resources to render the html or if the reources will be from a cdn.
 
 ## Changelog and Releases
 The Changelog and releases can be found [here](https://github.com/wswebcreation/multiple-cucumber-html-reporter/releases)

@@ -18,12 +18,12 @@
       "showExecutionTime": true,
       "navigateToFeatureIfThereIsOnlyOne": true,
       "openReportInBrowser": true,
-      "theme": "Light",
+      "theme": "Dark",
       "useCDN": false
     },
     "serverDisplay":{
       "port": 3000,
-      "theme": "Light",
+      "theme": "Dark",
       "useCDN": false
     }
   }
