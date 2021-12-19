@@ -24,7 +24,12 @@ npm install cucumber-html-reports-server --save
 npm install cucumber-html-reports-server --save-dev
 ```
 
+[Install mongodb in your computer ](https://docs.mongodb.com/manual/installation/)
+
 ## Start
+
+To start the server is only necessary to execute an script. This script receives an optional parameter that is the configuration file.
+
 ### Linux
 ``` bash
 ./src/scripts/startServer.sh configurartion-file.json
@@ -34,7 +39,7 @@ npm install cucumber-html-reports-server --save-dev
 ./src/scripts/startServer.ps1 configurartion-file.json
 ```
 
-### configurartion-file.json
+### configuration-file.json
 The default configuration file is the file src/scripts/configuration/serverConfiguration.json. It contains a set of minimal properties that are needed to start the server. Below is the list of all the possible properties that can be used.
 
 ```typescript
@@ -220,7 +225,7 @@ This parameter defines the theme that is going to be used by the server. There a
 With this parameter is controlled if the server is going to use local resources to render the html or if the reources will be from a cdn.
 
 ## Changelog and Releases
-The Changelog and releases can be found [here](https://github.com/wswebcreation/multiple-cucumber-html-reporter/releases)
+The Changelog and releases can be found [here](https://github.com/yon-cuadrado-projects/cucumber-reports-server/releases)
 
 ## Contributing
 How to contribute can be found [here](./docs/CONTRIBUTING.md)
