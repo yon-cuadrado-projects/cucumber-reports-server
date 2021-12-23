@@ -30,7 +30,7 @@
     "update-report-resources": "ts-node -r tsconfig-paths/register -r ts-node/register/transpile-only ./src/resources/scripts/ts/update-report-resources.ts",
     "update-app": "npm run-script update-package-json-dependencies && npm run-script update-report-resources",
     "start:server": "run-script-os",
-    "start:server:windows": "./src/scripts/startServer.ps1",
+    "start:server:windows": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./src/scripts/startServer.ps1",
     "start:server:linux": "./src/scripts/startServer.sh",
     "release": "release-it --github.release",
     "release.ci": "npm run release -- --ci --npm.skipChecks --no-git.requireCleanWorkingDir",

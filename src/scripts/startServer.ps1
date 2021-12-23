@@ -6,7 +6,7 @@ function startServer()
     {
         & npm i
     }
-    & npx ts-node -r tsconfig-paths/register -T .\src\scripts\startServer.ts
+    & npx ts-node -r tsconfig-paths/register -T .\src\scripts\ts\startServer.ts "$args[0]"
 }
 
 startServer
