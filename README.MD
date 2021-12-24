@@ -224,6 +224,18 @@ This parameter defines the theme that is going to be used by the server. There a
 
 With this parameter is controlled if the server is going to use local resources to render the html or if the reources will be from a cdn.
 
+## Server functionalities
+![Snapshot - Reports light theme](./docs/images/report-light-theme.jpg "Snapshot - Reports light theme")
+
+
+### View existing reports
+Click on the checkbox at the begining of one or multiple rows and click on the view button. After that the reports html will be gnerated as it is defined in the configuration options.
+
+### Insert a new report
+Click on the insert button and select an existing report that you want to insert into the database. After that the report will be inserted into the database and it will appear in the list.
+### Delete an existing report
+Click on the checkbox at the begining of one or multiple rows and click on the delete button. After that the reports will be deleted.
+
 ## Changelog and Releases
 The Changelog and releases can be found [here](https://github.com/yon-cuadrado-projects/cucumber-reports-server/releases)
 
