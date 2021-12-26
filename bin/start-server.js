@@ -1,4 +1,7 @@
 #!/usr/bin/env node
-
-const shell = require('shelljs')
-shell.exec(`npm run-script start:server`)
+const path = require('path');
+const shell = require('shelljs');
+const scriptName = path.basename( __filename );
+const rootPath = path.join( path.dirname( require.resolve( `./${scriptName}` ) ), '../' );
+console.log(`project path: ${rootPath}`);
+shell.exec(`npm run-script --prefix ${rootPath} start:server`); 

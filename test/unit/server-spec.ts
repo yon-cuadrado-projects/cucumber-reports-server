@@ -1,3 +1,4 @@
+import * as fs from 'fs';
 import * as path from 'path';
 import type { MongoDbConfiguration, ServerDisplayProperties, ServerProperties } from '../../src/lib/models/common/application-properties';
 import { CommonFunctions } from 'cucumber-html-report-generator';
@@ -47,6 +48,10 @@ describe( 'server.ts', () => {
   
   before( async () =>{
     reportSaved = ( await CommonFunctions.readJsonFile<Models.ExtendedReport>( jsonFile ) )!;    
+    const dir = path.resolve( process.cwd(), '.tmp' );
+    if ( !fs.existsSync( dir ) ){
+      fs.mkdirSync( dir );
+    }
   } );
   
   describe( 'Happy flows', () => {
