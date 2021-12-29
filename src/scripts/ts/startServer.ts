@@ -7,9 +7,11 @@ export class StartServer{
   public startServer(  ): void{
     const args = process.argv.slice( 0 );
     let config = <ServerProperties>{};
-    if( args.length > 1 ){
-      console.log( `provided parameters file: ${args[2]}` );
-      config = <ServerProperties>fse.readJSONSync( args[2] );
+    console.log(`parameter1: ${args[0]} parameter2: ${args[1]} parameter3: "${process.argv[2]}"`)
+    const filePath = process.argv[2]
+    if( args.length > 1 && filePath ){
+      console.log( `provided parameters file: "${filePath}"` );
+      config = <ServerProperties>fse.readJSONSync( filePath );
     }else{
       console.log( 'The script will use the configuration file ./src/scripts/configuration/serverConfiguration.json' );
       config = <ServerProperties>fse.readJSONSync( path.resolve( process.cwd(), './src/scripts/configuration/serverConfiguration.json' ) );
