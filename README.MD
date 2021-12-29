@@ -11,18 +11,12 @@ This project provides a web interface where you can manage the reports added wit
 ![Snapshot - Reports dark theme](./docs/images/report-dark-theme.jpg "Snapshot - Reports dark theme")
 
 ## Install
-Install this module locally with the following command:
+Install this module globally with the following command:
 
 ``` bash
-npm install cucumber-html-reports-server
+npm install -g cucumber-html-reports-server
 ```
 
-Save to dependencies or dev-dependencies:
-
-``` bash
-npm install cucumber-html-reports-server --save
-npm install cucumber-html-reports-server --save-dev
-```
 
 [Install mongodb in your computer ](https://docs.mongodb.com/manual/installation/)
 
@@ -32,15 +26,15 @@ To start the server is only necessary to execute an script. This script receives
 
 ### Linux
 ``` bash
-./src/scripts/startServer.sh configurartion-file.json
+startServer configurartion-file.json
 ```
 ### Windows
 ```powershell
-./src/scripts/startServer.ps1 configurartion-file.json
+startServer configurartion-file.json
 ```
 
 ### configuration-file.json
-The default configuration file is the file src/scripts/configuration/serverConfiguration.json. It contains a set of minimal properties that are needed to start the server. Below is the list of all the possible properties that can be used.
+The default configuration file is the file src/scripts/configuration/serverConfiguration.json and it is used if none is provided. It contains a set of minimal properties that are needed to start the server. Below is the list of all the possible properties that can be used.
 
 ```typescript
   reportDisplay: {

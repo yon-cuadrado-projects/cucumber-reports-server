@@ -5,11 +5,13 @@ import type { ServerProperties } from '../../lib/models/common/application-prope
 
 export class StartServer{ 
   public startServer(  ): void{
-    const args = process.argv.slice( 2 );
+    const args = process.argv.slice( 0 );
     let config = <ServerProperties>{};
     if( args.length > 1 ){
-      config = <ServerProperties>fse.readJSONSync( args[0] );
+      console.log( `provided parameters file: ${args[2]}` );
+      config = <ServerProperties>fse.readJSONSync( args[2] );
     }else{
+      console.log( 'The script will use the configuration file ./src/scripts/configuration/serverConfiguration.json' );
       config = <ServerProperties>fse.readJSONSync( path.resolve( process.cwd(), './src/scripts/configuration/serverConfiguration.json' ) );
     }
     const server = new Server( config );
