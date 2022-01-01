@@ -31,8 +31,7 @@ export class Server {
     this.app.set( 'views', path.join( __dirname, 'views' ) );
     this.app.set( 'view engine', 'ejs' );
     this.app.use( express.urlencoded( { extended: true, limit: '50mb', parameterLimit: 50000 } ) );
-    this.app.use( express.json( { limit: '50mb' } ) );
-
+    this.app.use( express.json( { limit: '250mb' } ) );
     this.app.get( '/', ( req, res: Response ): void => {
       res.render( 'index', {  config: this.serverConfiguration } );
     } );

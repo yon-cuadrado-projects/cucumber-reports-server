@@ -7,7 +7,6 @@ export class StartServer{
   public startServer(  ): void{
     const args = process.argv.slice( 0 );
     let config = <ServerProperties>{};
-    console.log( `parameter1: ${args[0]} parameter2: ${args[1]} parameter3: "${process.argv[2]}"` );
     const filePath = process.argv[2];
     if( args.length > 1 && filePath ){
       console.log( `provided parameters file: "${filePath}"` );
