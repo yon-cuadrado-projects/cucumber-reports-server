@@ -24,12 +24,7 @@ npm install -g cucumber-html-reports-server
 
 To start the server is only necessary to execute an script. This script receives an optional parameter that is the configuration file.
 
-### Linux
 ``` bash
-startServer configurartion-file.json
-```
-### Windows
-```powershell
 startServer configurartion-file.json
 ```
 
