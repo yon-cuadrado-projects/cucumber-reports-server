@@ -2,12 +2,12 @@
     {
         "name": "axios",
         "cdn": "cdnjs",
-        "version": "0.24.0",
+        "version": "0.25.0",
         "files": [
             {
                 "name": "axios.min.js",
-                "url": "https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js",
-                "path": "resources/axios-0.24.0/axios.min.js"
+                "url": "https://cdnjs.cloudflare.com/ajax/libs/axios/0.25.0/axios.min.js",
+                "path": "resources/axios-0.25.0/axios.min.js"
             }
         ]
     },
@@ -109,49 +109,49 @@
     {
         "name": "DataTables",
         "cdn": "datatables",
-        "version": "1.11.3",
+        "version": "1.11.4",
         "files": [
             {
                 "name": "dataTables.bootstrap5.min.js",
-                "url": "https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js",
-                "path": "resources/DataTables-1.11.3/dataTables.bootstrap5.min.js"
+                "url": "https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js",
+                "path": "resources/DataTables-1.11.4/dataTables.bootstrap5.min.js"
             },
             {
                 "name": "jquery.dataTables.min.js",
-                "url": "https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js",
-                "path": "resources/DataTables-1.11.3/jquery.dataTables.min.js"
+                "url": "https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js",
+                "path": "resources/DataTables-1.11.4/jquery.dataTables.min.js"
             },
             {
                 "name": "dataTables.bootstrap5.min.css",
-                "url": "https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css",
-                "path": "resources/DataTables-1.11.3/dataTables.bootstrap5.min.css"
+                "url": "https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css",
+                "path": "resources/DataTables-1.11.4/dataTables.bootstrap5.min.css"
             }
         ]
     },
     {
         "name": "Buttons",
         "cdn": "datatables",
-        "version": "2.1.1",
+        "version": "2.2.2",
         "files": [
             {
                 "name": "dataTables.buttons.js",
-                "url": "https://cdn.datatables.net/buttons/2.1.1/js/dataTables.buttons.js",
-                "path": "resources/buttons-2.1.1/dataTables.buttons.js"
+                "url": "https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.js",
+                "path": "resources/buttons-2.2.2/dataTables.buttons.js"
             },
             {
                 "name": "buttons.bootstrap5.js",
-                "url": "https://cdn.datatables.net/buttons/2.1.1/js/buttons.bootstrap5.js",
-                "path": "resources/buttons-2.1.1/dataTables.bootstrap5.min.js"
+                "url": "https://cdn.datatables.net/buttons/2.2.2/js/buttons.bootstrap5.js",
+                "path": "resources/buttons-2.2.2/dataTables.bootstrap5.min.js"
             },
             {
                 "name": "buttons.colVis.js",
-                "url": "https://cdn.datatables.net/buttons/2.1.1/js/buttons.colVis.js",
-                "path": "resources/buttons-2.1.1/buttons.colVis.js"
+                "url": "https://cdn.datatables.net/buttons/2.2.2/js/buttons.colVis.js",
+                "path": "resources/buttons-2.2.2/buttons.colVis.js"
             },
             {
                 "name": "buttons.bootstrap5.css",
-                "url": "https://cdn.datatables.net/buttons/2.1.1/css/buttons.bootstrap5.css",
-                "path": "resources/buttons-2.1.1/buttons.bootstrap5.css"
+                "url": "https://cdn.datatables.net/buttons/2.2.2/css/buttons.bootstrap5.css",
+                "path": "resources/buttons-2.2.2/buttons.bootstrap5.css"
             }
         ]
     },
