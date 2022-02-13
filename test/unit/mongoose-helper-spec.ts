@@ -291,13 +291,14 @@ describe( 'mongoose-helper', () => {
       expect( consoleStub.calledWith( ConsoleMessages.reportNotFound( oId ) ) ).to.be.true;
       consoleStub.restore();
     } );
+    
     it( 'returns an error when it cannot connect', async () => {
     // Given
       mongooseHelper.mongodbConfiguration.dbPort = 25;
 
       // When
       mongooseHelper.mongodbConfiguration.mongoDbOptions = {
-        serverSelectionTimeoutMS: 1,
+        serverSelectionTimeoutMS: 2,
         socketTimeoutMS: 0
       };
 
