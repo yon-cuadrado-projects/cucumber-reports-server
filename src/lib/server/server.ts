@@ -36,7 +36,7 @@ export class Server {
       res.render( 'index', {  config: this.serverConfiguration } );
     } );
 
-    this.app.get( '/mongo/get/datatable', async ( req: Request<ParamsDictionary, unknown, unknown, QueryString.ParsedQs>, res: Response ) => {
+    this.app.get( '/mongo/get/datatable', async ( req: Request<ParamsDictionary, unknown, unknown>, res: Response ) => {
       const orderColumnNumber = <QueryString.ParsedQs[]>req.query.order;
       const columnArray = <QueryString.ParsedQs>req.query.columns;
       const orderColumnName = ( <QueryString.ParsedQs>( columnArray[<string>( orderColumnNumber[0] ).column] ) ).data;
