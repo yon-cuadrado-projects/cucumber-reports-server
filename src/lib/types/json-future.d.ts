@@ -1,7 +1,9 @@
 declare module 'json-future' {
   import type * as loadJsonFile from 'load-json-file';
   type JSONPrimitive = boolean | number | string | null;
-  interface JSONObject { [k: string]: JSONValue }
+  interface JSONObject {
+    [k: string]: JSONValue;
+  }
   type JSONValue = JSONArray | JSONObject | JSONPrimitive;
   type JSONArray = JSONValue[];
   import type * as writeJsonFile from 'write-json-file';

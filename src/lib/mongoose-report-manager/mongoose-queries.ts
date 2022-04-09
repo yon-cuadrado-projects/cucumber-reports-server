@@ -9,7 +9,7 @@ import { mongo } from 'mongoose';
 export default class MongooseQueries {
   public models: MongooseModels;
 
-  public constructor( mongooseModels: MongooseModels ) {
+  public constructor ( mongooseModels: MongooseModels ) {
     this.models = mongooseModels;
   }
 
@@ -22,7 +22,7 @@ export default class MongooseQueries {
    * if the value of the search is step:some_text, then the database is going filtered by the reports with steps with name some_text
    * @private
    */
-  public async getAllTheElementsOrderedAndFiltered(
+  public async getAllTheElementsOrderedAndFiltered (
     orderValue: string,
     orderDirection: -1 | 1 | { $meta: 'textScore' },
     filterValue: string,
@@ -35,12 +35,12 @@ export default class MongooseQueries {
       return this.getReportsData( sortObj, ids );
     } else if ( typeof parsedFilterValue !== 'undefined' && parsedFilterValue.includes( 'scenario:' ) ) {
       const featureIds = await this.getFeatureIDs( parsedFilterValue );
-      const ids = await this.getReportIDs( '',featureIds );
+      const ids = await this.getReportIDs( '', featureIds );
       return this.getReportsData( sortObj, ids );
     } else if ( typeof parsedFilterValue !== 'undefined' && parsedFilterValue.includes( 'step:' ) ) {
       const scenariosId = await this.getScenarioIDs( parsedFilterValue );
       const featuresIds = await this.getFeatureIDs( '', scenariosId );
-      const ids = await this.getReportIDs( '',featuresIds );
+      const ids = await this.getReportIDs( '', featuresIds );
       return this.getReportsData( sortObj, ids );
     }
     // return this.getReportsData( sortObj );
@@ -48,72 +48,111 @@ export default class MongooseQueries {
     return reports;
   }
 
-  public async getFeatureIDs( filterValue: string, scenariosId?: ObjectID[] ): Promise<ObjectID[]>{
+  public async getFeatureIDs ( filterValue: string, scenariosId?: ObjectID[] ): Promise<ObjectID[]> {
     /* istanbul ignore else */
-    if( filterValue.includes( 'scenario:' ) ){
-      return <ObjectID[]>( await this.models.scenarioModel.find( { name: { $regex: `${filterValue.replace( 'scenario:', '' )}` } } , { featureId: 1 } ) )
-        .map( element => element.featureId );
-    }else if( scenariosId?.length ) {
-      return <ObjectID[]>( await this.models.scenarioModel.find().select( { featureId:1 } ) .where( '_id' ).in( scenariosId ) )
-        .map( element => element.featureId );
+    if ( filterValue.includes( 'scenario:' ) ) {
+      return <ObjectID[]>(
+        (
+          await this.models.scenarioModel.find(
+            { name: { $regex: `${filterValue.replace( 'scenario:', '' )}` } },
+            { featureId: 1 },
+          )
+        ).map( ( element ) => element.featureId )
+      );
+    } else if ( scenariosId?.length ) {
+      return <ObjectID[]>(
+        ( await this.models.scenarioModel.find().select( { featureId: 1 } ).where( '_id' ).in( scenariosId ) ).map(
+          ( element ) => element.featureId,
+        )
+      );
     }
     /* istanbul ignore next */
-    return <ObjectID[]>( await this.models.scenarioModel.find().select( { featureId:1 } ) )
-      .map( element => element.featureId );
-
+    return <ObjectID[]>(
+      ( await this.models.scenarioModel.find().select( { featureId: 1 } ) ).map( ( element ) => element.featureId )
+    );
   }
 
-  public async getReportIDs( filterValue: string, featureIds?: ObjectID[] ): Promise<ObjectID[]>{
+  public async getReportIDs ( filterValue: string, featureIds?: ObjectID[] ): Promise<ObjectID[]> {
     /* istanbul ignore else */
-    if( filterValue.includes( 'feature:' ) ){
-      return <ObjectID[]>( await this.models.featureModel.find( { name: { $regex: `${filterValue.replace( 'feature:', '' )}` } } , { reportId : 1 } ) )
-        .map( element => element.reportId );
-    }else if ( featureIds ){
-      return <ObjectID[]>( await this.models.featureModel.find().select( { reportId: 1 } ).where( '_id' ).in( featureIds ) )
-        .map( element => element.reportId );
+    if ( filterValue.includes( 'feature:' ) ) {
+      return <ObjectID[]>(
+        (
+          await this.models.featureModel.find(
+            { name: { $regex: `${filterValue.replace( 'feature:', '' )}` } },
+            { reportId: 1 },
+          )
+        ).map( ( element ) => element.reportId )
+      );
+    } else if ( featureIds ) {
+      return <ObjectID[]>(
+        ( await this.models.featureModel.find().select( { reportId: 1 } ).where( '_id' ).in( featureIds ) ).map(
+          ( element ) => element.reportId,
+        )
+      );
     }
     /* istanbul ignore next */
-    return <ObjectID[]>( await this.models.featureModel.find() ).map( element => element.reportId );
+    return <ObjectID[]>( await this.models.featureModel.find() ).map( ( element ) => element.reportId );
   }
 
-  public async getScenarioIDs( filterValue: string ): Promise<ObjectID[]>{
-    return <ObjectID[]>( await this.models.stepModel.find( { name: { $regex: filterValue.replace( 'step:', '' ) } } , { scenarioId : 1 } ) )
-      .map( element => element.scenarioId );
+  public async getScenarioIDs ( filterValue: string ): Promise<ObjectID[]> {
+    return <ObjectID[]>(
+      ( await this.models.stepModel.find( { name: { $regex: filterValue.replace( 'step:', '' ) } }, { scenarioId: 1 } ) ).map(
+        ( element ) => element.scenarioId,
+      )
+    );
   }
 
-  public async getReportsData( sortOption: Record<string, -1 | 1 | { $meta: 'textScore' }> ,ids?: ObjectID[] ): Promise<Models.Reports[]>{
-    const filter: FilterQuery<Models.ExtendedReport> = ids ? { '_id': { $in: ids } }: {};
-    return this.models.reportModel
-      .aggregate( [
-        { $match: filter },
-        { $sort: sortOption },
-        { $project: { reportTitle: '$reportTitle', result: '$results.overview.result', date: '$results.overview.date', resultsJoined: '$results.overview.resultStatusesJoined' } },
-      ] );
+  public async getReportsData (
+    sortOption: Record<string, -1 | 1 | { $meta: 'textScore' }>,
+    ids?: ObjectID[],
+  ): Promise<Models.Reports[]> {
+    const filter: FilterQuery<Models.ExtendedReport> = ids ? { _id: { $in: ids } } : {};
+    return this.models.reportModel.aggregate( [
+      { $match: filter },
+      { $sort: sortOption },
+      {
+        $project: {
+          reportTitle: '$reportTitle',
+          result: '$results.overview.result',
+          date: '$results.overview.date',
+          resultsJoined: '$results.overview.resultStatusesJoined'
+        }
+      }
+    ] );
   }
 
-  public async getReportById( id: ObjectID | string ): Promise<Models.ExtendedReport | null> {
+  public async getReportById ( id: ObjectID | string ): Promise<Models.ExtendedReport | null> {
     const oId: ObjectID = typeof id === 'string' ? new mongo.ObjectId( id ) : id;
-    const databaseResults =  await this.models.reportModel.findById( { _id: oId } );
+    const databaseResults = await this.models.reportModel.findById( { _id: oId } );
 
-    if( !databaseResults ){
+    if ( !databaseResults ) {
       console.log( ConsoleMessages.reportNotFound( oId ) );
       return null;
     }
 
-    const report = <Models.ExtendedReport>( await databaseResults.populate( { options: { sort: { '_id': 1 } }, path: 'features' ,
-                                                                              populate : { options: { sort: { '_id': 1 } }, path: 'elements' ,
-                                                                                           populate: { options: { sort: { '_id': 1 } },path: 'steps', select: '-_id' }, select: '-_id' },select: '-_id' } ) )
-      .toJSON( { versionKey: false,virtuals: true } );
-    
-    report.features = report.features.map( feature => {
-      feature.elements = ( feature.elements! ).map( scenario => {
-        if( scenario.before?.steps.length ){
-          scenario.before.steps = scenario.before.steps.map( step => this.removeFieldsFromStep( step ) );
+    const report = <Models.ExtendedReport>(
+      await databaseResults.populate( {
+        options: { sort: { _id: 1 } },
+        path: 'features',
+        populate: {
+          options: { sort: { _id: 1 } },
+          path: 'elements',
+          populate: { options: { sort: { _id: 1 } }, path: 'steps', select: '-_id' },
+          select: '-_id'
+        },
+        select: '-_id'
+      } )
+    ).toJSON( { versionKey: false, virtuals: true } );
+
+    report.features = report.features.map( ( feature ) => {
+      feature.elements = feature.elements!.map( ( scenario ) => {
+        if ( scenario.before?.steps.length ) {
+          scenario.before.steps = scenario.before.steps.map( ( step ) => this.removeFieldsFromStep( step ) );
         }
-        if( scenario.after?.steps.length ){
-          scenario.after.steps = scenario.after.steps.map( step => this.removeFieldsFromStep( step ) );
+        if ( scenario.after?.steps.length ) {
+          scenario.after.steps = scenario.after.steps.map( ( step ) => this.removeFieldsFromStep( step ) );
         }
-        scenario.steps = scenario.steps?.map( step => this.removeFieldsFromStep( step ) );
+        scenario.steps = scenario.steps?.map( ( step ) => this.removeFieldsFromStep( step ) );
         delete scenario.featureId;
         delete scenario._id;
         return scenario;
@@ -121,21 +160,20 @@ export default class MongooseQueries {
       delete feature.reportId;
       delete feature._id;
       return feature;
-    }
-    );
+    } );
     delete report.id;
     delete report._id;
     return report;
   }
 
-  public async isReportInDatabase( id: string ): Promise<boolean>{
+  public async isReportInDatabase ( id: string ): Promise<boolean> {
     const oId = new mongo.ObjectId( id );
 
     const reportsFound = await this.models.reportModel.findById( { _id: oId } );
     return reportsFound !== null;
   }
 
-  public async deleteReportById( id: ObjectID | string ): Promise<number|undefined> {
+  public async deleteReportById ( id: ObjectID | string ): Promise<number | undefined> {
     const oId: ObjectID = typeof id === 'string' ? new mongo.ObjectId( id ) : id;
     const result = await this.models.reportModel.deleteOne( { _id: oId } );
     const features = await this.models.featureModel.find( { reportId: oId } );
@@ -146,22 +184,22 @@ export default class MongooseQueries {
         await Promise.all(
           scenariosLocal.map( async ( scenario ) => {
             await this.models.stepModel.deleteMany( { scenarioId: <ObjectID>scenario._id } );
-          } )
+          } ),
         );
         await this.models.scenarioModel.deleteMany( { featureId: scenariosLocal[0]?.featureId } );
-      } )
+      } ),
     );
     await this.models.featureModel.deleteMany( { reportId: oId } );
-    if( result.deletedCount !== 1 ){
+    if ( result.deletedCount !== 1 ) {
       console.log( ConsoleMessages.reportNotFound( oId ) );
     }
     return result.deletedCount;
   }
 
-  public async insertReport( report: Models.ExtendedReport ): Promise<ObjectID> {
+  public async insertReport ( report: Models.ExtendedReport ): Promise<ObjectID> {
     const mongoReport: Models.ExtendedReport = lodash.cloneDeep( report );
     const features = lodash.cloneDeep( report.features );
-    mongoReport.features = [];    
+    mongoReport.features = [];
     const element = await this.models.reportModel.create( mongoReport );
     await element.save();
 
@@ -178,7 +216,7 @@ export default class MongooseQueries {
     return <ObjectID>element._id;
   }
 
-  private async insertScenarios( scenarios: Models.Scenario[], reportFeaturesId: ObjectID ): Promise<void> {
+  private async insertScenarios ( scenarios: Models.Scenario[], reportFeaturesId: ObjectID ): Promise<void> {
     await Promise.all(
       scenarios.map( async ( scenario ) => {
         scenario.featureId = reportFeaturesId;
@@ -186,28 +224,31 @@ export default class MongooseQueries {
         delete scenario.steps;
         const scenarioDb = await this.models.scenarioModel.create( scenario );
         await this.insertScenarioSteps( scenarioSteps!, <ObjectID>scenarioDb._id );
-      } )
+      } ),
     );
   }
 
-  private async insertScenarioSteps( scenarioSteps: Models.Step[], scenarioStepsId: ObjectID ): Promise<void> {
+  private async insertScenarioSteps ( scenarioSteps: Models.Step[], scenarioStepsId: ObjectID ): Promise<void> {
     await Promise.all(
       scenarioSteps.map( async ( step ) => {
         step.scenarioId = scenarioStepsId;
         await this.models.stepModel.create( step );
-      } )
+      } ),
     );
   }
 
-  private removeFieldsFromStep( step: Models.Step ): Models.Step{
+  private removeFieldsFromStep ( step: Models.Step ): Models.Step {
     delete step.scenarioId;
     delete step._id;
     return step;
   }
 
-  private getOrderObject( orderValue: string, orderDirection: -1 | 1 | { $meta: 'textScore' } ): Record<string, -1 | 1 | { $meta: 'textScore' }>{
+  private getOrderObject (
+    orderValue: string,
+    orderDirection: -1 | 1 | { $meta: 'textScore' },
+  ): Record<string, -1 | 1 | { $meta: 'textScore' }> {
     const sortObj: Record<string, -1 | 1 | { $meta: 'textScore' }> = {};
-    switch( orderValue ){
+    switch ( orderValue ) {
     case 'title':
       sortObj.reportTitle = orderDirection;
       break;
@@ -220,11 +261,11 @@ export default class MongooseQueries {
     case '_id':
       sortObj._id = orderDirection;
       break;
-      
+
     default:
       sortObj['results.overview.date'] = orderDirection;
     }
-      
+
     return sortObj;
   }
 }

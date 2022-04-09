@@ -90,7 +90,9 @@ module.exports = {
                 },
                 "FunctionExpression": {
                     "parameters": "first"
-                }
+                },
+                "MemberExpression": 1,
+                "ImportDeclaration": "first"
             }
         ],
         "@typescript-eslint/member-delimiter-style": [
@@ -158,7 +160,7 @@ module.exports = {
         "object-curly-spacing": ["warn", "always"],
         "array-bracket-spacing": ["warn", "always"],
         "max-classes-per-file": ["error",1],
-        "max-len": ["error",{"ignorePattern": "\\s*from|class [a-zA-Z]+ implements|\\s*\\* |\\s*// ","code": 240}],
+        "max-len": ["error",{"ignorePattern": "\\s*from|class [a-zA-Z]+ implements|\\s*\\* |\\s*// ","code": 140}],
         "no-console": ["error",{
                 "allow": [
                     "log",
@@ -192,6 +194,8 @@ module.exports = {
         "no-underscore-dangle": ["off", {"allow": ["_id", "_model"]}],
         "max-statements": ["error", 21],
         "camelcase": ["error", {allow: ["mime_type", "not_defined", "error_message"]}],
+        "space-before-function-paren": ["error", "always"],
+        "comma-dangle": ["error", "never"],
         "@typescript-eslint/no-non-null-assertion": "off",
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/strict-boolean-expressions": "off",
@@ -218,7 +222,8 @@ module.exports = {
         "new-cap": "off",
         "sort-keys": "off",
         "@typescript-eslint/no-unused-expressions": "off",
-        "chai-friendly/no-unused-expressions": 2        
+        "chai-friendly/no-unused-expressions": 2,
+        "prettier/prettier": ["off"]
     },
     "overrides":[
         {

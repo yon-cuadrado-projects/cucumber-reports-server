@@ -1,5 +1,5 @@
 declare module 'mongoose' {
-  export interface ConnectOptions{
+  export interface ConnectOptions {
     unusedProperty?: string;
   }
 }

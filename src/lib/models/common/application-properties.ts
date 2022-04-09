@@ -1,6 +1,6 @@
 import type mongoose from 'mongoose';
 
-export interface MongoDbConfiguration{
+export interface MongoDbConfiguration {
   mongoDbOptions?: mongoose.ConnectOptions;
   dbName: string;
   dbHost: string;
@@ -14,7 +14,7 @@ export interface MongoDbConfiguration{
   };
 }
 
-export interface ReportDisplay{
+export interface ReportDisplay {
   showExecutionTime?: boolean;
   navigateToFeatureIfThereIsOnlyOne?: boolean;
   openReportInBrowser?: boolean;
@@ -25,13 +25,13 @@ export interface ReportDisplay{
   useCDN?: boolean;
 }
 
-export interface ServerDisplayProperties{
+export interface ServerDisplayProperties {
   port: number;
   theme?: string;
   useCDN?: boolean;
 }
 
-export interface ServerProperties{
+export interface ServerProperties {
   reportDisplay: ReportDisplay;
   mongoDb: MongoDbConfiguration;
   serverDisplay: ServerDisplayProperties;

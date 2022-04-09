@@ -1,36 +1,40 @@
 import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
-import type { MongoDbConfiguration, ServerDisplayProperties, ServerProperties } from '../models/common/application-properties';
+import type { 
+  MongoDbConfiguration,
+  ServerDisplayProperties,
+  ServerProperties 
+} from '../models/common/application-properties';
 import { CommonFunctions } from 'cucumber-html-report-generator';
 import type { Models } from 'cucumber-html-report-generator';
 import moment from 'moment';
 
 class ApplicationPropertiesValidation {
-
-  public checkServerProperties( serverProperties: ServerProperties ): ServerProperties{
+  public checkServerProperties ( serverProperties: ServerProperties ): ServerProperties {
     const localServerProperties = serverProperties;
     return this.initializeServerParameters( localServerProperties );
   }
 
-  public initializeReportDisplayParameters( reportConfigurationParameters: Models.ReportDisplay ): Models.ReportDisplay{
+  public initializeReportDisplayParameters ( reportConfigurationParameters: Models.ReportDisplay ): Models.ReportDisplay {
     const localReportDisplayParameters = reportConfigurationParameters;
-    localReportDisplayParameters.navigateToFeatureIfThereIsOnlyOne = localReportDisplayParameters.navigateToFeatureIfThereIsOnlyOne ?? true;    
-    localReportDisplayParameters.openReportInBrowser = localReportDisplayParameters.openReportInBrowser ?? false;     
-    localReportDisplayParameters.theme = localReportDisplayParameters.theme === 'Dark' ? localReportDisplayParameters.theme : 'Light';
+    localReportDisplayParameters.navigateToFeatureIfThereIsOnlyOne =
+      localReportDisplayParameters.navigateToFeatureIfThereIsOnlyOne ?? true;
+    localReportDisplayParameters.openReportInBrowser = localReportDisplayParameters.openReportInBrowser ?? false;
+    localReportDisplayParameters.theme =
+      localReportDisplayParameters.theme === 'Dark' ? localReportDisplayParameters.theme : 'Light';
 
     const result = CommonFunctions.checkFolder( localReportDisplayParameters.reportPath );
 
     if ( !result ) {
       const date = moment().format( 'YYYY-MM-DD__HH-mm-ss' );
-      localReportDisplayParameters.reportPath = path.join( os.tmpdir(),'cucumber-html-report-generator',date );
+      localReportDisplayParameters.reportPath = path.join( os.tmpdir(), 'cucumber-html-report-generator', date );
       fs.mkdirSync( localReportDisplayParameters.reportPath, { recursive: true } );
     }
     return localReportDisplayParameters;
   }
 
-  public initializeServerParameters( serverParameters: ServerProperties ): ServerProperties{
-       
+  public initializeServerParameters ( serverParameters: ServerProperties ): ServerProperties {
     const reportConfiguration = this.initializeReportDisplayParameters( serverParameters.reportDisplay );
     const mongoDbParameters = this.initializeMongoDbParameters( serverParameters.mongoDb );
     const serverConfiguration = this.initializeServerDisplayConfiguration( serverParameters.serverDisplay );
@@ -42,19 +46,20 @@ class ApplicationPropertiesValidation {
     };
   }
 
-  public initializeServerDisplayConfiguration ( parameters: ServerDisplayProperties | undefined ): ServerDisplayProperties{
-    return{
+  public initializeServerDisplayConfiguration (
+    parameters: ServerDisplayProperties | undefined,
+  ): ServerDisplayProperties {
+    return {
       port: parameters?.port ?? 3100,
       theme: parameters?.theme === 'Dark' || parameters?.theme === 'Light' ? parameters.theme : 'Dark',
       useCDN: typeof parameters?.useCDN === 'undefined' ? false : parameters.useCDN
     };
   }
 
-  public initializeMongoDbParameters( mongoDbParameters: MongoDbConfiguration ): MongoDbConfiguration{
+  public initializeMongoDbParameters ( mongoDbParameters: MongoDbConfiguration ): MongoDbConfiguration {
     const localMongoDbParameters = mongoDbParameters;
-    
-    localMongoDbParameters.collections = localMongoDbParameters.collections ?? 
-    {
+
+    localMongoDbParameters.collections = localMongoDbParameters.collections ?? {
       features: 'Features',
       outputs: 'Outputs',
       reports: 'Reports',

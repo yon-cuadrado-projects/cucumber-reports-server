@@ -19,59 +19,67 @@ export class MongooseHelper {
   private readonly ascendingOrder = -1;
   private readonly descendingOrder = 1;
 
-  public constructor( mongodbConfiguration: MongoDbConfiguration ) {
+  public constructor ( mongodbConfiguration: MongoDbConfiguration ) {
     this.mongodbConfiguration = mongodbConfiguration;
     this.mongooseConnection = new MoongooseConnection( this.mongodbConfiguration );
   }
 
-  public async insertReport( report: Models.ExtendedReport ): Promise<ObjectID> {
-    const models = await this.initalizeModels( );
-    let objectId=<ObjectID>{} ;
-    try{
+  public async insertReport ( report: Models.ExtendedReport ): Promise<ObjectID> {
+    const models = await this.initalizeModels();
+    let objectId = <ObjectID>{};
+    try {
       objectId = await new MongooseQueries( models ).insertReport( report );
-    }catch( err: unknown ){
+    } catch ( err: unknown ) {
       console.log( `error inserting a report ${( <Error>err ).message}` );
     }
     await this.mongooseConnection.close();
     return objectId;
   }
 
-  public async getReportById( id: ObjectID | string ): Promise<Models.ExtendedReport| null> {
-    const models = await this.initalizeModels( );
+  public async getReportById ( id: ObjectID | string ): Promise<Models.ExtendedReport | null> {
+    const models = await this.initalizeModels();
     let report = <Models.ExtendedReport | null>{};
     report = await new MongooseQueries( models ).getReportById( id );
     await this.mongooseConnection.close();
     return report;
   }
 
-  public async getAllTheElementsOrderedAndFiltered( orderValue: string, orderDirection: string, filterValue: string ): Promise<Models.Reports[]> {
+  public async getAllTheElementsOrderedAndFiltered (
+    orderValue: string,
+    orderDirection: string,
+    filterValue: string,
+  ): Promise<Models.Reports[]> {
     const order = orderDirection === 'asc' ? this.descendingOrder : this.ascendingOrder;
-    const models = await this.initalizeModels( );
-    const reports = await new MongooseQueries( models ).getAllTheElementsOrderedAndFiltered( orderValue, order, filterValue );
+    const models = await this.initalizeModels();
+    const reports = await new MongooseQueries( models ).getAllTheElementsOrderedAndFiltered(
+      orderValue,
+      order,
+      filterValue,
+    );
     await this.mongooseConnection.close();
     return reports;
   }
 
-  public async deleteReportById( id: ObjectID | string ): Promise<number> {
-    const models = await this.initalizeModels( );
+  public async deleteReportById ( id: ObjectID | string ): Promise<number> {
+    const models = await this.initalizeModels();
     const result = await new MongooseQueries( models ).deleteReportById( id );
     await this.mongooseConnection.close();
 
     return result!;
   }
 
-  public async getDatabaseSize(): Promise<number>{
+  public async getDatabaseSize (): Promise<number> {
     const databaseSize = await this.mongooseConnection.getDatabaseSize();
     await this.mongooseConnection.close();
     return databaseSize;
   }
 
-  public async isReportInDatabase( reportId: string ): Promise<boolean>{
-    const models = await this.initalizeModels( );
+  public async isReportInDatabase ( reportId: string ): Promise<boolean> {
+    const models = await this.initalizeModels();
     return new MongooseQueries( models ).isReportInDatabase( reportId );
   }
 
-  private async initalizeModels( ): Promise<MongooseModels> {
+  private async initalizeModels (): Promise<MongooseModels> {
     await this.mongooseConnection.connect();
     return {
       featureModel: this.mongooseConnection.activeConnection.model<MFeature>(
@@ -93,7 +101,7 @@ export class MongooseHelper {
         'Step',
         stepSchema,
         this.mongodbConfiguration.collections!.steps,
-      ),
+      )
     };
   }
 }

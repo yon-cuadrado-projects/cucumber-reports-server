@@ -19,23 +19,29 @@ chai.use( chaiAsPromised );
 const { expect } = chai;
 
 describe( 'mongoose-helper', () => {
-  const mongoDb: MongoDbConfiguration ={
+  const mongoDb: MongoDbConfiguration = {
     collections: {
       features: 'Features',
       outputs: 'Outputs',
       reports: 'Reports',
       scenarios: 'Scenarios',
-      steps: 'Steps',
+      steps: 'Steps'
     },
     dbHost: '127.0.0.1',
     dbName: 'test-multiple-cucumber-html-reports-mongoose',
-    dbPort: 27017,
+    dbPort: 27017
   };
 
   const mongooseHelper = new MongooseHelper( mongoDb );
-  const jsonFile1 = path.resolve( process.cwd(), './test/unit/data/enriched-joined-cucumber-jsons/enriched-output1.json' );
+  const jsonFile1 = path.resolve(
+    process.cwd(),
+    './test/unit/data/enriched-joined-cucumber-jsons/enriched-output1.json',
+  );
   const jsonFile2 = path.resolve( process.cwd(), './test/unit/data/enriched-joined-cucumber-jsons/enriched-output.json' );
-  const jsonFileWithErrors = path.resolve( process.cwd(), './test/unit/data/enriched-joined-cucumber-jsons/invalid-report.json' );
+  const jsonFileWithErrors = path.resolve(
+    process.cwd(),
+    './test/unit/data/enriched-joined-cucumber-jsons/invalid-report.json',
+  );
 
   const descendingOrder = 'desc';
   const ascendingOrder = 'asc';
@@ -43,7 +49,7 @@ describe( 'mongoose-helper', () => {
   let reportSaved2 = <Models.ExtendedReport>{};
   let invalidReport = <Models.ExtendedReport>{};
 
-  before( async () =>{
+  before( async () => {
     reportSaved1 = ( await CommonFunctions.readJsonFile( jsonFile1 ) )!;
     reportSaved2 = ( await CommonFunctions.readJsonFile( jsonFile2 ) )!;
     invalidReport = ( await CommonFunctions.readJsonFile( jsonFileWithErrors ) )!;
@@ -78,7 +84,7 @@ describe( 'mongoose-helper', () => {
     } );
 
     it( 'can get a report with id as as string', async () => {
-    // Given
+      // Given
       const id = await mongooseHelper.insertReport( reportSaved2 );
 
       // When
@@ -90,7 +96,7 @@ describe( 'mongoose-helper', () => {
     } );
 
     it( 'can return all the reports filtered by feature name', async () => {
-    // Given
+      // Given
       const id1 = await mongooseHelper.insertReport( reportSaved1 );
       const id2 = await mongooseHelper.insertReport( reportSaved2 );
 
@@ -108,7 +114,7 @@ describe( 'mongoose-helper', () => {
     } );
 
     it( 'can return all the reports filtered by scenario name', async () => {
-    // Given
+      // Given
       const id1 = await mongooseHelper.insertReport( reportSaved1 );
       const id2 = await mongooseHelper.insertReport( reportSaved2 );
 
@@ -126,7 +132,7 @@ describe( 'mongoose-helper', () => {
     } );
 
     it( 'can return all the reports filtered by step name', async () => {
-    // Given
+      // Given
       const id1 = await mongooseHelper.insertReport( reportSaved1 );
       const id2 = await mongooseHelper.insertReport( reportSaved2 );
 
@@ -144,16 +150,20 @@ describe( 'mongoose-helper', () => {
     } );
 
     it( 'can return all the reports ordered by title', async () => {
-    // Given
+      // Given
       const id1 = await mongooseHelper.insertReport( reportSaved1 );
       const id2 = await mongooseHelper.insertReport( reportSaved2 );
 
       // When
-      const resultsAsc = await mongooseHelper.getAllTheElementsOrderedAndFiltered( 'title', ascendingOrder, '', );
-      const resultsDesc = await mongooseHelper.getAllTheElementsOrderedAndFiltered( 'title',descendingOrder,'', );
+      const resultsAsc = await mongooseHelper.getAllTheElementsOrderedAndFiltered( 'title', ascendingOrder, '' );
+      const resultsDesc = await mongooseHelper.getAllTheElementsOrderedAndFiltered( 'title', descendingOrder, '' );
 
-      const resultsOrderedAsc = [ ...resultsAsc ].sort( ( firstReport, secondReport ) => firstReport.title < secondReport.title ? -1 : 1 );
-      const resultsOrderedDesc = [ ...resultsDesc ].sort( ( firstReport, secondReport ) => firstReport.title > secondReport.title ? -1 : 1 );
+      const resultsOrderedAsc = [ ...resultsAsc ].sort( ( firstReport, secondReport ) =>
+        firstReport.title < secondReport.title ? -1 : 1,
+      );
+      const resultsOrderedDesc = [ ...resultsDesc ].sort( ( firstReport, secondReport ) =>
+        firstReport.title > secondReport.title ? -1 : 1,
+      );
 
       // Then
       expect( resultsAsc ).to.be.deep.equal( resultsOrderedAsc );
@@ -163,22 +173,22 @@ describe( 'mongoose-helper', () => {
     } );
 
     it( 'can return all the reports ordered by results.overview.date', async () => {
-    // Given
+      // Given
       const id1 = await mongooseHelper.insertReport( reportSaved1 );
       const id2 = await mongooseHelper.insertReport( reportSaved2 );
 
       // When
-      const resultsAsc = await mongooseHelper.getAllTheElementsOrderedAndFiltered( 'executionDate', descendingOrder, '', );
-      const resultsDesc = await mongooseHelper.getAllTheElementsOrderedAndFiltered( 'executionDate',ascendingOrder, '', );
+      const resultsAsc = await mongooseHelper.getAllTheElementsOrderedAndFiltered( 'executionDate', descendingOrder, '' );
+      const resultsDesc = await mongooseHelper.getAllTheElementsOrderedAndFiltered( 'executionDate', ascendingOrder, '' );
       const resultsOrderedAsc = [ ...resultsAsc ].sort(
         ( firstReport, secondReport ) =>
-          moment( `${firstReport.executionDateTime}`,'MM-DD-YYYY hh:mm:ss' ).toDate().getTime()
-          - moment( `${secondReport.executionDateTime}`,'MM-DD-YYYY hh:mm:ss' ).toDate().getTime(),
+          moment( `${firstReport.executionDateTime}`, 'MM-DD-YYYY hh:mm:ss' ).toDate().getTime() -
+          moment( `${secondReport.executionDateTime}`, 'MM-DD-YYYY hh:mm:ss' ).toDate().getTime(),
       );
       const resultsOrderedDesc = [ ...resultsDesc ].sort(
         ( firstReport, secondReport ) =>
-          moment( `${secondReport.executionDateTime}`,'MM-DD-YYYY hh:mm:ss' ).toDate().getTime()
-          - moment( `${firstReport.executionDateTime}`,'MM-DD-YYYY hh:mm:ss' ).toDate().getTime(),
+          moment( `${secondReport.executionDateTime}`, 'MM-DD-YYYY hh:mm:ss' ).toDate().getTime() -
+          moment( `${firstReport.executionDateTime}`, 'MM-DD-YYYY hh:mm:ss' ).toDate().getTime(),
       );
 
       // Then
@@ -189,16 +199,20 @@ describe( 'mongoose-helper', () => {
     } );
 
     it( 'can return all the reports ordered by id', async () => {
-    // Given
+      // Given
       const id1 = await mongooseHelper.insertReport( reportSaved1 );
       const id2 = await mongooseHelper.insertReport( reportSaved2 );
 
       // When
-      const resultsAsc = await mongooseHelper.getAllTheElementsOrderedAndFiltered( '_id', ascendingOrder, '', );
-      const resultsDesc = await mongooseHelper.getAllTheElementsOrderedAndFiltered( '_id',descendingOrder,'', );
+      const resultsAsc = await mongooseHelper.getAllTheElementsOrderedAndFiltered( '_id', ascendingOrder, '' );
+      const resultsDesc = await mongooseHelper.getAllTheElementsOrderedAndFiltered( '_id', descendingOrder, '' );
 
-      const resultsOrderedAsc = [ ...resultsAsc ].sort( ( firstReport, secondReport ) => firstReport._id > secondReport._id ? 1 : -1 );
-      const resultsOrderedDesc = [ ...resultsDesc ].sort( ( firstReport, secondReport ) => firstReport._id > secondReport._id ? -1 : 1 );
+      const resultsOrderedAsc = [ ...resultsAsc ].sort( ( firstReport, secondReport ) =>
+        firstReport._id > secondReport._id ? 1 : -1,
+      );
+      const resultsOrderedDesc = [ ...resultsDesc ].sort( ( firstReport, secondReport ) =>
+        firstReport._id > secondReport._id ? -1 : 1,
+      );
 
       // Then
       expect( resultsAsc ).to.be.deep.equal( resultsOrderedAsc );
@@ -208,16 +222,20 @@ describe( 'mongoose-helper', () => {
     } );
 
     it( 'can return all the reports ordered by result', async () => {
-    // Given
+      // Given
       const id1 = await mongooseHelper.insertReport( reportSaved1 );
       const id2 = await mongooseHelper.insertReport( reportSaved2 );
 
       // When
-      const resultsAsc = await mongooseHelper.getAllTheElementsOrderedAndFiltered( 'result', ascendingOrder, '', );
-      const resultsDesc = await mongooseHelper.getAllTheElementsOrderedAndFiltered( 'result', descendingOrder, '', );
+      const resultsAsc = await mongooseHelper.getAllTheElementsOrderedAndFiltered( 'result', ascendingOrder, '' );
+      const resultsDesc = await mongooseHelper.getAllTheElementsOrderedAndFiltered( 'result', descendingOrder, '' );
 
-      const resultsOrderedAsc = [ ...resultsAsc ].sort( ( firstReport, secondReport ) => firstReport.resultsJoined > secondReport.resultsJoined ? 1: -1 );
-      const resultsOrderedDesc = [ ...resultsDesc ].sort( ( firstReport, secondReport ) => firstReport.resultsJoined > secondReport.resultsJoined ? -1: 1 );
+      const resultsOrderedAsc = [ ...resultsAsc ].sort( ( firstReport, secondReport ) =>
+        firstReport.resultsJoined > secondReport.resultsJoined ? 1 : -1,
+      );
+      const resultsOrderedDesc = [ ...resultsDesc ].sort( ( firstReport, secondReport ) =>
+        firstReport.resultsJoined > secondReport.resultsJoined ? -1 : 1,
+      );
 
       // Then
       expect( resultsAsc ).to.be.deep.equal( resultsOrderedAsc );
@@ -227,12 +245,12 @@ describe( 'mongoose-helper', () => {
     } );
 
     it( 'can return all the elements', async () => {
-    // Given
+      // Given
       const id1 = await mongooseHelper.insertReport( reportSaved1 );
       const id2 = await mongooseHelper.insertReport( reportSaved2 );
 
       // When
-      const results = await mongooseHelper.getAllTheElementsOrderedAndFiltered( '',ascendingOrder,'' );
+      const results = await mongooseHelper.getAllTheElementsOrderedAndFiltered( '', ascendingOrder, '' );
 
       // Then
       expect( results.length ).to.be.least( 2 );
@@ -240,7 +258,7 @@ describe( 'mongoose-helper', () => {
       await mongooseHelper.deleteReportById( id2 );
     } );
     it( 'can get database size', async () => {
-    // Given
+      // Given
       const id1 = await mongooseHelper.insertReport( reportSaved1 );
       const id2 = await mongooseHelper.insertReport( reportSaved2 );
 
@@ -255,7 +273,7 @@ describe( 'mongoose-helper', () => {
   } );
   describe( 'Failures', () => {
     it( 'returns an error when it cannot save the report', async () => {
-    // Given
+      // Given
       const consoleStub = sinon.stub( console, 'log' );
 
       // When
@@ -267,7 +285,7 @@ describe( 'mongoose-helper', () => {
     } );
 
     it( 'returns an error when it cannot delete the report', async () => {
-    // Given
+      // Given
       const consoleStub = sinon.stub( console, 'log' );
       const oId: ObjectID = new mongo.ObjectId();
 
@@ -280,7 +298,7 @@ describe( 'mongoose-helper', () => {
     } );
 
     it( 'returns an error when it cannot display the report', async () => {
-    // Given
+      // Given
       const consoleStub = sinon.stub( console, 'log' );
       const oId = new mongo.ObjectId();
 
@@ -291,9 +309,9 @@ describe( 'mongoose-helper', () => {
       expect( consoleStub.calledWith( ConsoleMessages.reportNotFound( oId ) ) ).to.be.true;
       consoleStub.restore();
     } );
-    
+
     it( 'returns an error when it cannot connect', async () => {
-    // Given
+      // Given
       mongooseHelper.mongodbConfiguration.dbPort = 25;
 
       // When
@@ -303,7 +321,7 @@ describe( 'mongoose-helper', () => {
       };
 
       await mongooseHelper.getDatabaseSize().catch( ( err: Error ) => {
-      // Then
+        // Then
         expect( err.message ).to.contain( ConsoleMessages.connectionRefused );
       } );
     } );

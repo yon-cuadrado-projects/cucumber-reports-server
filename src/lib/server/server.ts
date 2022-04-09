@@ -18,7 +18,7 @@ export class Server {
 
   public serverConfiguration: ServerProperties;
 
-  public constructor( serverConfiguration: ServerProperties ) {
+  public constructor ( serverConfiguration: ServerProperties ) {
     this.serverConfiguration = serverConfiguration;
     this.app = express();
   }
@@ -33,28 +33,36 @@ export class Server {
     this.app.use( express.urlencoded( { extended: true, limit: '50mb', parameterLimit: 50000 } ) );
     this.app.use( express.json( { limit: '250mb' } ) );
     this.app.get( '/', ( req, res: Response ): void => {
-      res.render( 'index', {  config: this.serverConfiguration } );
+      res.render( 'index', { config: this.serverConfiguration } );
     } );
 
     this.app.get( '/mongo/get/datatable', async ( req: Request<ParamsDictionary, unknown, unknown>, res: Response ) => {
       const orderColumnNumber = <QueryString.ParsedQs[]>req.query.order;
       const columnArray = <QueryString.ParsedQs>req.query.columns;
-      const orderColumnName = ( <QueryString.ParsedQs>( columnArray[<string>( orderColumnNumber[0] ).column] ) ).data;
-      const searchValue = <string>( ( <QueryString.ParsedQs>req.query.search ).value );
-      const allCollectionData = await mongooseHelper.getAllTheElementsOrderedAndFiltered( <string>orderColumnName, <string>orderColumnNumber[0].dir, searchValue );
-      const returnData = { data: allCollectionData, recordsFiltered: allCollectionData.length, recordsTotal: allCollectionData.length };
+      const orderColumnName = ( <QueryString.ParsedQs>columnArray[<string>orderColumnNumber[0].column] ).data;
+      const searchValue = <string>( <QueryString.ParsedQs>req.query.search ).value;
+      const allCollectionData = await mongooseHelper.getAllTheElementsOrderedAndFiltered(
+        <string>orderColumnName,
+        <string>orderColumnNumber[0].dir,
+        searchValue,
+      );
+      const returnData = {
+        data: allCollectionData,
+        recordsFiltered: allCollectionData.length,
+        recordsTotal: allCollectionData.length
+      };
       res.send( returnData );
     } );
 
     this.app.get( '/generateReport', async ( req, res ) => {
       const reportId = <string>req.query.id;
       const jsonReport = await mongooseHelper.getReportById( reportId );
-      if( jsonReport ){        
+      if ( jsonReport ) {
         const tempReportPath = this.serverConfiguration.reportDisplay.reportPath;
         const reportPathWithId = `${this.serverConfiguration.reportDisplay.reportPath!}/${reportId}`;
         this.serverConfiguration.reportDisplay.reportPath = reportPathWithId;
         fs.mkdirSync( reportPathWithId, { recursive: true } );
-        await generateReport.generateHtmlReport( this.serverConfiguration.reportDisplay, jsonReport  );
+        await generateReport.generateHtmlReport( this.serverConfiguration.reportDisplay, jsonReport );
         this.serverConfiguration.reportDisplay.reportPath = tempReportPath;
       }
       res.setHeader( 'Content-Type', 'application/json' );
