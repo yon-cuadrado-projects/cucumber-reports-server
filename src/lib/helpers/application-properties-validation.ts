@@ -8,7 +8,7 @@ import type {
 } from '../models/common/application-properties';
 import { CommonFunctions } from 'cucumber-html-report-generator';
 import type { Models } from 'cucumber-html-report-generator';
-import moment from 'moment';
+import { format } from 'date-fns';
 
 class ApplicationPropertiesValidation {
   public checkServerProperties ( serverProperties: ServerProperties ): ServerProperties {
@@ -27,7 +27,7 @@ class ApplicationPropertiesValidation {
     const result = CommonFunctions.checkFolder( localReportDisplayParameters.reportPath );
 
     if ( !result ) {
-      const date = moment().format( 'YYYY-MM-DD__HH-mm-ss' );
+      const date = format( new Date(), 'yyyy-MM-dd__HH-mm-ss' );
       localReportDisplayParameters.reportPath = path.join( os.tmpdir(), 'cucumber-html-report-generator', date );
       fs.mkdirSync( localReportDisplayParameters.reportPath, { recursive: true } );
     }

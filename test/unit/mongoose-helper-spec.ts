@@ -7,8 +7,8 @@ import type { MongoDbConfiguration } from '../../src/lib/models/common/applicati
 import { MongooseHelper } from '../../src/lib/mongoose-report-manager/mongoose-helper';
 import type { ObjectID } from 'bson';
 import chaiAsPromised from 'chai-as-promised';
-import moment from 'moment';
 import { mongo } from 'mongoose';
+import { parse } from 'date-fns';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 
@@ -182,13 +182,13 @@ describe( 'mongoose-helper', () => {
       const resultsDesc = await mongooseHelper.getAllTheElementsOrderedAndFiltered( 'executionDate', ascendingOrder, '' );
       const resultsOrderedAsc = [ ...resultsAsc ].sort(
         ( firstReport, secondReport ) =>
-          moment( `${firstReport.executionDateTime}`, 'MM-DD-YYYY hh:mm:ss' ).toDate().getTime() -
-          moment( `${secondReport.executionDateTime}`, 'MM-DD-YYYY hh:mm:ss' ).toDate().getTime(),
+          parse( `${firstReport.executionDateTime}`, 'MM-dd-yyyy hh:mm:ss', new Date() ).getTime() -
+          parse( `${secondReport.executionDateTime}`, 'MM-dd-yyyy hh:mm:ss', new Date() ).getTime(),
       );
       const resultsOrderedDesc = [ ...resultsDesc ].sort(
         ( firstReport, secondReport ) =>
-          moment( `${secondReport.executionDateTime}`, 'MM-DD-YYYY hh:mm:ss' ).toDate().getTime() -
-          moment( `${firstReport.executionDateTime}`, 'MM-DD-YYYY hh:mm:ss' ).toDate().getTime(),
+          parse( `${secondReport.executionDateTime}`, 'MM-dd-yyyy hh:mm:ss', new Date() ).getTime() -
+          parse( `${firstReport.executionDateTime}`, 'MM-cc-yyyy hh:mm:ss', new Date() ).getTime(),
       );
 
       // Then
