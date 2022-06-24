@@ -127,7 +127,7 @@ export const matchSchemaArguments = new Schema(
   }
 );
 
-export const stepSchema: Schema<MSTep, Model<MSTep>> = new Schema(
+export const stepSchema = new Schema<MSTep, Model<MSTep>>(
   {
     arguments: { required: false, type: [ argumentsRowsSchema ], _id: false, id: false },
     argumentsCells: { required: false, type: String },

@@ -35,7 +35,7 @@ export const featureResultsSchema = new Schema(
   }
 );
 
-export const featureSchema: Schema<MFeature, Model<MFeature>> = new Schema(
+export const featureSchema = new Schema<MFeature, Model<MFeature>>(
   {
     ObjectId: { required: false, type: String },
     description: { required: false, type: String },

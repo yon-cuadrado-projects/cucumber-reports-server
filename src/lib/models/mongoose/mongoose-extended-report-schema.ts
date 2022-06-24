@@ -47,7 +47,7 @@ export const reportResultsSchema = new Schema(
   }
 );
 
-export const reportsSchema: Schema<MExtendedReport, Model<MExtendedReport>> = new Schema(
+export const reportsSchema = new Schema<MExtendedReport, Model<MExtendedReport>>(
   {
     metadata: [ { required: false, type: CommonSchemas.metadataSchema } ],
     metadataTitle: { required: false, type: String },

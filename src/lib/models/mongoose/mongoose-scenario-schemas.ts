@@ -52,7 +52,7 @@ export const scenarioTag = new Schema(
   }
 );
 
-export const scenarioSchema: Schema<MScenario, Model<MScenario>> = new Schema(
+export const scenarioSchema = new Schema<MScenario, Model<MScenario>>(
   {
     after: { required: false, type: beforeOrAfterSchema },
     before: { required: false, type: beforeOrAfterSchema },
