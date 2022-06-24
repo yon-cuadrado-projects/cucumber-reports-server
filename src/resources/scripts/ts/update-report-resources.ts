@@ -5,22 +5,26 @@ const resourcesData =  '../configuration/resources-data.json';
 const resourcesFolder = path.join( __dirname,'../../../resources/dependencies' );
 const indexEjsFile = path.join( __dirname,'../../../lib/server/views/index.ejs' );
 
-const updateResourcesProperties = async ( ): Promise<void> =>{
-  const configurationData = await CommonFunctions.readJsonFile<Models.ResourceProperties[]>( path.join( __dirname, resourcesData ) );
-  let dependenciesUpdated = false;
-  for ( const dependency of configurationData ! ){
-    // eslint-disable-next-line no-await-in-loop
-    const updatedDependency = await dependencyModificationFunctions.updateResourcesForOneDependency( dependency, resourcesFolder,[ indexEjsFile ] );
-      
-    if( updatedDependency ){
-      dependenciesUpdated = true;
-    }
-  }
+const updateResourcesPropertiesInConfigurationFiles = async (configurationData: Models.ResourceProperties[] ): Promise<boolean> =>{
+  const resourcesModification = configurationData.map( async dependency => {
+    return dependencyModificationFunctions.updateResourcesForOneDependency( dependency, resourcesFolder,[ indexEjsFile ] ); 
+  } );
 
-  if( dependenciesUpdated ){
-    await CommonFunctions.saveJsonFile<Models.ResourceProperties[]>( path.join( __dirname,'./' ),resourcesData, configurationData! );
-  }else{
-    console.log( 'All the html resources are already updated' );
+  return ( await Promise.all( resourcesModification ) ).filter( modification => modification === true ).length > 0;
+};
+
+const updateResourcesPropertiesConfigurationJson = async ( configurationData: Models.ResourceProperties[] ): Promise<void> =>{
+  await CommonFunctions.saveJsonFile<Models.ResourceProperties[]>( path.join( __dirname,'./' ),resourcesData, configurationData );
+};
+
+
+const updateResourcesProperties = async (): Promise<void> =>{
+  const configurationData = await CommonFunctions.readJsonFile<Models.ResourceProperties[]>( path.join( __dirname, resourcesData ) );
+  if(configurationData){
+    const isConfigurationUpdated = await updateResourcesPropertiesInConfigurationFiles(configurationData);
+    if(isConfigurationUpdated){
+      await updateResourcesPropertiesConfigurationJson(configurationData)
+    }
   }
 };
 
