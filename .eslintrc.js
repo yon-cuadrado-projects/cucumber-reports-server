@@ -160,7 +160,7 @@ module.exports = {
         "object-curly-spacing": ["warn", "always"],
         "array-bracket-spacing": ["warn", "always"],
         "max-classes-per-file": ["error",1],
-        "max-len": ["error",{"ignorePattern": "\\s*from|class [a-zA-Z]+ implements|\\s*\\* |\\s*// ","code": 150}],
+        "max-len": ["error",{"ignorePattern": "\\s*from|class [a-zA-Z]+ implements|\\s*\\* |\\s*// ","code": 190}],
         "no-console": ["error",{
                 "allow": [
                     "log",
