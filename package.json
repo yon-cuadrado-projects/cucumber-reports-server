@@ -55,7 +55,7 @@
     "http-server": "14.1.1",
     "json-future": "2.2.18",
     "lodash": "4.17.21",
-    "mongoose": "6.3.4",
+    "mongoose": "6.3.5",
     "open": "8.4.0",
     "run-script-os": "1.1.6",
     "shelljs": "0.8.5",

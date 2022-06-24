@@ -313,16 +313,17 @@ describe( 'mongoose-helper', () => {
     it( 'returns an error when it cannot connect', async () => {
       // Given
       mongooseHelper.mongodbConfiguration.dbPort = 25;
-
       // When
       mongooseHelper.mongodbConfiguration.mongoDbOptions = {
         serverSelectionTimeoutMS: 2,
-        socketTimeoutMS: 0
+        socketTimeoutMS: 1,
+        connectTimeoutMS: 1,
+        waitQueueTimeoutMS: 1
       };
 
       await mongooseHelper.getDatabaseSize().catch( ( err: Error ) => {
         // Then
-        expect( err.message ).to.contain( ConsoleMessages.connectionRefused );
+        expect( err.message ).to.contain( ConsoleMessages.invalidUrl );
       } );
     } );
   } );
