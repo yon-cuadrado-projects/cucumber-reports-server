@@ -37,7 +37,8 @@
     "release.patch": "npm run release -- patch --ci",
     "release.minor": "npm run release -- minor --ci",
     "release.major": "npm run release -- major --ci",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "start": "npm --prefix './app' run start"
   },
   "repository": {
     "type": "git",
