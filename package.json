@@ -38,7 +38,8 @@
     "release.minor": "npm run release -- minor --ci",
     "release.major": "npm run release -- major --ci",
     "prepare": "husky install",
-    "start": "npm --prefix './app' run start"
+    "start": "npm --prefix './app' run start",
+    "update-react-app": "npm --prefix './app' run update-app"
   },
   "repository": {
     "type": "git",
@@ -56,7 +57,7 @@
     "http-server": "14.1.1",
     "json-future": "2.2.18",
     "lodash": "4.17.21",
-    "mongoose": "6.4.2",
+    "mongoose": "6.4.3",
     "open": "8.4.0",
     "run-script-os": "1.1.6",
     "shelljs": "0.8.5",
@@ -108,7 +109,7 @@
     "mocha": "10.0.0",
     "mocha-explorer-launcher-scripts": "0.4.0",
     "mocha-sinon": "2.1.2",
-    "npm-check-updates": "15.0.2",
+    "npm-check-updates": "15.0.3",
     "nyc": " 15.1.0",
     "prettier": "2.7.1",
     "release-it": "^15.1.1",
