@@ -1,1 +1,1 @@
-export { Server } from './src/lib/server/server';
+export { Server } from './packages/backend/src/lib/server/server';
