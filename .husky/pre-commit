@@ -1,5 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npm test
-npm run eslint-fix-all
+# npm test
+# npm run eslint-fix-all
