@@ -1,6 +1,6 @@
 {
   "name": "cucumber-reports-server",
-  "packageManager": "yarn@3.2.1",
+  "packageManager": "yarn@3.2.2",
   "private": true,
   "workspaces": [
     "packages/*"
@@ -10,8 +10,9 @@
   },
   "scripts": {
     "update:apps": "yarn --cwd ./packages/frontend run update:app",
-    "start:frontend": "",
-    "test": "",
+    "start:frontend": "yarn --cwd ./packages/frontend run start",
+    "test": "yarn --cwd ./packages/frontend run test",
+    "standard-fix-all": "",
     "eslint-fix-all": ""
   }
 }
