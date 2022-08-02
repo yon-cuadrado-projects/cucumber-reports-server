@@ -9,7 +9,7 @@
     "typescript": "^4.7.4"
   },
   "scripts": {
-    "update:apps": "yarn --cwd ./packages/frontend run update:app",
+    "update:apps": "yarn workspaces foreach run update-package-json-dependencies",
     "start:frontend": "yarn --cwd ./packages/frontend run start",
     "test": "yarn --cwd ./packages/frontend run test",
     "standard-fix-all": "",
