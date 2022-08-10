@@ -1,22 +1,20 @@
-import * as chai from 'chai';
+import * as ConsoleMessages from '../../src/lib/helpers/console-messages';
 import * as path from 'path';
 import { CommonFunctions } from 'cucumber-html-report-generator';
 import type { Models } from 'cucumber-html-report-generator';
+import type { MongoDbConfiguration } from '../../src/lib/models/common/application-properties';
+import { MongooseHelper } from '../../src/lib/mongoose-report-manager/mongoose-helper';
 import type { ObjectID } from 'bson';
-import chaiAsPromised from 'chai-as-promised';
 import { mongo } from 'mongoose';
 import { parse } from 'date-fns';
-import sinon from 'sinon';
-import sinonChai from 'sinon-chai';
-import { MongoDbConfiguration } from 'src/lib/models/common/application-properties';
-import { MongooseHelper } from 'src/lib/mongoose-report-manager/mongoose-helper';
-import * as ConsoleMessages from '../../src/lib/helpers/console-messages'
+// import sinon from 'sinon';
+// import sinonChai from 'sinon-chai';
 
-chai.use( sinonChai );
+// chai.use( sinonChai );
 
-chai.should();
-chai.use( chaiAsPromised );
-const { expect } = chai;
+// chai.should();
+// chai.use( chaiAsPromised );
+// const { expect } = chai;
 
 describe( 'mongoose-helper', () => {
   const mongoDb: MongoDbConfiguration = {
@@ -35,12 +33,12 @@ describe( 'mongoose-helper', () => {
   const mongooseHelper = new MongooseHelper( mongoDb );
   const jsonFile1 = path.resolve(
     process.cwd(),
-    './test/unit/data/enriched-joined-cucumber-jsons/enriched-output1.json',
+    './test/unit/data/enriched-joined-cucumber-jsons/enriched-output1.json'
   );
   const jsonFile2 = path.resolve( process.cwd(), './test/unit/data/enriched-joined-cucumber-jsons/enriched-output.json' );
   const jsonFileWithErrors = path.resolve(
     process.cwd(),
-    './test/unit/data/enriched-joined-cucumber-jsons/invalid-report.json',
+    './test/unit/data/enriched-joined-cucumber-jsons/invalid-report.json'
   );
 
   const descendingOrder = 'desc';
@@ -49,7 +47,7 @@ describe( 'mongoose-helper', () => {
   let reportSaved2 = <Models.ExtendedReport>{};
   let invalidReport = <Models.ExtendedReport>{};
 
-  before( async () => {
+  beforeAll( async () => {
     reportSaved1 = ( await CommonFunctions.readJsonFile( jsonFile1 ) )!;
     reportSaved2 = ( await CommonFunctions.readJsonFile( jsonFile2 ) )!;
     invalidReport = ( await CommonFunctions.readJsonFile( jsonFileWithErrors ) )!;
@@ -64,7 +62,7 @@ describe( 'mongoose-helper', () => {
       const reportRecovered = await mongooseHelper.getReportById( id );
 
       // Then
-      expect( reportRecovered ).to.eql( reportSaved2 );
+      expect( reportRecovered ).toBe( reportSaved2 );
       await mongooseHelper.deleteReportById( id );
     } );
 
@@ -80,7 +78,7 @@ describe( 'mongoose-helper', () => {
       const results = await mongooseHelper.getDatabaseSize();
 
       // Then
-      expect( results ).to.eql( 0 );
+      expect( results ).toBe( 0 );
     } );
 
     it( 'can get a report with id as as string', async () => {
@@ -91,7 +89,7 @@ describe( 'mongoose-helper', () => {
       const reportRecovered = await mongooseHelper.getReportById( id.toHexString() );
 
       // Then
-      expect( reportRecovered ).to.eql( reportSaved2 );
+      expect( reportRecovered ).toBe( reportSaved2 );
       await mongooseHelper.deleteReportById( id );
     } );
 
@@ -104,11 +102,11 @@ describe( 'mongoose-helper', () => {
       const results = await mongooseHelper.getAllTheElementsOrderedAndFiltered(
         '',
         ascendingOrder,
-        "feature:Feature with all scenarios in status ambigous ^'@#",
+        "feature:Feature with all scenarios in status ambigous ^'@#"
       );
 
       // Then
-      expect( results.length ).to.equal( 1 );
+      expect( results.length ).toBe( 1 );
       await mongooseHelper.deleteReportById( id1.toHexString() );
       await mongooseHelper.deleteReportById( id2.toHexString() );
     } );
@@ -122,11 +120,11 @@ describe( 'mongoose-helper', () => {
       const results = await mongooseHelper.getAllTheElementsOrderedAndFiltered(
         '',
         ascendingOrder,
-        'scenario:scenario with ambiguous steps:{&/%',
+        'scenario:scenario with ambiguous steps:{&/%'
       );
 
       // Then
-      expect( results.length ).to.equal( 1 );
+      expect( results.length ).toBe( 1 );
       await mongooseHelper.deleteReportById( id1 );
       await mongooseHelper.deleteReportById( id2 );
     } );
@@ -140,11 +138,11 @@ describe( 'mongoose-helper', () => {
       const results = await mongooseHelper.getAllTheElementsOrderedAndFiltered(
         '',
         ascendingOrder,
-        'step:Ambiguous Johnny visits the Angular homepage Ñ)/&%$',
+        'step:Ambiguous Johnny visits the Angular homepage Ñ)/&%$'
       );
 
       // Then
-      expect( results.length ).to.equal( 1 );
+      expect( results.length ).toBe( 1 );
       await mongooseHelper.deleteReportById( id1 );
       await mongooseHelper.deleteReportById( id2 );
     } );
@@ -159,15 +157,15 @@ describe( 'mongoose-helper', () => {
       const resultsDesc = await mongooseHelper.getAllTheElementsOrderedAndFiltered( 'title', descendingOrder, '' );
 
       const resultsOrderedAsc = [ ...resultsAsc ].sort( ( firstReport, secondReport ) =>
-        firstReport.title < secondReport.title ? -1 : 1,
+        firstReport.title < secondReport.title ? -1 : 1
       );
       const resultsOrderedDesc = [ ...resultsDesc ].sort( ( firstReport, secondReport ) =>
-        firstReport.title > secondReport.title ? -1 : 1,
+        firstReport.title > secondReport.title ? -1 : 1
       );
 
       // Then
-      expect( resultsAsc ).to.be.deep.equal( resultsOrderedAsc );
-      expect( resultsDesc ).to.be.deep.equal( resultsOrderedDesc );
+      expect( resultsAsc ).toBe( resultsOrderedAsc );
+      expect( resultsDesc ).toBe( resultsOrderedDesc );
       await mongooseHelper.deleteReportById( id1 );
       await mongooseHelper.deleteReportById( id2 );
     } );
@@ -183,17 +181,17 @@ describe( 'mongoose-helper', () => {
       const resultsOrderedAsc = [ ...resultsAsc ].sort(
         ( firstReport, secondReport ) =>
           parse( `${firstReport.executionDateTime}`, 'MM-dd-yyyy hh:mm:ss', new Date() ).getTime() -
-          parse( `${secondReport.executionDateTime}`, 'MM-dd-yyyy hh:mm:ss', new Date() ).getTime(),
+          parse( `${secondReport.executionDateTime}`, 'MM-dd-yyyy hh:mm:ss', new Date() ).getTime()
       );
       const resultsOrderedDesc = [ ...resultsDesc ].sort(
         ( firstReport, secondReport ) =>
           parse( `${secondReport.executionDateTime}`, 'MM-dd-yyyy hh:mm:ss', new Date() ).getTime() -
-          parse( `${firstReport.executionDateTime}`, 'MM-cc-yyyy hh:mm:ss', new Date() ).getTime(),
+          parse( `${firstReport.executionDateTime}`, 'MM-cc-yyyy hh:mm:ss', new Date() ).getTime()
       );
 
       // Then
-      expect( resultsAsc ).to.be.deep.equal( resultsOrderedAsc );
-      expect( resultsDesc ).to.be.deep.equal( resultsOrderedDesc );
+      expect( resultsAsc ).toBe( resultsOrderedAsc );
+      expect( resultsDesc ).toBe( resultsOrderedDesc );
       await mongooseHelper.deleteReportById( id1 );
       await mongooseHelper.deleteReportById( id2 );
     } );
@@ -208,15 +206,15 @@ describe( 'mongoose-helper', () => {
       const resultsDesc = await mongooseHelper.getAllTheElementsOrderedAndFiltered( '_id', descendingOrder, '' );
 
       const resultsOrderedAsc = [ ...resultsAsc ].sort( ( firstReport, secondReport ) =>
-        firstReport._id > secondReport._id ? 1 : -1,
+        firstReport._id > secondReport._id ? 1 : -1
       );
       const resultsOrderedDesc = [ ...resultsDesc ].sort( ( firstReport, secondReport ) =>
-        firstReport._id > secondReport._id ? -1 : 1,
+        firstReport._id > secondReport._id ? -1 : 1
       );
 
       // Then
-      expect( resultsAsc ).to.be.deep.equal( resultsOrderedAsc );
-      expect( resultsDesc ).to.be.deep.equal( resultsOrderedDesc );
+      expect( resultsAsc ).toBe( resultsOrderedAsc );
+      expect( resultsDesc ).toBe( resultsOrderedDesc );
       await mongooseHelper.deleteReportById( id1 );
       await mongooseHelper.deleteReportById( id2 );
     } );
@@ -231,15 +229,15 @@ describe( 'mongoose-helper', () => {
       const resultsDesc = await mongooseHelper.getAllTheElementsOrderedAndFiltered( 'result', descendingOrder, '' );
 
       const resultsOrderedAsc = [ ...resultsAsc ].sort( ( firstReport, secondReport ) =>
-        firstReport.resultsJoined > secondReport.resultsJoined ? 1 : -1,
+        firstReport.resultsJoined > secondReport.resultsJoined ? 1 : -1
       );
       const resultsOrderedDesc = [ ...resultsDesc ].sort( ( firstReport, secondReport ) =>
-        firstReport.resultsJoined > secondReport.resultsJoined ? -1 : 1,
+        firstReport.resultsJoined > secondReport.resultsJoined ? -1 : 1
       );
 
       // Then
-      expect( resultsAsc ).to.be.deep.equal( resultsOrderedAsc );
-      expect( resultsDesc ).to.be.deep.equal( resultsOrderedDesc );
+      expect( resultsAsc ).toBe( resultsOrderedAsc );
+      expect( resultsDesc ).toBe( resultsOrderedDesc );
       await mongooseHelper.deleteReportById( id1 );
       await mongooseHelper.deleteReportById( id2 );
     } );
@@ -253,7 +251,7 @@ describe( 'mongoose-helper', () => {
       const results = await mongooseHelper.getAllTheElementsOrderedAndFiltered( '', ascendingOrder, '' );
 
       // Then
-      expect( results.length ).to.be.least( 2 );
+      expect( results.length ).toBeGreaterThanOrEqual( 2 );
       await mongooseHelper.deleteReportById( id1 );
       await mongooseHelper.deleteReportById( id2 );
     } );
@@ -266,7 +264,7 @@ describe( 'mongoose-helper', () => {
       const results = await mongooseHelper.getDatabaseSize();
 
       // Then
-      expect( results ).to.be.least( 5.269391059875488 );
+      expect( results ).toBeGreaterThanOrEqual( 5.269391059875488 );
       await mongooseHelper.deleteReportById( id1 );
       await mongooseHelper.deleteReportById( id2 );
     } );
@@ -274,40 +272,46 @@ describe( 'mongoose-helper', () => {
   describe( 'Failures', () => {
     it( 'returns an error when it cannot save the report', async () => {
       // Given
-      const consoleStub = sinon.stub( console, 'log' );
+      const consoleStub = jest.spyOn( console, 'info' ).mockImplementation();
+      // console.warn(ConsoleMessages.incorrectReport);
+      // const consoleStub = sinon.stub( console, 'log' );
 
       // When
       await mongooseHelper.insertReport( invalidReport );
 
       // Then
-      expect( consoleStub.calledWith( ConsoleMessages.incorrectReport ) ).to.be.true;
-      consoleStub.restore();
+      expect( consoleStub ).toHaveBeenCalledWith( ConsoleMessages.incorrectReport );
+      consoleStub.mockRestore();
     } );
 
     it( 'returns an error when it cannot delete the report', async () => {
       // Given
-      const consoleStub = sinon.stub( console, 'log' );
+      // const consoleStub = sinon.stub( console, 'log' );
+      const consoleStub = jest.spyOn( console, 'info' ).mockImplementation();
       const oId: ObjectID = new mongo.ObjectId();
 
       // When
       await mongooseHelper.deleteReportById( oId );
 
       // Then
-      expect( consoleStub.calledWith( ConsoleMessages.reportNotFound( oId ) ) ).to.be.true;
-      consoleStub.restore();
+      expect( consoleStub ).toHaveBeenCalledWith( ConsoleMessages.reportNotFound( oId ) );
+      // expect( consoleStub.calledWith( ConsoleMessages.reportNotFound( oId ) ) ).to.be.true;
+      consoleStub.mockRestore();
     } );
 
     it( 'returns an error when it cannot display the report', async () => {
       // Given
-      const consoleStub = sinon.stub( console, 'log' );
+      const consoleStub = jest.spyOn( console, 'info' ).mockImplementation();
+      // const consoleStub = sinon.stub( console, 'log' );
       const oId = new mongo.ObjectId();
 
       // When
       await mongooseHelper.getReportById( oId );
 
       // Then
-      expect( consoleStub.calledWith( ConsoleMessages.reportNotFound( oId ) ) ).to.be.true;
-      consoleStub.restore();
+      expect( consoleStub ).toHaveBeenCalledWith( ConsoleMessages.reportNotFound( oId ) );
+      // expect( consoleStub.calledWith( ConsoleMessages.reportNotFound( oId ) ) ).to.be.true;
+      consoleStub.mockRestore();
     } );
 
     it( 'returns an error when it cannot connect', async () => {
@@ -323,7 +327,7 @@ describe( 'mongoose-helper', () => {
 
       await mongooseHelper.getDatabaseSize().catch( ( err: Error ) => {
         // Then
-        expect( err.message ).to.contain( ConsoleMessages.invalidUrl );
+        expect( err.message ).toContain( ConsoleMessages.invalidUrl );
       } );
     } );
   } );

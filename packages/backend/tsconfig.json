@@ -30,12 +30,9 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "resolveJsonModule": true,
-        "typeRoots": ["./node_modules/@types","modules/backend/src/lib/types"],
-        "types": ["node","@types/long","mocha"],
+        // "typeRoots": ["./node_modules/@types","modules/backend/src/lib/types"],
+        "types": ["node","jest", "@types/long"],
     },
-    "exclude": [
-        "node_modules",
-        ".npm",
-        "./dist"
-    ]
+    "include": ["src/**/**/**/*.ts", "test/**/*.spec.ts"],
+    "exclude": ["dist"]
 }

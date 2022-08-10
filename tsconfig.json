@@ -1,45 +1,38 @@
 {
-    "compileOnSave": true,
-    "ts-node": {
-        "files": true
-      },
-    "compilerOptions": {
-         "alwaysStrict": true,
-        "noImplicitReturns": true,
-        "noFallthroughCasesInSwitch": true,
-        "allowUnreachableCode": false,
-        "allowUnusedLabels": false,
-        "forceConsistentCasingInFileNames": true,
-        "noUnusedLocals": true,
-        "noImplicitAny" : true,
-        "preserveSymlinks": true,
-        "allowJs": true,
-        "declaration": true,
-        "declarationMap": true,
-        "inlineSources": true,
-        "outDir": "./dist",
-        "sourceMap": true,
-        "target": "es2020",
-        "module": "commonjs",
-        "strictPropertyInitialization": true,
-        "strictNullChecks": true,
-        "moduleResolution": "node",
-        "baseUrl": ".",
-        "allowSyntheticDefaultImports": true,
-        "esModuleInterop": true,
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
-        "resolveJsonModule": true,
-        "typeRoots": ["./node_modules/@types","modules/backend/src/lib/types"],
-        "types": ["node","@types/long","mocha"],
-    },
-    "include": [
-        "modules/backend/test/**/*.ts",
-        "modules/backend/src/**/**/*.ts",
-        "index.ts"
+  "compilerOptions": {
+    "noErrorTruncation": true,
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": false,
+    "strictNullChecks": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "noImplicitThis": false,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "removeComments": false,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "target": "es2015",
+    "module": "commonjs",
+    "jsx": "react",
+    "lib": [
+      "DOM",
+      "ESnext"
     ],
-    "exclude": [
-        "node_modules",
-        ".npm"
-    ]
-}
+    "baseUrl": ".",
+    "outDir": "dist",
+    "rootDir": ".",
+    "paths": {
+      "~/*": ["packages/*"]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "web/webpack.config.ts"
+  ]
+} 

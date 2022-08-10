@@ -1,12 +1,12 @@
 import type * as http from 'http';
 import * as path from 'path';
 import type { Application, Request, Response } from 'express';
+import Express from 'express';
 import type { Models } from 'cucumber-html-report-generator';
 import { MongooseHelper } from '../mongoose-report-manager/mongoose-helper';
 import type { ParamsDictionary } from 'express-serve-static-core';
 import type QueryString from 'qs';
 import type { ServerProperties } from '../models/common/application-properties';
-import express from 'express';
 import fs from 'fs';
 import { generateReport } from 'cucumber-html-report-generator';
 import { userPropertiesValidation } from '../helpers/application-properties-validation';
@@ -20,7 +20,7 @@ export class Server {
 
   public constructor ( serverConfiguration: ServerProperties ) {
     this.serverConfiguration = serverConfiguration;
-    this.app = express();
+    this.app = Express();
   }
 
   public configureServer (): void {
@@ -39,12 +39,12 @@ export class Server {
     this.app.get( '/mongo/get/datatable', async ( req: Request<ParamsDictionary, unknown, unknown>, res: Response ) => {
       const orderColumnNumber = <QueryString.ParsedQs[]>req.query.order;
       const columnArray = <QueryString.ParsedQs>req.query.columns;
-      const orderColumnName = ( <QueryString.ParsedQs>columnArray[<string>orderColumnNumber[0].column] ).data;
+      const orderColumnName = ( columnArray[<string>orderColumnNumber[0].column] ).data;
       const searchValue = <string>( <QueryString.ParsedQs>req.query.search ).value;
       const allCollectionData = await mongooseHelper.getAllTheElementsOrderedAndFiltered(
         <string>orderColumnName,
         <string>orderColumnNumber[0].dir,
-        searchValue,
+        searchValue
       );
       const returnData = {
         data: allCollectionData,

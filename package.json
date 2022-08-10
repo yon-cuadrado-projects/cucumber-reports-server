@@ -6,12 +6,13 @@
     "packages/*"
   ],
   "devDependencies": {
+    "@types/express": "^4.17.13",
     "typescript": "^4.7.4"
   },
   "scripts": {
     "update:apps": "yarn workspaces foreach run update-package-json-dependencies",
     "start:frontend": "yarn --cwd ./packages/frontend run start",
-    "test": "yarn --cwd ./packages/frontend run test",
+    "test": "yarn workspaces foreach run test",
     "standard-fix-all": "",
     "eslint-fix-all": ""
   }

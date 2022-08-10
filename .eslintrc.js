@@ -16,9 +16,11 @@ module.exports = {
         "browser": true,
         "es6": true,
         "node": true,
-        "mocha": true
+        "jest": true
     },
     "extends": [
+        "react-app",
+        "react-app/jest",
         "eslint:all",
         "plugin:@typescript-eslint/all",
         "prettier"
@@ -33,9 +35,7 @@ module.exports = {
         "eslint-plugin-jsdoc",
         "eslint-plugin-prefer-arrow",
         "@typescript-eslint",
-        "@typescript-eslint/tslint",
-        "eslint-plugin-prettier",
-        "chai-friendly"
+        "eslint-plugin-prettier"
     ],
     "rules": {        
         "@typescript-eslint/array-type": [
@@ -139,18 +139,6 @@ module.exports = {
                 "lib": "always"
             }
         ],
-        "@typescript-eslint/tslint/config": [
-            "error",
-            {
-                "rules": {
-                    "import-spacing": true,
-                    "prefer-conditional-expression": false,
-                    // "prettier": true,
-                    "typedef": true,
-                    "whitespace": true
-                }
-            }
-        ],
         "@typescript-eslint/consistent-type-assertions": [ "error", { assertionStyle: "angle-bracket", objectLiteralTypeAssertions: "allow" } ],
         "@typescript-eslint/naming-convention": ["warn", {format: ['camelCase'],selector: 'variableLike', custom: {regex: 'ObjectId|mime_type', match: false}} ],
         "@typescript-eslint/require-array-sort-compare": ["warn", {ignoreStringArrays: true} ],
@@ -223,7 +211,6 @@ module.exports = {
         "new-cap": "off",
         "sort-keys": "off",
         "@typescript-eslint/no-unused-expressions": "off",
-        "chai-friendly/no-unused-expressions": 2,
         "prettier/prettier": ["off"]
     },
     "overrides":[
