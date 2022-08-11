@@ -1,12 +1,12 @@
 import type * as http from 'http';
 import * as path from 'path';
 import type { Application, Request, Response } from 'express';
-import Express from 'express';
 import type { Models } from 'cucumber-html-report-generator';
 import { MongooseHelper } from '../mongoose-report-manager/mongoose-helper';
 import type { ParamsDictionary } from 'express-serve-static-core';
 import type QueryString from 'qs';
 import type { ServerProperties } from '../models/common/application-properties';
+import express from 'express';
 import fs from 'fs';
 import { generateReport } from 'cucumber-html-report-generator';
 import { userPropertiesValidation } from '../helpers/application-properties-validation';
@@ -20,7 +20,7 @@ export class Server {
 
   public constructor ( serverConfiguration: ServerProperties ) {
     this.serverConfiguration = serverConfiguration;
-    this.app = Express();
+    this.app = express();
   }
 
   public configureServer (): void {

@@ -35,7 +35,8 @@ module.exports = {
         "eslint-plugin-jsdoc",
         "eslint-plugin-prefer-arrow",
         "@typescript-eslint",
-        "eslint-plugin-prettier"
+        "eslint-plugin-prettier",
+        "jest"
     ],
     "rules": {        
         "@typescript-eslint/array-type": [

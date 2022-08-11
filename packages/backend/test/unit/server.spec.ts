@@ -211,9 +211,9 @@ describe( 'server.ts', () => {
       const res = await request( server.app ).get( '/generateReport' ).query( { id: reportId } );
 
       // Then
-      expect( res ).to.have.status( okStatus );
-      expect( res.body ).to.have.property( 'htmlreport' );
-      expect( res ).to.have.property( 'type', 'application/json' );
+      expect( res.status ).toBe( okStatus );
+      expect( res.body ).toHaveProperty( 'htmlreport' );
+      expect( res ).toHaveProperty( 'type', 'application/json' );
 
       server.closeServer();
     } );
