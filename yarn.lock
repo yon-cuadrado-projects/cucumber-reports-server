@@ -5299,7 +5299,7 @@ __metadata:
     "@wdio/cli": 7.20.9
     axios: 0.27.2
     cucumber: 6.0.7
-    cucumber-html-report-generator: 1.0.31
+    cucumber-html-report-generator: 1.0.32
     date-fns: 2.29.1
     eslint-config-prettier: 8.5.0
     eslint-plugin-jest: 26.8.2
@@ -5900,19 +5900,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chart.js@npm:3.8.2":
-  version: 3.8.2
-  resolution: "chart.js@npm:3.8.2"
-  checksum: a60fef3c98ed6890ce0e1e094900aa573aa1f5fa2edc7363f52efb6850730666ac479a193e86fba17dc340a1651d6b273fac7632c3e0c40c9ed5a70d09b118da
+"chart.js@npm:3.9.1":
+  version: 3.9.1
+  resolution: "chart.js@npm:3.9.1"
+  checksum: 9ab0c0ac01215af0b3f020f2e313030fd6e347b48ed17d5484ee9c4e8ead45e78ae71bea16c397621c386b409ce0b14bf17f9f6c2492cd15b56c0f433efdfff6
   languageName: node
   linkType: hard
 
-"chartjs-plugin-datalabels@npm:2.0.0":
-  version: 2.0.0
-  resolution: "chartjs-plugin-datalabels@npm:2.0.0"
+"chartjs-plugin-datalabels@npm:2.1.0":
+  version: 2.1.0
+  resolution: "chartjs-plugin-datalabels@npm:2.1.0"
   peerDependencies:
     chart.js: ^3.0.0
-  checksum: aa59cabc57feca686281033f6160c4f7e84f973e5ad27e794daa7a6bc8dbf7a14055fee4c05df6a9d8c7be66ec0a59203244e8f528fce3dfd13847bf92d7aa7c
+  checksum: 7232749bb5ff2313e1a0b20080b40aea099f16fe3e46e0833e122598ee425c1acdf4ef2882896cac34fed0b11c2d707abaeff8d58c0f8c290f3c269c82b9755c
   languageName: node
   linkType: hard
 
@@ -6966,9 +6966,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cucumber-html-report-generator@npm:1.0.31":
-  version: 1.0.31
-  resolution: "cucumber-html-report-generator@npm:1.0.31"
+"cucumber-html-report-generator@npm:1.0.32":
+  version: 1.0.32
+  resolution: "cucumber-html-report-generator@npm:1.0.32"
   dependencies:
     "@cucumber/gherkin": ^24.0.0
     "@types/chart.js": 2.9.37
@@ -6977,17 +6977,17 @@ __metadata:
     "@wdio/selenium-standalone-service": ^7.20.8
     axios: 0.27.2
     bson: 4.6.5
-    chart.js: 3.8.2
-    chartjs-plugin-datalabels: 2.0.0
+    chart.js: 3.9.1
+    chartjs-plugin-datalabels: 2.1.0
     date-fns: ^2.29.1
     fs-extra: 10.1.0
     json-future: 2.2.18
     lodash: 4.17.21
     open: 8.4.0
-    simple-git: ^3.11.0
+    simple-git: ^3.12.0
     ssri: 9.0.1
     uuid: 8.3.2
-  checksum: ac6abd751ff505ad5aa9dbb3c3bc5e9927c1639f3a66f5ec54dc160c9d5e6c5cb4b5d5f8e7baace846aec2a289f717e1448ad4ea62690c650b8f030aea1d2e92
+  checksum: d9f69b1f86458a9dce4a9ea6a1e06edf8fb310996a9da876c1df1b31225a7e3ee90f7d5a96ace2752ae2f6280ffe985636d62bdec5b4338b2c15a512293eb30d
   languageName: node
   linkType: hard
 
@@ -16541,14 +16541,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"simple-git@npm:^3.11.0":
-  version: 3.11.0
-  resolution: "simple-git@npm:3.11.0"
+"simple-git@npm:^3.12.0":
+  version: 3.12.0
+  resolution: "simple-git@npm:3.12.0"
   dependencies:
     "@kwsites/file-exists": ^1.1.1
     "@kwsites/promise-deferred": ^1.1.1
     debug: ^4.3.4
-  checksum: daf36f14b39266a1becc99a18f08e34214e56c3b27c7a70d3614bf3e24fbfd945c5758afdbdc74b063343a5e084fdf377dd0999ce69225f7c2027a294b40c526
+  checksum: a862851030a3f2100f33cafe68de255ba13a8ddef30cbb17a9b8d9a74cc903c7c39ab8b4afde9f6c362a9f4bb65b09989356f6c58171c190611d3916a4802a1e
   languageName: node
   linkType: hard
 

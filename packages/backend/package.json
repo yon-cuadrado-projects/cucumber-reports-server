@@ -29,7 +29,7 @@
   "dependencies": {
     "axios": "0.27.2",
     "cucumber": "6.0.7",
-    "cucumber-html-report-generator": "1.0.31",
+    "cucumber-html-report-generator": "1.0.32",
     "date-fns": "2.29.1",
     "express": "4.18.1",
     "http-server": "14.1.1",
