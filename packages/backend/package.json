@@ -3,7 +3,7 @@
   "packageManager": "yarn@3.2.1",
   "scripts": {
     "build": "tsc",
-    "test": "jest ./src/**/**/*.ts",
+    "test": "jest ./test/unit/*.ts",
     "test-cover": "cross-env TS_NODE_FILES=true nyc --clean npm run test",
     "standard-fix-all": "npx ts-standard --fix src/lib/**/**/**/*.ts src/lib/**/**/*.ts test/**/*.ts",
     "pretest": "npm run eslint-fix-all && npm run build",
