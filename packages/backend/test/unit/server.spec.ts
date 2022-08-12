@@ -62,9 +62,8 @@ describe( 'server.ts', () => {
       const res = await request( server.app ).get( '/' );
 
       // Then
-      expect( res ).to.have.status( okStatus );
-      expect( res.body ).to.be.an( 'object' );
-      expect( res ).to.have.property( 'type', 'text/html' );
+      expect( res.status ).toBe( okStatus );
+      expect( res ).toHaveProperty( 'type', 'text/html' );
       server.closeServer();
     } );
 
@@ -81,9 +80,9 @@ describe( 'server.ts', () => {
       const res = await request( server.app ).get( '/generateReport' ).query( { id: reportId } );
 
       // Then
-      expect( res ).to.have.status( okStatus );
-      expect( res.body ).to.have.property( 'htmlreport' );
-      expect( res ).to.have.property( 'type', 'application/json' );
+      expect( res.status ).toBe( okStatus );
+      expect( res.body ).toHaveProperty( 'htmlreport' );
+      expect( res ).toHaveProperty( 'type', 'application/json' );
 
       await request( server.app ).post( '/deleteReport' ).query( { id: reportId } );
       server.closeServer();
@@ -100,9 +99,9 @@ describe( 'server.ts', () => {
       const res = await request( server.app ).get( '/generateReport' ).query( { id: reportId } );
 
       // Then
-      expect( res ).to.have.status( okStatus );
-      expect( res.body ).to.have.property( 'htmlreport' );
-      expect( res ).to.have.property( 'type', 'application/json' );
+      expect( res.status ).toBe( okStatus );
+      expect( res.body ).toHaveProperty( 'htmlreport' );
+      expect( res ).toHaveProperty( 'type', 'application/json' );
 
       await request( server.app ).post( '/deleteReport' ).query( { id: reportId } );
       server.closeServer();
@@ -123,8 +122,8 @@ describe( 'server.ts', () => {
       const reportId = ( <Models.ResponseBody>reportInsertResponse.body ).reportId;
 
       // Then
-      expect( reportInsertResponse ).to.have.status( okStatus );
-      expect( reportInsertResponse.body ).to.have.property( 'reportInsertionResult', true );
+      expect( reportInsertResponse.status ).toBe( okStatus );
+      expect( reportInsertResponse.body ).toHaveProperty( 'reportInsertionResult', true );
       await request( server.app ).post( '/deleteReport' ).query( { id: reportId } );
       server.closeServer();
     } );
@@ -144,8 +143,8 @@ describe( 'server.ts', () => {
       const res = await request( server.app ).post( '/deleteReport' ).query( { id: reportId } );
 
       // Then
-      expect( res ).to.have.status( okStatus );
-      expect( res.body ).to.have.property( 'isReportInDatabase', false );
+      expect( res.status ).toBe( okStatus );
+      expect( res.body ).toHaveProperty( 'isReportInDatabase', false );
       server.closeServer();
     } );
     it( 'updates the datatable sorted by the first column with descending order', async () => {
@@ -191,10 +190,10 @@ describe( 'server.ts', () => {
         .query( { search: [ { regex: 'false', value: '' } ] } );
 
       // Then
-      expect( res ).to.have.status( okStatus );
-      expect( res.body ).to.have.property( 'data' );
-      expect( ( <Models.ResponseBody>res.body ).data ).not.to.equal( null );
-      expect( ( <Models.ResponseBody>res.body ).data[0] ).to.have.property( '_id' );
+      expect( res.status ).toBe( okStatus );
+      expect( res.body ).toHaveProperty( 'data' );
+      expect( ( <Models.ResponseBody>res.body ).data ).toBeNull( );
+      expect( ( <Models.ResponseBody>res.body ).data[0] ).toHaveProperty( '_id' );
       await request( server.app ).post( '/deleteReport' ).query( { id: reportId } );
       server.closeServer();
     } );

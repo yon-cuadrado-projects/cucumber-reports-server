@@ -1,8 +1,9 @@
-import React from 'react';
-import logo from './logo.svg';
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
+/* eslint-disable func-style */
 import './App.css';
+import logo from './logo.svg';
 
-function App() {
+function App (): JSX.Element {
   return (
     <div className="App">
       <header className="App-header">

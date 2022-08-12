@@ -33,6 +33,5 @@
         // "typeRoots": ["./node_modules/@types","modules/backend/src/lib/types"],
         "types": ["node","jest", "@types/long"],
     },
-    "include": ["src/**/**/**/*.ts", "test/**/*.spec.ts"],
-    "exclude": ["dist"]
+    "include": ["src/**/**/**/*.ts", "test/**/*.spec.ts"]
 }

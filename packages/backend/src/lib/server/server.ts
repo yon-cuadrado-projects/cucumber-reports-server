@@ -39,7 +39,7 @@ export class Server {
     this.app.get( '/mongo/get/datatable', async ( req: Request<ParamsDictionary, unknown, unknown>, res: Response ) => {
       const orderColumnNumber = <QueryString.ParsedQs[]>req.query.order;
       const columnArray = <QueryString.ParsedQs>req.query.columns;
-      const orderColumnName = ( columnArray[<string>orderColumnNumber[0].column] ).data;
+      const orderColumnName = ( columnArray[<string>orderColumnNumber[0].column] )?.data;
       const searchValue = <string>( <QueryString.ParsedQs>req.query.search ).value;
       const allCollectionData = await mongooseHelper.getAllTheElementsOrderedAndFiltered(
         <string>orderColumnName,

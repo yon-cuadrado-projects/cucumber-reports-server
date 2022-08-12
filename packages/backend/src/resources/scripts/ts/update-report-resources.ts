@@ -8,7 +8,7 @@ const updateResourcesProperties = async (): Promise<void> => {
   const indexEjsFile = path.join( __dirname,'../../../lib/server/views/index.ejs' );
   const configurationData = await CommonFunctions.readJsonFile<Models.ResourceProperties[]>( path.join( __dirname, resourcesData ) );
   if ( configurationData ) {
-    await dependencyModificationFunctions.updateResources( configurationData, resourcesData, resourcesFolder, [ indexEjsFile ] );
+    await dependencyModificationFunctions.updateResources( resourcesData, resourcesFolder, [ indexEjsFile ] );
   }
 };
 

@@ -16,7 +16,8 @@ module.exports = {
         "browser": true,
         "es6": true,
         "node": true,
-        "jest": true
+        "jest": true,
+        "jest/globals": true
     },
     "extends": [
         "react-app",
@@ -36,7 +37,6 @@ module.exports = {
         "eslint-plugin-prefer-arrow",
         "@typescript-eslint",
         "eslint-plugin-prettier",
-        "jest"
     ],
     "rules": {        
         "@typescript-eslint/array-type": [

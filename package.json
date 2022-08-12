@@ -6,14 +6,18 @@
     "packages/*"
   ],
   "devDependencies": {
-    "@types/express": "^4.17.13",
-    "eslint-plugin-jest": "^26.8.2",
-    "typescript": "^4.7.4"
+    "@types/eslint": "8.4.5",
+    "@types/express": "4.17.13",
+    "eslint": "8.21.0",
+    "eslint-plugin-jest": "26.8.2",
+    "eslint-plugin-react": "7.30.1",
+    "jest-css-modules-transform": "^4.4.2",
+    "typescript": "4.7.4"
   },
   "scripts": {
     "update:apps": "yarn workspaces foreach run update-package-json-dependencies",
     "start:frontend": "yarn --cwd ./packages/frontend run start",
-    "test": "yarn workspaces foreach run test",
+    "test1": "yarn --cwd ./packages/frontend run test && yarn --cwd ./packages/backend run test",
     "standard-fix-all": "",
     "eslint-fix-all": ""
   }

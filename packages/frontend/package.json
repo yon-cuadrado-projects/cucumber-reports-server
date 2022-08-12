@@ -7,7 +7,7 @@
     "@testing-library/react": "13.3.0",
     "@testing-library/user-event": "14.4.3",
     "@types/jest": "28.1.6",
-    "@types/node": "18.6.5",
+    "@types/node": "18.7.2",
     "@types/react": "18.0.17",
     "@types/react-dom": "18.0.6",
     "react": "18.2.0",
@@ -19,7 +19,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "yarn test",
+    "test": "jest ./src/**/*.tsx",
     "eject": "react-scripts eject",
     "update-package-json-dependencies": "npx ncu -u && yarn"
   },
@@ -36,16 +36,20 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.18.10",
-    "@babel/preset-env": "^7.18.10",
+    "@babel/core": "7.18.10",
+    "@babel/preset-env": "7.18.10",
+    "@babel/preset-react": "7.18.6",
     "@babel/preset-typescript": "^7.18.6",
-    "@types/babel__core": "^7",
+    "@types/babel__core": "7",
     "@types/babel__preset-env": "^7",
-    "babel-jest": "^28.1.3",
+    "babel-jest": "28.1.3",
     "eslint-plugin-jsdoc": "^39.3.6",
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "eslint-plugin-prettier": "^4.2.1",
-    "jest": "^28.1.3",
-    "ts-jest": "^28.0.7"
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "28.1.3",
+    "jest-css-modules-transform": "^4.4.2",
+    "jest-environment-jsdom": "^28.1.3",
+    "ts-jest": "28.0.7"
   }
 }

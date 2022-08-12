@@ -43,8 +43,9 @@
     // "mochaExplorer.logpanel": true,
     "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
     "typescript.format.insertSpaceBeforeFunctionParenthesis": true,
-    "jest.jestCommandLine": "yarn run test",
-    "jest.autoRun": {}
+    // "jest.jestCommandLine": "yarn run test",
+    // "jest.autoRun": "off",
+    // "jest.showCoverageOnLoad": false
 
   }
   
