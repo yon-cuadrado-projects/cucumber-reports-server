@@ -42,6 +42,9 @@
     // "prettier.bracketSpacing": true,
     // "mochaExplorer.logpanel": true,
     "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
-    "typescript.format.insertSpaceBeforeFunctionParenthesis": true
+    "typescript.format.insertSpaceBeforeFunctionParenthesis": true,
+    "jest.jestCommandLine": "yarn run test",
+    "jest.autoRun": {}
+
   }
   
