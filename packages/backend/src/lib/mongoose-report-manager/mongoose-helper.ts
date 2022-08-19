@@ -47,14 +47,14 @@ export class MongooseHelper {
   public async getAllTheElementsOrderedAndFiltered (
     orderValue: string,
     orderDirection: string,
-    filterValue: string,
+    filterValue: string
   ): Promise<Models.Reports[]> {
     const order = orderDirection === 'asc' ? this.descendingOrder : this.ascendingOrder;
     const models = await this.initalizeModels();
     const reports = await new MongooseQueries( models ).getAllTheElementsOrderedAndFiltered(
       orderValue,
       order,
-      filterValue,
+      filterValue
     );
     await this.mongooseConnection.close();
     return reports;
@@ -85,22 +85,22 @@ export class MongooseHelper {
       featureModel: this.mongooseConnection.activeConnection.model<MFeature>(
         'Feature',
         featureSchema,
-        this.mongodbConfiguration.collections!.features,
+        this.mongodbConfiguration.collections!.features
       ),
       reportModel: this.mongooseConnection.activeConnection.model<MExtendedReport>(
         'ExtendedReport',
         reportsSchema,
-        this.mongodbConfiguration.collections!.reports,
+        this.mongodbConfiguration.collections!.reports
       ),
       scenarioModel: this.mongooseConnection.activeConnection.model<MScenario>(
         'Scenario',
         scenarioSchema,
-        this.mongodbConfiguration.collections!.scenarios,
+        this.mongodbConfiguration.collections!.scenarios
       ),
       stepModel: this.mongooseConnection.activeConnection.model<MSTep>(
         'Step',
         stepSchema,
-        this.mongodbConfiguration.collections!.steps,
+        this.mongodbConfiguration.collections!.steps
       )
     };
   }

@@ -23,25 +23,26 @@ describe( 'mongoose-helper', () => {
   };
 
   const mongooseHelper = new MongooseHelper( mongoDb );
-  const jsonFile1 = path.resolve(
-    process.cwd(),
-    './packages/backend/test/unit/data/enriched-joined-cucumber-jsons/enriched-output1.json'
-  );
+  const jsonFile1 = path.resolve( process.cwd(), './packages/backend/test/unit/data/enriched-joined-cucumber-jsons/enriched-output1.json' );
   const jsonFile2 = path.resolve( process.cwd(), './packages/backend/test/unit/data/enriched-joined-cucumber-jsons/enriched-output.json' );
-  const jsonFileWithErrors = path.resolve(
-    process.cwd(),
-    './packages/backend/test/unit/data/enriched-joined-cucumber-jsons/invalid-report.json'
-  );
+  const jsonFileFeatureFiltering = path.resolve( process.cwd(), './packages/backend/test/unit/data/enriched-joined-cucumber-jsons/enriched-output-feature-filter.json' );
+  const jsonFileScenarioFiltering = path.resolve( process.cwd(), './packages/backend/test/unit/data/enriched-joined-cucumber-jsons/enriched-output-scenario-filter.json' );
+  const jsonFileWithErrors = path.resolve( process.cwd(),'./packages/backend/test/unit/data/enriched-joined-cucumber-jsons/invalid-report.json' );
+
 
   const descendingOrder = 'desc';
   const ascendingOrder = 'asc';
   let reportSaved1 = <Models.ExtendedReport>{};
   let reportSaved2 = <Models.ExtendedReport>{};
+  let reportSavedFeatureFiltering = <Models.ExtendedReport>{};
+  let reportSavedScenarioFiltering = <Models.ExtendedReport>{};
   let invalidReport = <Models.ExtendedReport>{};
 
   beforeAll( async () => {
     reportSaved1 = ( await CommonFunctions.readJsonFile( jsonFile1 ) )!;
     reportSaved2 = ( await CommonFunctions.readJsonFile( jsonFile2 ) )!;
+    reportSavedFeatureFiltering = ( await CommonFunctions.readJsonFile( jsonFileFeatureFiltering ) )!;
+    reportSavedScenarioFiltering = ( await CommonFunctions.readJsonFile( jsonFileScenarioFiltering ) )!;
     invalidReport = ( await CommonFunctions.readJsonFile( jsonFileWithErrors ) )!;
   } );
 
@@ -84,14 +85,14 @@ describe( 'mongoose-helper', () => {
 
     test( 'can return all the reports filtered by feature name', async () => {
       // Given
-      const id1 = await mongooseHelper.insertReport( reportSaved1 );
+      const id1 = await mongooseHelper.insertReport( reportSavedFeatureFiltering );
       const id2 = await mongooseHelper.insertReport( reportSaved2 );
 
       // When
       const results = await mongooseHelper.getAllTheElementsOrderedAndFiltered(
         '',
         ascendingOrder,
-        "feature:Feature with all scenarios in status ambiguous ^'@#"
+        "feature:Feature to use for filtering ^'@#"
       );
 
       // Then
@@ -102,14 +103,14 @@ describe( 'mongoose-helper', () => {
 
     test( 'can return all the reports filtered by scenario name', async () => {
       // Given
-      const id1 = await mongooseHelper.insertReport( reportSaved1 );
+      const id1 = await mongooseHelper.insertReport( reportSavedScenarioFiltering );
       const id2 = await mongooseHelper.insertReport( reportSaved2 );
 
       // When
       const results = await mongooseHelper.getAllTheElementsOrderedAndFiltered(
         '',
         ascendingOrder,
-        'scenario:scenario with ambiguous steps:{&/%'
+        'scenario:scenario for filtering:{&/%'
       );
 
       // Then
