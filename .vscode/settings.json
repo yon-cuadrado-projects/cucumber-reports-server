@@ -46,6 +46,9 @@
     // "jest.jestCommandLine": "yarn run test",
     // "jest.autoRun": "off",
     // "jest.showCoverageOnLoad": false
-
+    "jest.autoRun": {
+        "onStartup": []
+    }
+    
   }
   

@@ -42,7 +42,7 @@ describe( 'server.ts', () => {
     }
   };
   const server = new Server( serverProperties );
-  const jsonFile = path.resolve( process.cwd(), './test/unit/data/enriched-joined-cucumber-jsons/enriched-output.json' );
+  const jsonFile = path.resolve( process.cwd(), 'packages/backend/test/unit/data/enriched-joined-cucumber-jsons/enriched-output.json' );
   let reportSaved = <Models.ExtendedReport>{};
 
   beforeAll( async () => {

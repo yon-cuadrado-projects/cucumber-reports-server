@@ -7,6 +7,7 @@ export default async (): Promise<Config.InitialOptions> => ( {
   testEnvironment: 'jsdom',
   collectCoverageFrom: [ 'src/lib/**/**/*.ts' ],
   coverageReporters: [ 'text', 'text-summary', 'html', 'lcov' ],
+  testTimeout: 40000,
   coverageThreshold: {
     global: {
       branches: 10,

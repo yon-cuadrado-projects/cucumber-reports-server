@@ -7,14 +7,6 @@ import { MongooseHelper } from '../../src/lib/mongoose-report-manager/mongoose-h
 import type { ObjectID } from 'bson';
 import { mongo } from 'mongoose';
 import { parse } from 'date-fns';
-// import sinon from 'sinon';
-// import sinonChai from 'sinon-chai';
-
-// chai.use( sinonChai );
-
-// chai.should();
-// chai.use( chaiAsPromised );
-// const { expect } = chai;
 
 describe( 'mongoose-helper', () => {
   const mongoDb: MongoDbConfiguration = {
@@ -33,12 +25,12 @@ describe( 'mongoose-helper', () => {
   const mongooseHelper = new MongooseHelper( mongoDb );
   const jsonFile1 = path.resolve(
     process.cwd(),
-    './test/unit/data/enriched-joined-cucumber-jsons/enriched-output1.json'
+    './packages/backend/test/unit/data/enriched-joined-cucumber-jsons/enriched-output1.json'
   );
-  const jsonFile2 = path.resolve( process.cwd(), './test/unit/data/enriched-joined-cucumber-jsons/enriched-output.json' );
+  const jsonFile2 = path.resolve( process.cwd(), './packages/backend/test/unit/data/enriched-joined-cucumber-jsons/enriched-output.json' );
   const jsonFileWithErrors = path.resolve(
     process.cwd(),
-    './test/unit/data/enriched-joined-cucumber-jsons/invalid-report.json'
+    './packages/backend/test/unit/data/enriched-joined-cucumber-jsons/invalid-report.json'
   );
 
   const descendingOrder = 'desc';
@@ -54,7 +46,7 @@ describe( 'mongoose-helper', () => {
   } );
 
   describe( 'Happy paths', () => {
-    it( 'can save a report', async () => {
+    test( 'can save a report', async () => {
       // Given
       const id = await mongooseHelper.insertReport( reportSaved2 );
 
@@ -62,26 +54,23 @@ describe( 'mongoose-helper', () => {
       const reportRecovered = await mongooseHelper.getReportById( id );
 
       // Then
-      expect( reportRecovered ).toBe( reportSaved2 );
+      expect( reportRecovered ).toStrictEqual( reportSaved2 );
       await mongooseHelper.deleteReportById( id );
     } );
 
-    it( 'can delete a report', async () => {
+    test( 'can delete a report', async () => {
       // Given
       const id1 = await mongooseHelper.insertReport( reportSaved1 );
-      const id2 = await mongooseHelper.insertReport( reportSaved2 );
-      const oId2: ObjectID | string = new mongo.ObjectId( id2 );
 
       // When
       await mongooseHelper.deleteReportById( id1 );
-      await mongooseHelper.deleteReportById( oId2 );
-      const results = await mongooseHelper.getDatabaseSize();
+      const databaseReportId1 = await mongooseHelper.getReportById( id1 );
 
       // Then
-      expect( results ).toBe( 0 );
+      expect( databaseReportId1 ).toBeNull( );
     } );
 
-    it( 'can get a report with id as as string', async () => {
+    test( 'can get a report with id as as string', async () => {
       // Given
       const id = await mongooseHelper.insertReport( reportSaved2 );
 
@@ -89,11 +78,11 @@ describe( 'mongoose-helper', () => {
       const reportRecovered = await mongooseHelper.getReportById( id.toHexString() );
 
       // Then
-      expect( reportRecovered ).toBe( reportSaved2 );
+      expect( reportRecovered ).toStrictEqual( reportSaved2 );
       await mongooseHelper.deleteReportById( id );
     } );
 
-    it( 'can return all the reports filtered by feature name', async () => {
+    test( 'can return all the reports filtered by feature name', async () => {
       // Given
       const id1 = await mongooseHelper.insertReport( reportSaved1 );
       const id2 = await mongooseHelper.insertReport( reportSaved2 );
@@ -102,7 +91,7 @@ describe( 'mongoose-helper', () => {
       const results = await mongooseHelper.getAllTheElementsOrderedAndFiltered(
         '',
         ascendingOrder,
-        "feature:Feature with all scenarios in status ambigous ^'@#"
+        "feature:Feature with all scenarios in status ambiguous ^'@#"
       );
 
       // Then
@@ -111,7 +100,7 @@ describe( 'mongoose-helper', () => {
       await mongooseHelper.deleteReportById( id2.toHexString() );
     } );
 
-    it( 'can return all the reports filtered by scenario name', async () => {
+    test( 'can return all the reports filtered by scenario name', async () => {
       // Given
       const id1 = await mongooseHelper.insertReport( reportSaved1 );
       const id2 = await mongooseHelper.insertReport( reportSaved2 );
@@ -129,7 +118,7 @@ describe( 'mongoose-helper', () => {
       await mongooseHelper.deleteReportById( id2 );
     } );
 
-    it( 'can return all the reports filtered by step name', async () => {
+    test( 'can return all the reports filtered by step name', async () => {
       // Given
       const id1 = await mongooseHelper.insertReport( reportSaved1 );
       const id2 = await mongooseHelper.insertReport( reportSaved2 );
@@ -147,7 +136,7 @@ describe( 'mongoose-helper', () => {
       await mongooseHelper.deleteReportById( id2 );
     } );
 
-    it( 'can return all the reports ordered by title', async () => {
+    test( 'can return all the reports ordered by title', async () => {
       // Given
       const id1 = await mongooseHelper.insertReport( reportSaved1 );
       const id2 = await mongooseHelper.insertReport( reportSaved2 );
@@ -170,7 +159,7 @@ describe( 'mongoose-helper', () => {
       await mongooseHelper.deleteReportById( id2 );
     } );
 
-    it( 'can return all the reports ordered by results.overview.date', async () => {
+    test( 'can return all the reports ordered by results.overview.date', async () => {
       // Given
       const id1 = await mongooseHelper.insertReport( reportSaved1 );
       const id2 = await mongooseHelper.insertReport( reportSaved2 );
@@ -196,7 +185,7 @@ describe( 'mongoose-helper', () => {
       await mongooseHelper.deleteReportById( id2 );
     } );
 
-    it( 'can return all the reports ordered by id', async () => {
+    test( 'can return all the reports ordered by id', async () => {
       // Given
       const id1 = await mongooseHelper.insertReport( reportSaved1 );
       const id2 = await mongooseHelper.insertReport( reportSaved2 );
@@ -219,7 +208,7 @@ describe( 'mongoose-helper', () => {
       await mongooseHelper.deleteReportById( id2 );
     } );
 
-    it( 'can return all the reports ordered by result', async () => {
+    test( 'can return all the reports ordered by result', async () => {
       // Given
       const id1 = await mongooseHelper.insertReport( reportSaved1 );
       const id2 = await mongooseHelper.insertReport( reportSaved2 );
@@ -242,7 +231,7 @@ describe( 'mongoose-helper', () => {
       await mongooseHelper.deleteReportById( id2 );
     } );
 
-    it( 'can return all the elements', async () => {
+    test( 'can return all the elements', async () => {
       // Given
       const id1 = await mongooseHelper.insertReport( reportSaved1 );
       const id2 = await mongooseHelper.insertReport( reportSaved2 );
@@ -255,7 +244,7 @@ describe( 'mongoose-helper', () => {
       await mongooseHelper.deleteReportById( id1 );
       await mongooseHelper.deleteReportById( id2 );
     } );
-    it( 'can get database size', async () => {
+    test( 'can get database size', async () => {
       // Given
       const id1 = await mongooseHelper.insertReport( reportSaved1 );
       const id2 = await mongooseHelper.insertReport( reportSaved2 );
@@ -270,7 +259,7 @@ describe( 'mongoose-helper', () => {
     } );
   } );
   describe( 'Failures', () => {
-    it( 'returns an error when it cannot save the report', async () => {
+    test( 'returns an error when it cannot save the report', async () => {
       // Given
       const consoleStub = jest.spyOn( console, 'info' ).mockImplementation();
       // console.warn(ConsoleMessages.incorrectReport);
@@ -284,7 +273,7 @@ describe( 'mongoose-helper', () => {
       consoleStub.mockRestore();
     } );
 
-    it( 'returns an error when it cannot delete the report', async () => {
+    test( 'returns an error when it cannot delete the report', async () => {
       // Given
       // const consoleStub = sinon.stub( console, 'log' );
       const consoleStub = jest.spyOn( console, 'info' ).mockImplementation();
@@ -299,7 +288,7 @@ describe( 'mongoose-helper', () => {
       consoleStub.mockRestore();
     } );
 
-    it( 'returns an error when it cannot display the report', async () => {
+    test( 'returns an error when it cannot display the report', async () => {
       // Given
       const consoleStub = jest.spyOn( console, 'info' ).mockImplementation();
       // const consoleStub = sinon.stub( console, 'log' );
@@ -314,7 +303,7 @@ describe( 'mongoose-helper', () => {
       consoleStub.mockRestore();
     } );
 
-    it( 'returns an error when it cannot connect', async () => {
+    test( 'returns an error when it cannot connect', async () => {
       // Given
       mongooseHelper.mongodbConfiguration.dbPort = 25;
       // When

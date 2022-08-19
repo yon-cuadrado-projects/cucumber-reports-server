@@ -16,6 +16,7 @@ export default async (): Promise<Config.InitialOptions> => ( {
       statements: -300
     }
   },
+  testTimeout: 40000,
   coveragePathIgnorePatterns: [
     'node_modules',
     'hooks',
