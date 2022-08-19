@@ -154,8 +154,8 @@ describe( 'mongoose-helper', () => {
       );
 
       // Then
-      expect( resultsAsc ).toBe( resultsOrderedAsc );
-      expect( resultsDesc ).toBe( resultsOrderedDesc );
+      expect( resultsAsc ).toStrictEqual( resultsOrderedAsc );
+      expect( resultsDesc ).toStrictEqual( resultsOrderedDesc );
       await mongooseHelper.deleteReportById( id1 );
       await mongooseHelper.deleteReportById( id2 );
     } );
@@ -180,8 +180,8 @@ describe( 'mongoose-helper', () => {
       );
 
       // Then
-      expect( resultsAsc ).toBe( resultsOrderedAsc );
-      expect( resultsDesc ).toBe( resultsOrderedDesc );
+      expect( resultsAsc ).toStrictEqual( resultsOrderedAsc );
+      expect( resultsDesc ).toStrictEqual( resultsOrderedDesc );
       await mongooseHelper.deleteReportById( id1 );
       await mongooseHelper.deleteReportById( id2 );
     } );
@@ -203,8 +203,8 @@ describe( 'mongoose-helper', () => {
       );
 
       // Then
-      expect( resultsAsc ).toBe( resultsOrderedAsc );
-      expect( resultsDesc ).toBe( resultsOrderedDesc );
+      expect( resultsAsc ).toStrictEqual( resultsOrderedAsc );
+      expect( resultsDesc ).toStrictEqual( resultsOrderedDesc );
       await mongooseHelper.deleteReportById( id1 );
       await mongooseHelper.deleteReportById( id2 );
     } );
@@ -226,8 +226,8 @@ describe( 'mongoose-helper', () => {
       );
 
       // Then
-      expect( resultsAsc ).toBe( resultsOrderedAsc );
-      expect( resultsDesc ).toBe( resultsOrderedDesc );
+      expect( resultsDesc ).toStrictEqual( resultsOrderedDesc );
+      expect( resultsAsc ).toStrictEqual( resultsOrderedAsc );
       await mongooseHelper.deleteReportById( id1 );
       await mongooseHelper.deleteReportById( id2 );
     } );

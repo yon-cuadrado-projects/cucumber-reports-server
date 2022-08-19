@@ -25,7 +25,7 @@ export default class MongooseQueries {
   public async getAllTheElementsOrderedAndFiltered (
     orderValue: string,
     orderDirection: -1 | 1 | { $meta: 'textScore' },
-    filterValue: string,
+    filterValue: string
   ): Promise<Models.Reports[]> {
     const sortObj: Record<string, -1 | 1 | { $meta: 'textScore' }> = this.getOrderObject( orderValue, orderDirection );
 
@@ -55,14 +55,14 @@ export default class MongooseQueries {
         (
           await this.models.scenarioModel.find(
             { name: { $regex: `${filterValue.replace( 'scenario:', '' )}` } },
-            { featureId: 1 },
+            { featureId: 1 }
           )
         ).map( ( element ) => element.featureId )
       );
     } else if ( scenariosId?.length ) {
       return <ObjectID[]>(
         ( await this.models.scenarioModel.find().select( { featureId: 1 } ).where( '_id' ).in( scenariosId ) ).map(
-          ( element ) => element.featureId,
+          ( element ) => element.featureId
         )
       );
     }
@@ -79,14 +79,14 @@ export default class MongooseQueries {
         (
           await this.models.featureModel.find(
             { name: { $regex: `${filterValue.replace( 'feature:', '' )}` } },
-            { reportId: 1 },
+            { reportId: 1 }
           )
         ).map( ( element ) => element.reportId )
       );
     } else if ( featureIds ) {
       return <ObjectID[]>(
         ( await this.models.featureModel.find().select( { reportId: 1 } ).where( '_id' ).in( featureIds ) ).map(
-          ( element ) => element.reportId,
+          ( element ) => element.reportId
         )
       );
     }
@@ -97,14 +97,14 @@ export default class MongooseQueries {
   public async getScenarioIDs ( filterValue: string ): Promise<ObjectID[]> {
     return <ObjectID[]>(
       ( await this.models.stepModel.find( { name: { $regex: filterValue.replace( 'step:', '' ) } }, { scenarioId: 1 } ) ).map(
-        ( element ) => element.scenarioId,
+        ( element ) => element.scenarioId
       )
     );
   }
 
   public async getReportsData (
     sortOption: Record<string, -1 | 1 | { $meta: 'textScore' }>,
-    ids?: ObjectID[],
+    ids?: ObjectID[]
   ): Promise<Models.Reports[]> {
     const filter: FilterQuery<Models.ExtendedReport> = ids ? { _id: { $in: ids } } : {};
     return this.models.reportModel.aggregate( [
@@ -184,10 +184,10 @@ export default class MongooseQueries {
         await Promise.all(
           scenariosLocal.map( async ( scenario ) => {
             await this.models.stepModel.deleteMany( { scenarioId: <ObjectID>scenario._id } );
-          } ),
+          } )
         );
         await this.models.scenarioModel.deleteMany( { featureId: scenariosLocal[0]?.featureId } );
-      } ),
+      } )
     );
     await this.models.featureModel.deleteMany( { reportId: oId } );
     if ( result.deletedCount !== 1 ) {
@@ -210,7 +210,7 @@ export default class MongooseQueries {
         delete feature.elements;
         const featureInDb = await this.models.featureModel.create( feature );
         await this.insertScenarios( scenarios!, <ObjectID>featureInDb._id );
-      } ),
+      } )
     );
 
     return <ObjectID>element._id;
@@ -224,7 +224,7 @@ export default class MongooseQueries {
         delete scenario.steps;
         const scenarioDb = await this.models.scenarioModel.create( scenario );
         await this.insertScenarioSteps( scenarioSteps!, <ObjectID>scenarioDb._id );
-      } ),
+      } )
     );
   }
 
@@ -233,7 +233,7 @@ export default class MongooseQueries {
       scenarioSteps.map( async ( step ) => {
         step.scenarioId = scenarioStepsId;
         await this.models.stepModel.create( step );
-      } ),
+      } )
     );
   }
 
@@ -245,7 +245,7 @@ export default class MongooseQueries {
 
   private getOrderObject (
     orderValue: string,
-    orderDirection: -1 | 1 | { $meta: 'textScore' },
+    orderDirection: -1 | 1 | { $meta: 'textScore' }
   ): Record<string, -1 | 1 | { $meta: 'textScore' }> {
     const sortObj: Record<string, -1 | 1 | { $meta: 'textScore' }> = {};
     switch ( orderValue ) {
