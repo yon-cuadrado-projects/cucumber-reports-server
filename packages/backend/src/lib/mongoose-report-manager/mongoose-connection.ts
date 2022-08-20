@@ -22,7 +22,7 @@ export default class MoongooseConnection {
       const createdConnection = await mongoose
         .connect( this.url, this.mongodbConfiguration.mongoDbOptions )
         .catch( ( error: Error ) => {
-          console.log( `error conecting to mongodb: ${error.message}` );
+          console.log( `error connecting to mongodb: ${error.message}` );
           throw error;
         } );
       this.activeConnection = createdConnection.connection;

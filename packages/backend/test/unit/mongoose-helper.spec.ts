@@ -262,9 +262,7 @@ describe( 'mongoose-helper', () => {
   describe( 'Failures', () => {
     test( 'returns an error when it cannot save the report', async () => {
       // Given
-      const consoleStub = jest.spyOn( console, 'info' ).mockImplementation();
-      // console.warn(ConsoleMessages.incorrectReport);
-      // const consoleStub = sinon.stub( console, 'log' );
+      const consoleStub = jest.spyOn( console, 'log' ).mockImplementation();
 
       // When
       await mongooseHelper.insertReport( invalidReport );
@@ -276,8 +274,7 @@ describe( 'mongoose-helper', () => {
 
     test( 'returns an error when it cannot delete the report', async () => {
       // Given
-      // const consoleStub = sinon.stub( console, 'log' );
-      const consoleStub = jest.spyOn( console, 'info' ).mockImplementation();
+      const consoleStub = jest.spyOn( console, 'log' ).mockImplementation();
       const oId: ObjectID = new mongo.ObjectId();
 
       // When
@@ -285,14 +282,12 @@ describe( 'mongoose-helper', () => {
 
       // Then
       expect( consoleStub ).toHaveBeenCalledWith( ConsoleMessages.reportNotFound( oId ) );
-      // expect( consoleStub.calledWith( ConsoleMessages.reportNotFound( oId ) ) ).to.be.true;
       consoleStub.mockRestore();
     } );
 
     test( 'returns an error when it cannot display the report', async () => {
       // Given
-      const consoleStub = jest.spyOn( console, 'info' ).mockImplementation();
-      // const consoleStub = sinon.stub( console, 'log' );
+      const consoleStub = jest.spyOn( console, 'log' ).mockImplementation();
       const oId = new mongo.ObjectId();
 
       // When
@@ -300,25 +295,28 @@ describe( 'mongoose-helper', () => {
 
       // Then
       expect( consoleStub ).toHaveBeenCalledWith( ConsoleMessages.reportNotFound( oId ) );
-      // expect( consoleStub.calledWith( ConsoleMessages.reportNotFound( oId ) ) ).to.be.true;
       consoleStub.mockRestore();
     } );
 
     test( 'returns an error when it cannot connect', async () => {
       // Given
       mongooseHelper.mongodbConfiguration.dbPort = 25;
+      const consoleStub = jest.spyOn( console, 'log' ).mockImplementation();
+
       // When
       mongooseHelper.mongodbConfiguration.mongoDbOptions = {
-        serverSelectionTimeoutMS: 2,
-        socketTimeoutMS: 1,
-        connectTimeoutMS: 1,
-        waitQueueTimeoutMS: 1
+        serverSelectionTimeoutMS:10,
+        socketTimeoutMS: 0,
+        connectTimeoutMS: 0,
+        waitQueueTimeoutMS: 0,
+        maxIdleTimeMS:0
       };
 
-      await mongooseHelper.getDatabaseSize().catch( ( err: Error ) => {
-        // Then
-        expect( err.message ).toContain( ConsoleMessages.invalidUrl );
-      } );
+      await expect( mongooseHelper.getDatabaseSize() ).rejects.toThrowError( ConsoleMessages.connectionRefusedError );
+
+      // Then
+      expect( consoleStub ).toHaveBeenCalledWith( ConsoleMessages.connectionRefused );
+      consoleStub.mockRestore();
     } );
   } );
 } );
