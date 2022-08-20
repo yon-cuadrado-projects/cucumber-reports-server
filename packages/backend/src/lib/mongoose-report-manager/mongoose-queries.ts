@@ -6,6 +6,7 @@ import type { MongooseModels } from '../models/mongoose/mongoose-models';
 import type { ObjectID } from 'bson';
 import { mongo } from 'mongoose';
 import { MScenario } from '../models/mongoose/mongoose-scenario-schemas';
+import { MFeature } from '../models/mongoose/mongoose-feature-schemas';
 
 export default class MongooseQueries {
   public models: MongooseModels;
@@ -70,25 +71,25 @@ export default class MongooseQueries {
   }
 
   public async getReportIDs ( filterValue: string, featureIds?: ObjectID[] ): Promise<ObjectID[]> {
+    let databaseData: Query<( MFeature & {
+      _id: Types.ObjectId;
+    } )[], MFeature & {
+      _id: Types.ObjectId;
+    }, unknown, MFeature>;
+
     /* istanbul ignore else */
     if ( filterValue.includes( 'feature:' ) ) {
-      return <ObjectID[]>(
-        (
-          await this.models.featureModel.find(
-            { name: { $regex: `${filterValue.replace( 'feature:', '' )}` } },
-            { reportId: 1 }
-          )
-        ).map( ( element ) => element.reportId )
+      databaseData = this.models.featureModel.find(
+        { name: { $regex: `${filterValue.replace( 'feature:', '' )}` } },
+        { reportId: 1 }
       );
     } else if ( featureIds ) {
-      return <ObjectID[]>(
-        ( await this.models.featureModel.find().select( { reportId: 1 } ).where( '_id' ).in( featureIds ) ).map(
-          ( element ) => element.reportId
-        )
-      );
+      databaseData = this.models.featureModel.find().select( { reportId: 1 } ).where( '_id' ).in( featureIds );
+    }else{
+      databaseData = this.models.featureModel.find();
     }
     /* istanbul ignore next */
-    return <ObjectID[]>( await this.models.featureModel.find() ).map( ( element ) => element.reportId );
+    return <ObjectID[]>( await databaseData ).map( element => element.reportId );
   }
 
   public async getScenarioIDs ( filterValue: string ): Promise<ObjectID[]> {
