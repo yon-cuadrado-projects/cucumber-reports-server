@@ -4,7 +4,7 @@ import { Server } from '../../lib/server/server';
 import type { ServerProperties } from '../../lib/models/common/application-properties';
 
 export class StartServer{ 
-  public startServer(  ): void{
+  public startServer (  ): void{
     const args = process.argv.slice( 0 );
     let config = <ServerProperties>{};
     const filePath = process.argv[2];

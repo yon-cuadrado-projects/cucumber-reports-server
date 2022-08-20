@@ -47,7 +47,7 @@ class ApplicationPropertiesValidation {
   }
 
   public initializeServerDisplayConfiguration (
-    parameters: ServerDisplayProperties | undefined,
+    parameters: ServerDisplayProperties | undefined
   ): ServerDisplayProperties {
     return {
       port: parameters?.port ?? 3100,

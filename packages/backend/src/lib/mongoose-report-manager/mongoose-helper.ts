@@ -38,8 +38,8 @@ export class MongooseHelper {
 
   public async getReportById ( id: ObjectID | string ): Promise<Models.ExtendedReport | null> {
     const models = await this.initializeModels();
-    let report = <Models.ExtendedReport | null>{};
-    report = await new MongooseQueries( models ).getReportById( id );
+    // let report = <Models.ExtendedReport | null>{};
+    const report = await new MongooseQueries( models ).getReportById( id );
     await this.mongooseConnection.close();
     return report;
   }

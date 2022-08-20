@@ -1,10 +1,11 @@
 import * as ConsoleMessages from '../helpers/console-messages';
 import * as lodash from 'lodash';
-import type { FilterQuery } from 'mongoose';
+import type { FilterQuery, Query, Types } from 'mongoose';
 import type { Models } from 'cucumber-html-report-generator';
 import type { MongooseModels } from '../models/mongoose/mongoose-models';
 import type { ObjectID } from 'bson';
 import { mongo } from 'mongoose';
+import { MScenario } from '../models/mongoose/mongoose-scenario-schemas';
 
 export default class MongooseQueries {
   public models: MongooseModels;
@@ -43,33 +44,29 @@ export default class MongooseQueries {
       const ids = await this.getReportIDs( '', featuresIds );
       return this.getReportsData( sortObj, ids );
     }
-    // return this.getReportsData( sortObj );
-    const reports = await this.getReportsData( sortObj );
-    return reports;
+    return this.getReportsData( sortObj );
   }
 
   public async getFeatureIDs ( filterValue: string, scenariosId?: ObjectID[] ): Promise<ObjectID[]> {
     /* istanbul ignore else */
+    let databaseData: Query<( MScenario & {
+      _id: Types.ObjectId;
+    } )[], MScenario & {
+      _id: Types.ObjectId;
+    }, unknown, MScenario>;
+
     if ( filterValue.includes( 'scenario:' ) ) {
-      return <ObjectID[]>(
-        (
-          await this.models.scenarioModel.find(
-            { name: { $regex: `${filterValue.replace( 'scenario:', '' )}` } },
-            { featureId: 1 }
-          )
-        ).map( ( element ) => element.featureId )
+      databaseData = this.models.scenarioModel.find(
+        { name: { $regex: `${filterValue.replace( 'scenario:', '' )}` } },
+        { featureId: 1 }
       );
     } else if ( scenariosId?.length ) {
-      return <ObjectID[]>(
-        ( await this.models.scenarioModel.find().select( { featureId: 1 } ).where( '_id' ).in( scenariosId ) ).map(
-          ( element ) => element.featureId
-        )
-      );
+      databaseData = this.models.scenarioModel.find().select( { featureId: 1 } ).where( '_id' ).in( scenariosId );
+    }else{
+      databaseData = this.models.scenarioModel.find().select( { featureId: 1 } );
     }
     /* istanbul ignore next */
-    return <ObjectID[]>(
-      ( await this.models.scenarioModel.find().select( { featureId: 1 } ) ).map( ( element ) => element.featureId )
-    );
+    return <ObjectID[]>( await databaseData ).map( ( element ) => element.featureId ).filter( element => element );
   }
 
   public async getReportIDs ( filterValue: string, featureIds?: ObjectID[] ): Promise<ObjectID[]> {

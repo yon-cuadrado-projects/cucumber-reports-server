@@ -102,7 +102,7 @@ export const argumentsRowsSchema = new Schema(
   {
     _id: false,
     id: false
-  },
+  }
 );
 
 export const argumentSchema = new Schema(
@@ -113,7 +113,7 @@ export const argumentSchema = new Schema(
   {
     _id: false,
     id: false
-  },
+  }
 );
 
 export const matchSchemaArguments = new Schema(

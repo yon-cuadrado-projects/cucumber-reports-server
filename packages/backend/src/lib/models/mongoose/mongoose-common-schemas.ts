@@ -77,7 +77,7 @@ export const moduleResultsSchema = new Schema(
   {
     _id: false,
     id: false
-  },
+  }
 );
 
 export const overviewResultsSchema = new Schema(
@@ -106,5 +106,5 @@ export const overviewResultsSchema = new Schema(
   {
     _id: false,
     id: false
-  },
+  }
 );

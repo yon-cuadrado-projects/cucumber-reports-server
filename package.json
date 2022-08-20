@@ -22,6 +22,6 @@
     "start:frontend": "yarn --cwd ./packages/frontend run start",
     "test1": "yarn --cwd ./packages/frontend run test && yarn --cwd ./packages/backend run test",
     "standard-fix-all": "",
-    "eslint-fix-all": ""
+    "eslint-fix-all": "npx eslint --fix ./packages/backend/**/**/**/**/*.ts"
   }
 }

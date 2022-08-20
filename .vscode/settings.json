@@ -48,7 +48,13 @@
     // "jest.showCoverageOnLoad": false
     "jest.autoRun": {
         "onStartup": []
-    }
+    },
+    "cSpell.words": [
+        "bson",
+        "jsons",
+        "Moongoose",
+        "virtuals"
+    ]
     
   }
   
