@@ -68,7 +68,6 @@ describe( 'Happy flows', () => {
 
   test( 'returns a report from the database', async () => {
     // Given
-
     server.serverConfiguration.reportDisplay.reportPath = undefined;
     server.configureServer();
     server.startServer();
