@@ -175,6 +175,7 @@ module.exports = {
     'comma-dangle': [ 'error', 'never' ],
     '@typescript-eslint/no-floating-promises': [ 'error', { ignoreIIFE: true } ],
     'import/no-duplicates': [ 'error'],
+    '@typescript-eslint/no-shadow': [ 'error' ],
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/strict-boolean-expressions': 'off',
@@ -199,7 +200,8 @@ module.exports = {
     'sort-keys': 'off',
     '@typescript-eslint/no-unused-expressions': 'off',
     'prettier/prettier': [ 'off' ],
-    'no-duplicate-imports': [ 'off' ]
+    'no-duplicate-imports': [ 'off' ],
+    'no-shadow': [ 'off' ]
   },
   'overrides': [
     {

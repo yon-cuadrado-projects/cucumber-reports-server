@@ -1,4 +1,4 @@
-import express from 'express';import type * as http from 'http';
+import type * as http from 'http';
 import * as path from 'path';
 import type { Application, Request , Response } from 'express';
 import type { Models } from 'cucumber-html-report-generator';

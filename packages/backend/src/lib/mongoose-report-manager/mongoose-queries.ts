@@ -1,12 +1,12 @@
 import * as ConsoleMessages from '../helpers/console-messages';
 import * as lodash from 'lodash';
 import type { FilterQuery, Query, Types } from 'mongoose';
+import type { MFeature } from '../models/mongoose/mongoose-feature-schemas';
+import type { MScenario } from '../models/mongoose/mongoose-scenario-schemas';
 import type { Models } from 'cucumber-html-report-generator';
 import type { MongooseModels } from '../models/mongoose/mongoose-models';
 import type { ObjectID } from 'bson';
 import { mongo } from 'mongoose';
-import type { MScenario } from '../models/mongoose/mongoose-scenario-schemas';
-import type { MFeature } from '../models/mongoose/mongoose-feature-schemas';
 
 export default class MongooseQueries {
   public models: MongooseModels;
@@ -50,11 +50,11 @@ export default class MongooseQueries {
 
   public async getFeatureIDs ( filterValue: string, scenariosId?: ObjectID[] ): Promise<ObjectID[]> {
     /* istanbul ignore else */
-    let databaseData: Query<( MScenario & {
+    let databaseData =  <Query<( MScenario & {
       _id: Types.ObjectId;
     } )[], MScenario & {
       _id: Types.ObjectId;
-    }, unknown, MScenario>;
+    }, unknown, MScenario>>{};
 
     if ( filterValue.includes( 'scenario:' ) ) {
       databaseData = this.models.scenarioModel.find(
@@ -71,11 +71,11 @@ export default class MongooseQueries {
   }
 
   public async getReportIDs ( filterValue: string, featureIds?: ObjectID[] ): Promise<ObjectID[]> {
-    let databaseData: Query<( MFeature & {
+    let databaseData = <Query<( MFeature & {
       _id: Types.ObjectId;
     } )[], MFeature & {
       _id: Types.ObjectId;
-    }, unknown, MFeature>;
+    }, unknown, MFeature>>{};
 
     /* istanbul ignore else */
     if ( filterValue.includes( 'feature:' ) ) {
@@ -100,7 +100,7 @@ export default class MongooseQueries {
     );
   }
 
-  public async getReportsData (
+  public getReportsData (
     sortOption: Record<string, -1 | 1 | { $meta: 'textScore' }>,
     ids?: ObjectID[]
   ): Promise<Models.Reports[]> {
