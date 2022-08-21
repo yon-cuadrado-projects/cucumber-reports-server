@@ -100,12 +100,12 @@ export default class MongooseQueries {
     );
   }
 
-  public getReportsData (
+  public async getReportsData (
     sortOption: Record<string, -1 | 1 | { $meta: 'textScore' }>,
     ids?: ObjectID[]
   ): Promise<Models.Reports[]> {
     const filter: FilterQuery<Models.ExtendedReport> = ids ? { _id: { $in: ids } } : {};
-    return this.models.reportModel.aggregate( [
+    const reportsData =  await this.models.reportModel.aggregate( [
       { $match: filter },
       { $sort: sortOption },
       {
@@ -117,6 +117,7 @@ export default class MongooseQueries {
         }
       }
     ] );
+    return reportsData;
   }
 
   public async getReportById ( id: ObjectID | string ): Promise<Models.ExtendedReport | null> {

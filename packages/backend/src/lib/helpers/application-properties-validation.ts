@@ -10,6 +10,8 @@ import { CommonFunctions } from 'cucumber-html-report-generator';
 import type { Models } from 'cucumber-html-report-generator';
 import { format } from 'date-fns';
 
+const defaultPort = 3100;
+
 class ApplicationPropertiesValidation {
   public checkServerProperties ( serverProperties: ServerProperties ): ServerProperties {
     const localServerProperties = serverProperties;
@@ -50,7 +52,7 @@ class ApplicationPropertiesValidation {
     parameters: ServerDisplayProperties | undefined
   ): ServerDisplayProperties {
     return {
-      port: parameters?.port ?? 3100,
+      port: parameters?.port ?? defaultPort,
       theme: parameters?.theme === 'Dark' || parameters?.theme === 'Light' ? parameters.theme : 'Dark',
       useCDN: typeof parameters?.useCDN === 'undefined' ? false : parameters.useCDN
     };
