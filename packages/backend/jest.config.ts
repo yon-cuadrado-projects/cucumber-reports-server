@@ -1,7 +1,6 @@
 import type { Config } from '@jest/types';
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default async (): Promise<Config.InitialOptions> => ( {
+const config: Config.InitialOptions = {
   verbose: true,
   preset: 'ts-jest',
   testEnvironment: 'node',
@@ -18,4 +17,6 @@ export default async (): Promise<Config.InitialOptions> => ( {
       statements: 28
     }
   }
-} );
+};
+
+export default config;

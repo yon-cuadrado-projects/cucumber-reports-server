@@ -5,8 +5,8 @@ import type { Models } from 'cucumber-html-report-generator';
 import type { MongooseModels } from '../models/mongoose/mongoose-models';
 import type { ObjectID } from 'bson';
 import { mongo } from 'mongoose';
-import { MScenario } from '../models/mongoose/mongoose-scenario-schemas';
-import { MFeature } from '../models/mongoose/mongoose-feature-schemas';
+import type { MScenario } from '../models/mongoose/mongoose-scenario-schemas';
+import type { MFeature } from '../models/mongoose/mongoose-feature-schemas';
 
 export default class MongooseQueries {
   public models: MongooseModels;

@@ -12,7 +12,7 @@
         "**/reports": true,
       },
     "[javascript]": {
-        "editor.formatOnSave": false
+        "editor.formatOnSave": false,
     },
     "[javascriptreact]": {
         "editor.formatOnSave": false

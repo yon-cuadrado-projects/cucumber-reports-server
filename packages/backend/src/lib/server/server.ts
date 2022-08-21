@@ -1,6 +1,6 @@
-import type * as http from 'http';
+import express from 'express';import type * as http from 'http';
 import * as path from 'path';
-import type { Application, Request, Response } from 'express';
+import type { Application, Request , Response } from 'express';
 import type { Models } from 'cucumber-html-report-generator';
 import { MongooseHelper } from '../mongoose-report-manager/mongoose-helper';
 import type { ParamsDictionary } from 'express-serve-static-core';

@@ -15,8 +15,11 @@ import { stepSchema } from '../models/mongoose/mongoose-step-schemas';
 
 export class MongooseHelper {
   public mongooseConnection: MoongooseConnection;
+
   public readonly mongodbConfiguration: MongoDbConfiguration;
+
   private readonly ascendingOrder = -1;
+
   private readonly descendingOrder = 1;
 
   public constructor ( mongodbConfiguration: MongoDbConfiguration ) {
