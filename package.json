@@ -6,22 +6,56 @@
     "packages/*"
   ],
   "devDependencies": {
-    "@types/eslint": "8.4.5",
+    "@mdx-js/react": "2.1.3",
+    "@storybook/addon-actions": "6.5.10",
+    "@storybook/addon-docs": "6.5.10",
+    "@storybook/addon-essentials": "6.5.10",
+    "@storybook/addon-interactions": "6.5.10",
+    "@storybook/addon-links": "6.5.10",
+    "@storybook/builder-webpack5": "6.5.10",
+    "@storybook/manager-webpack5": "6.5.10",
+    "@storybook/node-logger": "6.5.10",
+    "@storybook/preset-create-react-app": "4.1.2",
+    "@storybook/preset-scss": "^1.0.3",
+    "@storybook/preset-typescript": "^3.0.0",
+    "@storybook/react": "6.5.10",
+    "@storybook/testing-library": "0.0.13",
+    "@types/eslint": "8.4.6",
     "@types/express": "4.17.13",
-    "@typescript-eslint/eslint-plugin": "5.33.1",
-    "eslint": "8.21.0",
+    "@typescript-eslint/eslint-plugin": "5.35.1",
+    "css-loader": "^6.7.1",
+    "eslint": "8.22.0",
     "eslint-config-react": "1.1.7",
     "eslint-config-react-app": "7.0.1",
-    "eslint-plugin-jest": "26.8.2",
-    "eslint-plugin-react": "7.30.1",
+    "eslint-plugin-jest": "26.8.7",
+    "eslint-plugin-react": "7.31.0",
+    "eslint-plugin-storybook": "0.6.4",
     "jest-css-modules-transform": "4.4.2",
+    "sass": "^1.54.5",
+    "sass-loader": "^13.0.2",
+    "style-loader": "^3.3.1",
     "typescript": "4.7.4"
   },
   "scripts": {
-    "update:apps": "yarn workspaces foreach run update-package-json-dependencies",
+    "update:apps": "yarn workspaces foreach run update-package-json-dependencies && update-package-json-dependencies",
+    "update-package-json-dependencies": "npx ncu -u && yarn",
     "start:frontend": "yarn --cwd ./packages/frontend run start",
     "test1": "yarn --cwd ./packages/frontend run test && yarn --cwd ./packages/backend run test",
     "standard-fix-all": "",
-    "eslint-fix-all": "npx eslint --fix ./packages/backend/**/**/**/**/*.ts"
+    "eslint-fix-all": "npx eslint --fix ./packages/backend/**/**/**/**/*.ts",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "eslintConfig": {
+    "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
+    ]
   }
 }

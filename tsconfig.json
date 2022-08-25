@@ -18,7 +18,7 @@
     "emitDecoratorMetadata": true,
     "target": "es2020",
     "module": "commonjs",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "lib": [
       "DOM",
       "ESnext"
@@ -28,7 +28,8 @@
     "rootDir": ".",
     "paths": {
       "~/*": ["packages/*"]
-    }
+    },
+    "esModuleInterop": true
   },
   "exclude": [
     "node_modules",
