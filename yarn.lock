@@ -84,7 +84,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:7.18.13, @babel/core@npm:^7.1.0, @babel/core@npm:^7.11.1, @babel/core@npm:^7.11.6, @babel/core@npm:^7.12.10, @babel/core@npm:^7.12.3, @babel/core@npm:^7.16.0, @babel/core@npm:^7.7.2, @babel/core@npm:^7.7.5, @babel/core@npm:^7.8.0":
+"@babel/core@npm:7.18.13, @babel/core@npm:^7.1.0, @babel/core@npm:^7.11.1, @babel/core@npm:^7.11.6, @babel/core@npm:^7.12.10, @babel/core@npm:^7.12.3, @babel/core@npm:^7.16.0, @babel/core@npm:^7.18.13, @babel/core@npm:^7.7.2, @babel/core@npm:^7.7.5, @babel/core@npm:^7.8.0":
   version: 7.18.13
   resolution: "@babel/core@npm:7.18.13"
   dependencies:
@@ -3215,7 +3215,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-actions@npm:6.5.10":
+"@storybook/addon-actions@npm:6.5.10, @storybook/addon-actions@npm:^6.5.10":
   version: 6.5.10
   resolution: "@storybook/addon-actions@npm:6.5.10"
   dependencies:
@@ -3307,7 +3307,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-docs@npm:6.5.10":
+"@storybook/addon-docs@npm:6.5.10, @storybook/addon-docs@npm:^6.5.10":
   version: 6.5.10
   resolution: "@storybook/addon-docs@npm:6.5.10"
   dependencies:
@@ -3354,7 +3354,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-essentials@npm:6.5.10":
+"@storybook/addon-essentials@npm:6.5.10, @storybook/addon-essentials@npm:^6.5.10":
   version: 6.5.10
   resolution: "@storybook/addon-essentials@npm:6.5.10"
   dependencies:
@@ -3414,7 +3414,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-interactions@npm:6.5.10":
+"@storybook/addon-interactions@npm:6.5.10, @storybook/addon-interactions@npm:^6.5.10":
   version: 6.5.10
   resolution: "@storybook/addon-interactions@npm:6.5.10"
   dependencies:
@@ -3445,7 +3445,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-links@npm:6.5.10":
+"@storybook/addon-links@npm:6.5.10, @storybook/addon-links@npm:^6.5.10":
   version: 6.5.10
   resolution: "@storybook/addon-links@npm:6.5.10"
   dependencies:
@@ -3684,7 +3684,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/builder-webpack5@npm:6.5.10":
+"@storybook/builder-webpack5@npm:6.5.10, @storybook/builder-webpack5@npm:^6.5.10":
   version: 6.5.10
   resolution: "@storybook/builder-webpack5@npm:6.5.10"
   dependencies:
@@ -4149,7 +4149,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/manager-webpack5@npm:6.5.10":
+"@storybook/manager-webpack5@npm:6.5.10, @storybook/manager-webpack5@npm:^6.5.10":
   version: 6.5.10
   resolution: "@storybook/manager-webpack5@npm:6.5.10"
   dependencies:
@@ -4340,7 +4340,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/react@npm:6.5.10":
+"@storybook/react@npm:6.5.10, @storybook/react@npm:^6.5.10":
   version: 6.5.10
   resolution: "@storybook/react@npm:6.5.10"
   dependencies:
@@ -4500,7 +4500,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/testing-library@npm:0.0.13":
+"@storybook/testing-library@npm:0.0.13, @storybook/testing-library@npm:^0.0.13":
   version: 0.0.13
   resolution: "@storybook/testing-library@npm:0.0.13"
   dependencies:
@@ -4867,7 +4867,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/babel__core@npm:7, @types/babel__core@npm:^7.0.0, @types/babel__core@npm:^7.1.14, @types/babel__core@npm:^7.1.6, @types/babel__core@npm:^7.1.7":
+"@types/babel__core@npm:7, @types/babel__core@npm:^7, @types/babel__core@npm:^7.0.0, @types/babel__core@npm:^7.1.14, @types/babel__core@npm:^7.1.6, @types/babel__core@npm:^7.1.7":
   version: 7.1.19
   resolution: "@types/babel__core@npm:7.1.19"
   dependencies:
@@ -7668,7 +7668,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-loader@npm:^8.0.0, babel-loader@npm:^8.2.3":
+"babel-loader@npm:^8.0.0, babel-loader@npm:^8.2.3, babel-loader@npm:^8.2.5":
   version: 8.2.5
   resolution: "babel-loader@npm:8.2.5"
   dependencies:
@@ -9944,6 +9944,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"css-loader@npm:6.7.1, css-loader@npm:^6.5.1":
+  version: 6.7.1
+  resolution: "css-loader@npm:6.7.1"
+  dependencies:
+    icss-utils: ^5.1.0
+    postcss: ^8.4.7
+    postcss-modules-extract-imports: ^3.0.0
+    postcss-modules-local-by-default: ^4.0.0
+    postcss-modules-scope: ^3.0.0
+    postcss-modules-values: ^4.0.0
+    postcss-value-parser: ^4.2.0
+    semver: ^7.3.5
+  peerDependencies:
+    webpack: ^5.0.0
+  checksum: 170fdbc630a05a43679ef60fa97694766b568dbde37adccc0faafa964fc675f08b976bc68837bb73b61d60240e8d2cbcbf51540fe94ebc9dafc56e7c46ba5527
+  languageName: node
+  linkType: hard
+
 "css-loader@npm:^3.6.0":
   version: 3.6.0
   resolution: "css-loader@npm:3.6.0"
@@ -9984,24 +10002,6 @@ __metadata:
   peerDependencies:
     webpack: ^4.27.0 || ^5.0.0
   checksum: fb0742b30ac0919f94b99a323bdefe6d48ae46d66c7d966aae59031350532f368f8bba5951fcd268f2e053c5e6e4655551076268e9073ccb58e453f98ae58f8e
-  languageName: node
-  linkType: hard
-
-"css-loader@npm:^6.5.1, css-loader@npm:^6.7.1":
-  version: 6.7.1
-  resolution: "css-loader@npm:6.7.1"
-  dependencies:
-    icss-utils: ^5.1.0
-    postcss: ^8.4.7
-    postcss-modules-extract-imports: ^3.0.0
-    postcss-modules-local-by-default: ^4.0.0
-    postcss-modules-scope: ^3.0.0
-    postcss-modules-values: ^4.0.0
-    postcss-value-parser: ^4.2.0
-    semver: ^7.3.5
-  peerDependencies:
-    webpack: ^5.0.0
-  checksum: 170fdbc630a05a43679ef60fa97694766b568dbde37adccc0faafa964fc675f08b976bc68837bb73b61d60240e8d2cbcbf51540fe94ebc9dafc56e7c46ba5527
   languageName: node
   linkType: hard
 
@@ -10307,7 +10307,7 @@ __metadata:
     "@types/express": 4.17.13
     "@typescript-eslint/eslint-plugin": 5.36.1
     awesome-typescript-loader: ^5.2.1
-    css-loader: ^6.7.1
+    css-loader: 6.7.1
     eslint: 8.23.0
     eslint-config-react: 1.1.7
     eslint-config-react-app: 7.0.1
@@ -10315,10 +10315,10 @@ __metadata:
     eslint-plugin-react: 7.31.1
     eslint-plugin-storybook: 0.6.4
     jest-css-modules-transform: 4.4.2
-    react-docgen-typescript-loader: ^3.7.2
-    sass: ^1.54.8
-    sass-loader: ^13.0.2
-    style-loader: ^3.3.1
+    react-docgen-typescript-loader: 3.7.2
+    sass: 1.54.8
+    sass-loader: 13.0.2
+    style-loader: 3.3.1
     typescript: 4.8.2
   languageName: unknown
   linkType: soft
@@ -21190,7 +21190,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-docgen-typescript-loader@npm:^3.7.2":
+"react-docgen-typescript-loader@npm:3.7.2":
   version: 3.7.2
   resolution: "react-docgen-typescript-loader@npm:3.7.2"
   dependencies:
@@ -22273,6 +22273,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"sass-loader@npm:13.0.2":
+  version: 13.0.2
+  resolution: "sass-loader@npm:13.0.2"
+  dependencies:
+    klona: ^2.0.4
+    neo-async: ^2.6.2
+  peerDependencies:
+    fibers: ">= 3.1.0"
+    node-sass: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
+    sass: ^1.3.0
+    sass-embedded: "*"
+    webpack: ^5.0.0
+  peerDependenciesMeta:
+    fibers:
+      optional: true
+    node-sass:
+      optional: true
+    sass:
+      optional: true
+    sass-embedded:
+      optional: true
+  checksum: 6306712cc75bd4b4260ce67178778c92110089485f358b5956b6b12aba15a55e5c7287154daaf8b32678891df915b7bcda7356991afe8bf08ca7356ed30eb448
+  languageName: node
+  linkType: hard
+
 "sass-loader@npm:^12.3.0":
   version: 12.6.0
   resolution: "sass-loader@npm:12.6.0"
@@ -22298,32 +22323,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass-loader@npm:^13.0.2":
-  version: 13.0.2
-  resolution: "sass-loader@npm:13.0.2"
-  dependencies:
-    klona: ^2.0.4
-    neo-async: ^2.6.2
-  peerDependencies:
-    fibers: ">= 3.1.0"
-    node-sass: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
-    sass: ^1.3.0
-    sass-embedded: "*"
-    webpack: ^5.0.0
-  peerDependenciesMeta:
-    fibers:
-      optional: true
-    node-sass:
-      optional: true
-    sass:
-      optional: true
-    sass-embedded:
-      optional: true
-  checksum: 6306712cc75bd4b4260ce67178778c92110089485f358b5956b6b12aba15a55e5c7287154daaf8b32678891df915b7bcda7356991afe8bf08ca7356ed30eb448
-  languageName: node
-  linkType: hard
-
-"sass@npm:^1.54.8":
+"sass@npm:1.54.8":
   version: 1.54.8
   resolution: "sass@npm:1.54.8"
   dependencies:
@@ -23281,6 +23281,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"storybook@workspace:packages/storybook":
+  version: 0.0.0-use.local
+  resolution: "storybook@workspace:packages/storybook"
+  dependencies:
+    "@babel/core": ^7.18.13
+    "@mdx-js/react": ^1.6.22
+    "@storybook/addon-actions": ^6.5.10
+    "@storybook/addon-docs": ^6.5.10
+    "@storybook/addon-essentials": ^6.5.10
+    "@storybook/addon-interactions": ^6.5.10
+    "@storybook/addon-links": ^6.5.10
+    "@storybook/builder-webpack5": ^6.5.10
+    "@storybook/manager-webpack5": ^6.5.10
+    "@storybook/react": ^6.5.10
+    "@storybook/testing-library": ^0.0.13
+    "@types/babel__core": ^7
+    babel-loader: ^8.2.5
+  languageName: unknown
+  linkType: soft
+
 "stream-browserify@npm:^2.0.1":
   version: 2.0.2
   resolution: "stream-browserify@npm:2.0.2"
@@ -23591,6 +23611,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"style-loader@npm:3.3.1, style-loader@npm:^3.3.1":
+  version: 3.3.1
+  resolution: "style-loader@npm:3.3.1"
+  peerDependencies:
+    webpack: ^5.0.0
+  checksum: 470feef680f59e2fce4d6601b5c55b88c01ad8d1dd693c528ffd591ff5fd7c01a4eff3bdbe62f26f847d6bd2430c9ab594be23307cfe7a3446ab236683f0d066
+  languageName: node
+  linkType: hard
+
 "style-loader@npm:^1.3.0":
   version: 1.3.0
   resolution: "style-loader@npm:1.3.0"
@@ -23612,15 +23641,6 @@ __metadata:
   peerDependencies:
     webpack: ^4.0.0 || ^5.0.0
   checksum: 21425246a5a8f14d1625a657a3a56f8a323193fa341a71af818a2ed2a429efa2385a328b4381cf2f12c2d0e6380801eb9e0427ed9c3a10ff95c86e383184d632
-  languageName: node
-  linkType: hard
-
-"style-loader@npm:^3.3.1":
-  version: 3.3.1
-  resolution: "style-loader@npm:3.3.1"
-  peerDependencies:
-    webpack: ^5.0.0
-  checksum: 470feef680f59e2fce4d6601b5c55b88c01ad8d1dd693c528ffd591ff5fd7c01a4eff3bdbe62f26f847d6bd2430c9ab594be23307cfe7a3446ab236683f0d066
   languageName: node
   linkType: hard
 

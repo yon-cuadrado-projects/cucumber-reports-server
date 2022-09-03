@@ -4,12 +4,9 @@ module.exports = {
     "../stories/**/*.stories.@(js|jsx|ts|tsx)"
   ],
   "addons": [
-    "@storybook/preset-typescript",
     "@storybook/addon-links",
     "@storybook/addon-essentials",
-    "@storybook/preset-scss",
-    "@storybook/addon-interactions",
-    "@storybook/preset-create-react-app",
+    "@storybook/addon-interactions"
   ],
   "framework": "@storybook/react",
   "core": {

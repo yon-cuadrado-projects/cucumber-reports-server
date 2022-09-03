@@ -44,9 +44,7 @@
     "start:frontend": "yarn --cwd ./packages/frontend run start",
     "test1": "yarn --cwd ./packages/frontend run test && yarn --cwd ./packages/backend run test",
     "standard-fix-all": "",
-    "eslint-fix-all": "npx eslint --fix ./packages/backend/**/**/**/**/*.ts",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "eslint-fix-all": "npx eslint --fix ./packages/backend/**/**/**/**/*.ts"
   },
   "eslintConfig": {
     "overrides": [
