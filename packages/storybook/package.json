@@ -7,18 +7,19 @@
     "build-storybook": "build-storybook"
   },
   "devDependencies": {
-    "@babel/core": "^7.18.13",
-    "@mdx-js/react": "^1.6.22",
-    "@storybook/addon-actions": "^6.5.10",
-    "@storybook/addon-docs": "^6.5.10",
-    "@storybook/addon-essentials": "^6.5.10",
-    "@storybook/addon-interactions": "^6.5.10",
-    "@storybook/addon-links": "^6.5.10",
-    "@storybook/builder-webpack5": "^6.5.10",
-    "@storybook/manager-webpack5": "^6.5.10",
-    "@storybook/react": "^6.5.10",
-    "@storybook/testing-library": "^0.0.13",
-    "@types/babel__core": "^7",
-    "babel-loader": "^8.2.5"
+    "@babel/core": "7.19.6",
+    "@mdx-js/react": "2.1.5",
+    "@storybook/addon-actions": "6.5.13",
+    "@storybook/addon-docs": "6.5.13",
+    "@storybook/addon-essentials": "6.5.13",
+    "@storybook/addon-interactions": "6.5.13",
+    "@storybook/addon-links": "6.5.13",
+    "@storybook/builder-webpack5": "6.5.13",
+    "@storybook/manager-webpack5": "6.5.13",
+    "@storybook/react": "6.5.13",
+    "@storybook/testing-library": "0.0.13",
+    "@types/babel__core": "7",
+    "babel-loader": "9.1.0",
+    "storybook-dark-mode": "^1.1.2"
   }
 }
